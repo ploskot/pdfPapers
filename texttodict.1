@@ -1,0 +1,45 @@
+# LQi 25.11.2020
+# help file for texttodict command
+
+General usage:
+>> texttodict COMMAND [OPTIONS] inputfile
+
+To get the version number and quit:
+>> texttodict -version
+
+To show this help and quit:
+>> texttodict -help
+
+To suppress all messages except the generated output:
+>> texttodict -nomsg COMMAND [OPTIONS] inputfile
+
+To build dictionary for aspell from a text file with words on separate lines:
+>> texttodict -dict build [-l lang] [-o filename] inputfile.txt
+
+To create a text file with words on separate files from aspell dictionary:
+>> texttodict -dict dump [-l lang] -o filename
+
+The default language is US English (en_US) and the default output filename
+is 'inputfile.dict'. Please consult 'man aspell' for proper use of aspell.
+
+To generate bag of words (bow) from input file to given output file (or
+using default output file name inputfile.tdict):
+>> texttodict -bow [OPTIONS] inputfile
+
+where OPTIONS:
+
+ -ef {filename} exclude stop words in given file
+ -es {string}   exclude space separated words in given string
+ -ep {pat}      removes words matching the pattern {pat}
+ -w {nubmber}   exclude words shorter than {number} of characters
+ -{number}      truncate the output to {number} of lines
+ -gt|-eq|lt|-ge|-le {number}  keep only words with given occurrences   
+ -o filename    output filename
+ -so            sort output by number of occurrences
+ -sa            sort output alphanumerically
+ -sar		sort output alphanumerically in reverse order
+ -sl		sort by length of strings
+ -slr		sort by length of strings in reverse order
+
+EOF
+ 

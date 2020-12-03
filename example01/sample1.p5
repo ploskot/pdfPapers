@@ -1,0 +1,84 @@
+Fig.
+1.
+Sensing biochemical signals.
+(A) Schematic diagram.
+The noise Z?t? is modeled as a birth-death process with birth rate r and death rate f and is assumed to be observable only indirectly through a sensor reaction.
+The corresponding rate constant c Y (i.
+e.
+, sensor rate) determines how much information about Z?t? is on average revealed per time unit.
+It consequently determines the precision at which Z?t? can be estimated.
+(B) The two plots show realizations of the hidden noise Z?t? and the corresponding sensor firings dY?t?.
+Fig.
+2.
+Generalized filtering circuits.
+(A) Schematic illustration.
+The signal of interest Z i ?t? relates to a sensed signal Z k ?t? through an arbitrary and possibly complex network.
+Optimal estimates of Z i ?t? can be computed through Eq.
+5.
+(B) The 2D system identification circuit.
+The red species correspond to the hidden process that consists of a birth-death process Z 2 ?t? with birth and death rates rZ 1 and fZ 2 ?t?, respectively.
+We assume both Z 1 and Z 2 ?t? to be unknown (red nodes) but that Z 2 ?t? can be observed indirectly through sensors.
+The corresponding optimal filters M 1 ?t? and M 2 ?t? are shown as green nodes.
+(C) Joint state and parameter inference.
+After a short transient, the filter is able to correctly identify the unknown birth rate Z 1 (Upper).
+Even though the birth rate is initially far off the true value, Z 2 ?t? is estimated very accurately due to the self-adjusting property of the estimator.
+(D) Adaptive system identification.
+We applied the filter from B to a system identification problem.
+In particular, we tried to identify a birth-death process with a complex time-varying birth rate Z 1 : = Z 1 ?t? modeled by the bistable Schloegl system (36).
+The results indicate that as long as the filter adapts sufficiently fast (larger l and c Y ), it is able to track the complex system dynamics accurately (Right).
+However, when the dynamics of Z 1 ?t? are fast compared with the timescale of adaptation (small l and c Y ), the performance breaks down (Left).
+Fig.
+3.
+Noise cancellation using optimal filtering.
+(A) Schematic diagram of the microRNA circuit.
+The expression of the transiently transfected gene X is assumed to be context-dependent.
+First, it is affected by the number of plasmids present in each cell.
+We assume that at time t = 0, a random number of plasmids is deployed to each cell [n?0? ~ NB?r, p? with r = 2 and p = 0.
+01] and that this number decreases randomly through cell division.
+This is modeled by a degradation reaction n -> 0 with rate log?2?n?t?=T 0 and T 0 = 15 h as the average cell cycle duration.
+Furthermore, we model a dependency of the transcription rate on a cell cycle-dependent factor C?t?.
+Overall, the transcription rate of gene X is given by an?t?C?t? = aZ?t?.
+The estimator gene M is present twice on the plasmid: once attached to a Z(t)-inducible promoter pMi and once attached to a constitutive promoter pMc.
+Note that in practice, pMc is also likely to be affected by contextual noise.
+We therefore accounted for an unintended dependency of this promoter on Z(t) as well (dashed arrow).
+(B) Example realizations of the overall contextual noise Z?t? for two different cells.
+Realizations of the target gene X?t? for small (C) and large (D) sensor rates c Y .
+If c Y is too small, Z?t? cannot be captured sufficiently well, resulting in a poor circuit performance.
+In contrast, if c Y is reasonably large, the output variability can be suppressed almost entirely such that X?t? can be expressed at a high stability across the window of transfection.
+Fig.
+4.
+In vitro estimation of dynamic signals.
+(A) Experimental setup.
+The hidden signal Z?t? and corresponding sensor reactions Y?t? are simulated in silico and subsequently transferred to the reaction volume of the in vitro estimator M?t?, each time increasing its concentration by DM.
+In vitro dynamics are monitored through fluorescence experiments at acquisition intervals of 1 min.
+(B) Biochemical implementation of the Poisson filter as a DSD cascade.
+The overall circuit consists of two modules, one for production of M and one for combined degradation and reporting.
+Strand displacement reactions are described as single events with rate parameters g J , g F , and g D .
+The desired birth and death rates r and ?f + c Y ? are set by choosing appropriate initial concentrations of gates H and D.
+Every time a degradation event happens, a fluorophore is irreversibly unquenched, such that the measured fluorescence is proportional to the integral of M?t? (SI Appendix, Fig.
+S.
+10).
+(C-E) Experimental assessment of the estimator using three different signals.
+The simulated sensor time points when dY?t? = 1 are indicated by the triangles (Dataset S1).
+If more than one of those time points fell into one acquisitions cycle, the respective multiples of DM were added simultaneously (indicated by the numbers above the triangles).
+The estimator M?t? was extracted by differentiating the measured fluorescence FL?t? as described in SI Appendix, section S.
+6.
+1.
+6.
+C shows filtering results for a random realization of the birth-death process Z?t? with r and f matching the prior assumptions of the filter.
+In D and E, the filter was further tested using two artificially designed profiles Z?t? (i.
+e.
+, singleand double-pulse).
+Fig.
+5.
+Ensemble filtering circuit in E.
+coli.
+(A) Schematic diagram.
+Transcription of mRNA M?t? is activated by an inducible promoter pMi, whose activity depends on the intensity of the applied light stimulus Z?t?.
+A basal level of transcription is present due to an additional constitutive promoter pMc.
+Synthesis and degradation of protein are modeled as a delay differential equation to account for GFP maturation.
+To explain experimental day-to-day variability, we allowed the protein synthesis rate a to vary across experiments.
+(B) Filter validation.
+We applied a randomly generated light sequence Z 2 ?t? to the circuit and compared the experimental outcome to the model predictions.
+The mathematical solution of GFP closely resembles the GFP abundance recorded by flow cytometry.
+The corresponding transcriptional response M?t? inferred from the model shows that this circuit yields accurate estimates of the light input Z?t?.

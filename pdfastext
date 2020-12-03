@@ -1,0 +1,351 @@
+#!/bin/bash
+version=0.2.0
+############################################################################
+##                                                                        ##
+##  textblocks: A shell-script wrapper for pdftotext better to extract    ##
+##              text from PDF files                                       ##
+##                                                                        ##
+##  Author: Pavel Loskot, loskot@gmail.com                                ##
+##                                                                        ##
+##  Usage: "pdfastext -help"                                              ##
+##                                                                        ##
+##  License: GNU/GPL version 2 or later. No other warranty.               ##
+##                                                                        ##
+##  Configuration file may appear in future versions.                     ##
+##                                                                        ## 
+##  Developed and tested with GNU bash version 5.0.17                     ##
+##                                                                        ##
+############################################################################
+
+trap "echo :exiting;exit 1" SIGINT SIGTERM
+
+set -e
+
+export LC_CTYPE="en_US.utf8"
+
+this="${0/#*\/}"
+
+req_commands="pdfinfo pdfseparate convert composite gnuplot pdftotext gawk iconv aspell"
+
+pdftotext_cmd='pdftotext -eol unix -enc UTF-8 -bbox-layout'
+
+aspell_dict="en_US" # aspell dictionary to use
+
+aspell_cmd="aspell --master=$aspell_dict list\
+--ignore 3 --ignore-case --ignore-accents --sug-mode normal"
+
+iconv_cmd="iconv -f utf-8 -t us-ascii//TRANSLIT -c"
+
+tr_npchars='ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĹĺĻļĽľĿŀŁłŃńŅņŇňŉŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƒƠơƯưǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǺǻǼǽǾǿ'
+
+tr_pchars='AAAAAAACEEEEIIIIDNOOOOOoUUUUYBaaaaaaaceeeeiiiinoooooouuuuyyAaAaAaCcCcCcCcDdDdEeEeEeEeEeGgGgGgGgHhhhIiIiIiIiIiIijjKkLlLiLlLlLlNnNnNnnOoOoOoEeRrRrRrSsSsSsSsTtTtTtUuUuUuUuUuUuWwYyYZzZzZzsfOoUuAaIiOoUuUuUuUuUuAaAaOo'
+
+tr_cmd="tr $tr_npchars $tr_pchars"
+
+# exit with error
+err_exit() { echo >&2 "ee Error: $1"; exit 1; }
+
+# display help
+help() {
+    echo "Usage: pdfastext [params] input.pdf
+
+    	 	 generates file input.txt or output.txt if '-o output.txt'
+		 has been used
+         
+        Parameters:
+	 -h        show this help message and quit
+	 -v	   show version number and quit
+         -q        do not display any messages	 
+	 -f page   first page of the pdf file to process
+         -l page   last page of the pdf file to process,
+	    	   use '-l last' to get last page of inputfile
+	 -mX       meta info stored in these files, X=1,2,3:
+	 	   input.mt1: info about pdf file from pdfinfo
+		   input.mt2: sizes and locations of pages and blocks
+		   input.mt3: for each page.block, the number of words,
+		   	      characters and non-printable characters
+	 -c	   clean up, i.e. delete all input.* files except input.pdf
+	 -c1	   as -c, but without confirm
+	 -b	   merge text within each block into single long line (default)
+	 -b0       do not merge text in blocks into single long line
+	 -i,-i1	   erase existing or create default output filename input.txt
+	 -i2       append new text to default output filename input.txt
+	 -o  file  set output filename, error if the file already exists
+	 -o1 file  allow erasing output file if it already exists
+	 -o2 file  append new text to output file
+	 -s        spell check existing text file with aspell and quit
+	 -t1	   convert non-print characters to ASCII with iconv
+	 -t2	   convert non-print characters to ASCII with tr
+	 -geps|-gjpg generate image layouts for each page in eps or jpg;
+	 	     requires at least -m2 meta info
+	 -gjpgpdf    similar to -gjpg, but original pdf pages are overlayed 
+	 	     below the layout at the expense of larger jpg files
+         "
+    exit 0
+}
+
+# show version number and quit
+[[ "$1" == "-v" ]] && \
+    { echo "$this wrapper of pdftotext version $version"; exit 0; }
+
+# show help and quit
+[[ "$#" == "0" || "$1" == "-h" ]] && help
+
+# aspell existing file and quit
+if [[ "$1" == "-s" ]]; then
+    [[ -f "$2" ]] || err_exit "File $2 not found."
+    $aspell_cmd < "$2"
+    exit 0
+fi
+
+# check if all required commands are available
+for c in $req_commands; do
+    hash "$c" 2>/dev/null || err_exit "$c required but not found"
+done
+
+# human readable file size 
+fsize() { [[ "${1##*.}" =~ txt|mt[0-9] ]] && echo -n "$(wc -l < "$1") lines, "; 
+	  stat -c %s "$1" | numfmt --to=iec; }
+
+# messages
+msg0() { echo -n ""; }
+msg1() { echo -e "$@"; }
+MSG=msg1
+
+# flags and defaults
+f_quiet=no
+f_clean=
+f_first=
+f_last=
+f_bline=yes
+f_meta=2
+f_img=
+f_conv=
+fout=t
+fin=
+
+# process cli arguments
+while [[ ! -z "$1" ]]; do
+    case "$1" in
+	-q)
+	    MSG=msg0
+	    f_quiet=
+	    shift;;
+	-m[1-3])
+	    [[ "${1: -1}" =~ [1-3] ]] && f_meta=${1: -1}
+	    shift;;
+	-f)
+	    f_first="$2"
+	    shift 2;;
+	-l)
+	    f_last="$2"
+	    shift 2;;
+	-b|-b0)
+	    [[ "$1" == "-b0" ]] && f_bline=
+	    shift;;
+	-c|-c1)
+	    f_clean="${1/-}"
+	    shift;;
+	-t1|-t2)
+	    f_conv="${1/-}"
+	    shift;;
+	-i|-i1|-i2)
+	    fout="${1/-}"
+	    shift;;
+	-o|-o1|-o2)
+	    [[ "$1" == "-o" && -f "$2" ]] && \
+		err_exit "Cannot overwrite existing file $2"
+	    [[ "$1" == "-o1" && -f "$2" ]] && truncate -s 0 "$2"
+	    [[ -f "$2" ]] || touch "$2"
+	    fout="$2"
+	    shift;;
+	-geps|-gjpg|-gjpgpdf)
+	    f_img="${1/-g}"
+	    shift;;
+	-*)
+	    err_exit "Unknown option $1";;
+	*)
+	    [[ -f "$1" ]] || err_exit "Input file $1 not found."
+	    [[ "${1##*.}" != "pdf" ]] && err_exit "pdf input file required"
+	    fin="$1"
+	    shift;;
+    esac
+done
+
+# announcement
+$MSG -n "<< Calling $this version $version\n"
+
+# delete output files except input file 
+if [[ "$f_clean" =~ c$ ]]; then
+    find . -maxdepth 1 -type f -name "${fin/.*}.*" ! -name "$fin" \
+	 -exec rm -i {} \;
+elif [[ "$f_clean" =~ c1$ ]]; then
+    o=$(find . -maxdepth 1 -type f -name "${fin/.*}.*" ! -name "$fin" \
+	     -exec echo "rm {}" \; -exec rm {} \;)
+    [[ -z "$o" ]] || $MSG "$(sed 's/ rm/\\n/g' <<< "$o")"
+fi
+
+[[ "$fout" =~ i$|i1$ ]] && { fout="${fin%.*}.txt"; touch "$fout"; > "$fout"; }
+[[ -z "$fout" || "$fout" == "i2" ]] && fout="${fin%.*}.txt"
+$MSG   "++ Processing $fin ($(fsize "$fin")) to output $fout"
+    
+pages="$(pdfinfo "$fin" | grep "Pages:" | sed 's/^[^0-9]*//')"
+[[ -z "$f_first" ]] && f_first=1 
+[[ -z "$f_last" || "$f_last" == "last" ]] && f_last=$pages
+[[ "$f_first" > "$f_last" ]] && err_exit "First page is greater than the last."
+
+# extract text from pdf using pdftotext and convert non-printable characters
+case "$f_conv" in
+    t1)
+	$pdftotext_cmd -f "$f_first" -l "$f_last" "$fin" - | \
+	    $iconv_cmd >> "$fout"
+	$MSG "++ Extracting text from pages $f_first-$f_last to $fout ($(fsize "$fout"))"
+	$MSG "++ and removing non-printable characters using iconv"
+    ;;
+    t2)
+	$pdftotext_cmd -f "$f_first" -l "$f_last" "$fin" - | \
+	    $tr_cmd >> "$fout"
+	$MSG "++ Extracting text from pages $f_first-$f_last to $fout ($(fsize "$fout"))"
+	$MSG "++ and removing non-printable characters using tr"
+	;;
+    "")
+	$pdftotext_cmd -f "$f_first" -l "$f_last" "$fin" - >> "$fout"
+	$MSG "++ Extracting text from pages $f_first-$f_last to $fout ($(fsize "$fout"))"
+	;;
+esac
+
+# clean up txt file
+sed -i -e '1,/<doc>/d;/<\/doc>/,$d' \
+    -e 's/^[\s]*//;/<flow>/d;/<\/flow>/d' \
+    -e 's/<line.*>/<line>/;s/<word[^>]*>//;s/<\/word>//' $fout
+sed -i -e '/<line>/{ :a;N;/<\/line>/!s/\n/ /;ta;
+	  s/<line>//;s/\s\+/ /g;s/<\/line>// }' -e 's/^\s\+//' $fout
+
+[[ -z "$f_bline" ]] \
+    || sed -i -e '/<block/s/>/>xxz/' \
+	   -e '/<block/{:a;N;/<\/block>/!s/\n/ /;ta }' \
+	   -e '/<block/s/>xxz/>\n/' $fout
+
+# label pages and blocks
+gawk -i inplace -v p1="$f_first" -v p2="$f_last" -v q="$f_quiet" \
+     'BEGIN{p=p1-1} /<page/{b=0;sub(/<page/,"<page:"(++p),$0)} 
+     /<[\57]page>/{sub(/<[\57]page>/,"<\57page:"(p)">",$0)}
+     /<block/{sub(/<block/,"<block:"(p)"."(++b),$0)} 
+     /<[\57]block>/{sub(/<[\57]block>/,"<\57block:"(p)"."(b)">",$0);B[p]=b}
+     { if(p>p2) exit } 1; END{ if(!q)p2=0;for(j=p1;j<=p2;)
+            print " + page " j ": " B[j++] " blocks"}' $fout 
+
+if [[ "$f_meta" -ge "1" ]]; then # create first meta file	
+    mt1="${fout/.*}.mt1"
+    rm -f $mt1
+    pdfinfo ${fout/.*}.pdf > $mt1
+    $MSG "++ wrote meta info to $mt1 ($(fsize "$mt1"))"
+fi
+if [[ "$f_meta" -ge "2" ]]; then # create second meta file
+    mt2="${fout/.*}.mt2"
+    rm -f $mt2
+    grep -E "<page|<block" "$fout" | sed 's/"//g' > $mt2
+    $MSG "++ wrote meta info to $mt2 ($(fsize "$mt2"))"
+fi
+# further clean up txt
+sed -i '/<[\/]\?page/d;/<block/s/\(<block[0-9.:]*\).*/\1>/' "$fout"
+
+if [[ "$f_meta" -ge "3" ]]; then # create third meta file
+    mt3="${fout/.*}.mt3"
+    rm -f $mt3
+    touch $mt3
+    echo "page, block, words, chars, np-chars" > $mt3
+    while read -r line; do
+	[[ "$line" =~ \<block:([0-9]*\.[0-9]*) ]] && \
+	    { b=${BASH_REMATCH[1]}; w=0; c=0; a=0; continue; }
+	[[ "$line" =~ \<\/block ]] && \
+	    { printf "%4s,  %4s, %5d, %5d, %4d\n" \
+		     ${b%.*} ${b#*.} $w $c $((c-a)) >> $mt3; continue; }
+	((w+=$(wc -w <<< "$line")))
+	line=${line//[[:blank:]]/}
+	((c+=${#line}))
+	line=$(tr -dc '[[:print:]]' <<< "$line")
+	((a+=${#line}))
+    done < "$fout"
+    $MSG "++ wrote meta info to $mt3 ($(fsize "$mt3"))"
+fi
+
+if [[ ! -z "$f_img" ]]; then # show blocks locations on page
+    [[ -f $mt2 ]] || err_exit "meta file $mt2 required to show page layouts"
+    dat=$(cat $mt2)
+    declare -A B D H W
+    for p in $(seq $f_first $f_last); do
+	[[ $(grep "page:$p" <<< $dat) =~ width=([0-9.]*).*height=([0-9.]*) ]] &&
+	    { W[$p]=${BASH_REMATCH[1]};H[$p]=${BASH_REMATCH[2]}; }
+	b=1
+	while i=$(grep "block:$p.$b " <<< $dat); do
+	    [[ "$i" =~ xMin=([0-9.]*).*yMin=([0-9.]*).*xMax=([0-9.]*).*yMax=([0-9.]*) ]] && D[$p,$b]=${BASH_REMATCH[@]:1:4}
+	    ((b++))
+	done
+	B[$p]=$((--b))    
+    done
+    case $f_img in
+	eps) # postscript output
+	    o1="postscript eps enhanced color font 'Helvetica,10'"
+	    o2="eps"
+	    ;;
+	jpg) # jpg output
+	    o1="jpeg small font arial size 768,1024"
+	    o2="jpg"
+	    ;;
+	jpgpdf) # jpgpdf output
+	    o1="jpeg small font arial size 768,1024"
+	    o2="jpg"
+	    # split input file to separate pages
+	    pdfseparate "$fin" "${fin/./-page%d.}"
+    esac
+    # loop over pages
+    for p in $(seq $f_first $f_last); do
+	p1="$p"
+	(( "$f_last" > 9 )) && p1=$(printf "%02d" "$p")
+	(( "$f_last" > 99 )) && p1=$(printf "%03d" "$p")
+	imfile="${fout/.txt}-p${p1}.${o2}"
+	rm -f "$imfile"
+	# gnuplot script
+	gp_cmds=$(cat <<-EOF
+    set terminal $o1
+    set output "$imfile"
+    set title "Page ${p}" offset 0,-3 font "Arial:Bold,10"
+    set xrange [ 0.000 : ${W[$p]} ] nowriteback
+    set format ""
+    set yrange [ ${H[$p]} : 0.000 ] nowriteback
+    set format ""
+    set tmargin 0
+    set bmargin 0
+    set rmargin 0
+    set lmargin 0
+    set object 999 rect from graph 0, 0 to graph 1,1
+    set object 999 behind clip lw 1.0 fc rgb "#bfcbb7" fillstyle solid 0.15 border lt -1
+EOF
+    )
+	for b in $(seq "${B[$p]}"); do
+	    read x0 y0 x1 y1 <<< "${D[$p,$b]}"
+	    xa=$(bc <<< "0.5*$x0+0.5*$x1")
+	    ya=$(bc <<< "0.5*$y0+0.5*$y1")
+	    gp_cmds="$gp_cmds
+    set object $b rect from $x0,$y0 to $x1,$y1
+    set object $b front clip lw 1.0  dashtype solid fc  rgb \"#f5f5dc\"  fillstyle   solid 1.00 border lt -1
+    set label $b \"$b\" at $xa,$ya,0.00 center front font \"Arial:Bold,11\""
+	done  
+	gp_cmds="$gp_cmds
+    plot NaN notitle"
+	echo "$gp_cmds" | gnuplot -
+	if [[ "$f_img" == "jpgpdf" ]]; then
+	    IFS=" " read w1 h1 <<< $(identify -format '%w %h' "$imfile")
+	    convert -density 96 -fuzz 5% -transparent white \
+		    -resize ${w1}x${h1} -brightness-contrast 2x2 \
+		    "${fin%.*}-page${p}.pdf" "${fin%.*}-page${p}.png"
+	    tmp_f="$(mktemp ./XXXX)"
+	    composite -blend 25 "${fin%.*}-page${p}.png" "$imfile" "$tmp_f"
+	    rm -f "${fin%.*}-page${p}".{pdf,png} "$imfile"
+	    mv "$tmp_f" "$imfile"
+	fi
+	$MSG  " + created layout image $imfile ($(fsize "$imfile"))"
+    done
+fi
+$MSG ">> Processing terminated normally."

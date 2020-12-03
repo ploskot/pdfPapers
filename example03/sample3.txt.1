@@ -1,0 +1,393 @@
+<block:1.1>
+ The Fundamental Physical  Limits of Computation 
+</block:1.1>
+<block:1.2>
+ What constraints govern the physical process o f computing? Is a  minim um amount of energy required, for example, per logic step?  There seems to be no minimum, but some other questions are open 
+</block:1.2>
+<block:1.3>
+ by Charles H. Bennett and Rolf Landauer 
+</block:1.3>
+<block:1.4>
+ A 
+</block:1.4>
+<block:1.5>
+ computation, whether it is per-  formed by electronic machin-  ery, on an abacus or in a biolog-  ical system such as the brain, is a physi-  cal process. It is subject to the same  questions that apply to other physical  processes: How much energy must be  expended to perform a particular com-  putation? How long must it take? How  large must the computing device be? In  other words, what are the physical lim-  its of the process of computation?  So far it has been easier to ask these  questions than to answer them. T o the  extent that we have found limits, they  are terribly far away from the real lim-  its of modern technology. We cannot  profess, therefore, to be guiding the  technologist or the engineer. What we  are doing is really more fundamental.  We are looking for general laws that  must govern all information process-  ing, n o matter how it is accomplished.  Any limits we find must be based sole-  ly on fundamental physical principles,  not on whatever technology we may  currently be using.  There are precedents for this kind  of fundamental examination. In the  1940&apos;s Claude E. Shannon of the Bell  Telephone Laboratories found there  are limits on the amount of informa-  tion that can be transmitted through a  noisy channel; these limits apply no  matter how the message is encoded  into a signal. Shannon&apos;s work repre-  sents the birth of modern information  science. Earlier, in the mid- and late  19th century, physicists attempting to  determine the fundamental limits on  the efficiency of steam engines had cre-  ated the science of thermodynamics.  In about 1960 one of us (Landauer)  and John Swanson at IBM began at-  tempting to apply the same type of  analysis to the process of computing.  Since the mid-1970&apos;s a growing num- 
+</block:1.5>
+<block:1.6>
+ ber of other workers at other institu-  tions have entered this field.  In our analysis of the physical lim-  its of computation we use the term &quot;in-  formation&quot; in the technical sense of  information theory. In this sense infor-  mation is destroyed whenever two pre-  viously distinct situations become in-  distinguishable. In physical systems  without friction, information can nev-  er be destroyed; whenever information  is destroyed, some amount of ener-  gy must be dissipated (converted into  heat). As an example, imagine two eas-  ily distinguishable physical situations,  such as a rubber ball held either one  meter or two meters off the ground. If  the ball is dropped, it will bounce. If  there is no friction and the ball is per-  fectly elastic, a n observer will always  be able to tell what state the ball start-  ed out in (that is, what its initial height  was) because a ball dropped from two  meters will bounce higher than a ball  dropped from one meter.  If there is friction, however, the ball  will dissipate a small amount of ener-  gy with each bounce, until it eventual-  ly stops bouncing and comes to rest  on the ground. It will then be impos-  sible to determine what the ball&apos;s ini-  tial state was; a ball dropped from  two meters will be identical with a ball  dropped from one meter. Information  will have been lost as a result of ener-  gy dissipation. 
+</block:1.6>
+<block:1.7>
+ example of informa-  H ere tion is another  destruction: the expression 
+</block:1.7>
+<block:1.8>
+ + 
+</block:1.8>
+<block:1.9>
+ 2 2 contains more information than  the expression =4. If all we know is  that we have added two numbers to  yield 4, then we do not know whether  we have added 1 3, 2 2, 0 4 or  some other pair of numbers. Since the  output is implicit in the input, no com-  putation ever generates information. 
+</block:1.9>
+<block:1.10>
+ + 
+</block:1.10>
+<block:1.11>
+ + 
+</block:1.11>
+<block:1.12>
+ + 
+</block:1.12>
+<block:1.13>
+ In fact, computation as it is current-  ly carried out depends on many opera-  tions that destroy information. The so-  called and gate is a device with two  input lines, each of which may be set at  1 or 0, and one output, whose value  depends on the value of the inputs. If  both inputs are 1, the output will be 1.  If one of the inputs is 0 or if both are 0,  the output will also be 0. Any time the  gate&apos;s output is a 0 we lose informa-  tion, because we d o not know which  of three possible states the input lines  were in (0 and 1, 1 and 0, or 0 and 0).  In fact, any logic gate that has more in-  put than output lines inevitably dis-  cards information, because we cannot  deduce the input from the output.  Whenever we use such a &quot;logically ir-  reversible&quot; gate, we dissipate energy  into the environment. Erasing a bit of  memory, another operation that is fre-  quently used in computing, is also fun-  damentally dissipative; when we erase  a bit, we lose all information about  that bit&apos;s previous state.  Are irreversible logic gates and era-  sures essential t o computation? If they  are, any computation we perform has  to dissipate some minimum amount  of energy.  As one of us (Bennett) showed in  1973, however, they are not essential.  This conclusion has since been demon-  strated in several models; the easiest of  these to describe are based on so-called  reversible logic elements such as the  Fredkin gate, named for Edward Fred-  kin of the Massachusetts Institute  of Technology. The Fredkin gate has  three input lines and three outputs.  The input on one line, which is called  the control channel, is fed unchanged  through the gate. If the control channel  is set a t 0, the input on the other two  lines also passes through unchanged. If  the control line is a 1, however, the 
+</block:1.13>
+<block:2.1>
+ CONVENTIONAL COMPUTING DEVICES, the abacus and the  logic chip, both dissipate energy when they are operated. The &apos;Vog-  ic gates&quot; central to the design of a chip expend energy because they  discard information. A chip consumes energy for a less fundamen-  tal reason as well: it employs circuits that draw power even when  they merely hold information and d o not process it. The abacus is 
+</block:2.1>
+<block:2.2>
+ dissipative because of friction between its beads and rods. It could  not be built of frictionless components: if there were no static fric-  tion, the beadsy positions would change under the influence of ran-  dom thermal motion. Static friction exerts a certain minimum force  no matter what the beads&apos; velocity, and so there is some minium en-  ergy that the abacus requires no matter how slowly it is operated. 
+</block:2.2>
+<block:3.1>
+outputs of the other two lines are
+switched: the input of one line be-
+comes the output of the other and vice
+versa. The Fredkin gate does not dis-
+card any information; the input can al-
+ways be deduced from the output.
+Fredkin has shown that any logic de-
+vice required in a computer can be im-
+plemented by an appropriate arrange-
+ment of Fredkin gates. To make the
+computation work, certain input lines
+of some of the Fredkin gates must be
+preset at particular values [see lower il-
+lustration below].
+Fredkin gates have more output
+lines than the gates they are made to
+simulate. In the process of computing,
+what seem to be "garbage bits," bits of
+information that have no apparent use,
+are therefore generated. These bits
+must somehow be cleared out of the
+computer if we are to use it again, but
+</block:3.1>
+<block:3.2>
+if we erase them, it will cost us allthe energy dissipation we have beentrying to avoid.
+Actually these bits have a most im-
+portant use. Once we have copied
+down the result of our computation,which will reside in the normal outputbits, we simply run the computer inreverse. That is, we enter the "gar-bage bits" and output bits that wereproduced by the computer's normaloperation as "input" into the "backend" of the computer. This is possiblebecause each of the logic gates in thecomputer is itself reversible. Running
+the computer in reverse discards no in-formation, and so it need not dissipateany energy. Eventually the computerwill be left exactly as it was before thecomputation began. Hence it is possi-ble to complete a "computing cyclew-to run a computer and then to return
+</block:3.2>
+<block:3.3>
+it to its original state--without dissi-
+pating any energy.
+So far we we have discussed a set of logic operations, not a physical a
+ device. It is not hard, however, to imagine
+a physical device that operates as a
+Fredkin gate. In this device the infor-
+mation channels are represented by
+pipes. A bit of information is repre-
+sented by the presence or absence of a
+ball in a particular section of pipe; the
+presence of a ball signifies a 1 and the
+absence of a ball signifies a 0.
+The control line is represented by a
+narrow segment of pipe that is split
+lengthwise down the middle. When a
+ball enters the split segment of pipe, it
+pushes the two halves of the pipe
+apart, actuating a switching device.
+The switching device channels any in-
+put balls that may be in the other two
+pipes: when a ball is present in the con-
+trol line, any ball that enters an input
+pipe is automatically redirected to the
+other pipe. To ensure that the switch is
+closed when no control ball is present,
+there are springs that hold the two
+halves of the split pipe together. A ball
+entering the split pipe must expend en-
+ergy when it compresses the springs,
+but this energy is not lost; it can be
+recovered when the control ball leaves
+the split pipe and the springs expand.
+All the balls are linked together and
+pushed forward by one mechanism, so
+that they move in synchrony; other-
+wise we could not ensure that the vari-
+ous input and controlling balls would
+arrive at a logic gate together. In a
+sense the forward progress of the com-
+putation is really nhotion along a sin-
+gle degree of freedom, like the motion
+of two wheels rigidly attached to one
+axle. Once the computation is done we
+push all the balls backward, undoing
+all the operations and returning the
+computer to its initial state.
+If the entire assembly is immersed in
+an ideal viscous fluid, then the friction-
+al forces that act on the balls will be
+proportional to their velocity; there
+will be no static friction. The frictional
+force will therefore be very weak if we
+are content to move the balls slowly. In
+any mechanical system the energy that
+must be expended to work against fric-
+tion is equal to the product of the fric-
+tional force and the distance through
+which the system travels. (Hence the
+faster a swimmer travels between two
+points, the more energy he or she will
+expend, although the distance traveled
+is the same whether the swimmer is
+fast or slow.) If we move the balls
+through the Fredkin gates at a low
+speed, then the energy expended (the
+product of force and distance) will be
+very small, because the frictional force
+depends directly on the balls' speed. In
+</block:3.3>
+<block:3.4>
+FREDKIN REVERSIBLE LOGIC GATE need not dissipate energy; the input can alwaysbe deduced from the output. The gate has a ucontrol" line, the value of which is not changedby the gate. If the bit on the control line is a 0, the values of the other two lines are also un-
+touched; if it is a I, however, the input of line A becomes the output of line B and vice versa.Reversible gates can be arranged to implement any function performed by an irreversiblegate. To implement the and operation (right) one input is preset to equal 0, and two outputbits, called garhge bits, are temporarily ignored. When the computation is complete, thesebits are used to operate the gate in reverse, returning the computer to its original state.
+</block:3.4>
+<block:4.1>
+ IDEALIZED PHYSICAL REALIZATION of a Fredkin gate sub-  stitutes pipes for wires and the presence or absence of a ball for a  1 or 0. A narrow, split segment of pipe represents the control chan-  nei. When a ball passes through it, the pipe spreads apart, operating  a switching mechanism; the mechanism in turn switches any input  ball from line A to line B and vice versa. A pair of springs keeps the 
+</block:4.1>
+<block:4.2>
+ fact, we can expend as little energy as  we wish, simply by taking a long time  to carry . o u t the operation. There is  thus no minimum amount of energy  that must be expended in order to per-  form any given computation. 
+</block:4.2>
+<block:4.3>
+ energy lost t o friction in this  T he model  will be very small if the ma- 
+</block:4.3>
+<block:4.4>
+ chine is operated very slowly. Is it pos-  sible to design a more idealized ma-  chine that could compute without any  friction? Or is friction essential to the  computing process? Fredkin, together  with Tommaso Toffoli and others at  M.I.T., has shown that it is not.  They demonstrated that it is possible  to do computation by firing ideal, fric-  tionless billiard balls a t one another. In  the billiard-ball model perfect reflect-  ing &quot;mirrors,&quot; surfaces that redirect  the balls&apos; motion, are arranged in such  a way that the movement of the balls  across a table emulates the movement  of bits of information through logic  gates [see illustration on next page]. As  before, the presence of a ball in a par-  ticular part of the computer signifies a  1, whereas the absence of a ball signi-  fies a 0. If two balls arrive simulta-  neously at a logic gate, they will collide  and their paths will change; their new  paths represent the output of the gate.  Fredkin, Toffoli and others have de- 
+</block:4.4>
+<block:4.5>
+ control channel closed when no ball is in it. This gate does not need  static friction in order to operate; it could be immersed in a viscous  fluid, and the frictional forces could be made to depend only on  the balls&apos; velocity. Then the energy dissipation could be as small as  the user wished: to lower the amount of energy dissipated, it would  only be necessary to drive the balls through the device more slowly. 
+</block:4.5>
+<block:4.6>
+ scribed arrangements of mirrors that  correspond to different types of logic  gate, and they have shown that billiard-  ball models can be built to simulate  any logic element that is necessary for  computing.  T o start the computation we fire a  billiard ball into the computer wherev-  er we wish to input a 1. The balls must  enter the machine simultaneously.  Since they are perfectly elastic, they  d o not lose energy when they collide;  they will emerge from the computer  with the same amount of kinetic ener-  gy we gave them at the beginning.  In operation a billiard-ball comput-  er produces &quot;garbage bits,&quot; just as a  computer built of Fredkin gates does.  After the computer has reached an an-  swer we reflect the billiard balls back  into it, undoing the computation. They  will come out of the machine exactly  where we sent them in, and at the same  speed. The mechanism that launched  them into the computer can then be  used to absorb their kinetic energy.  Once again we will have performed a  computation and returned the com-  puter to its initial state without dissi-  pating energy.  The billiard-ball computer has one  major flaw: it is extremely sensitive to  slight errors. If a ball is aimed slightly  incorrectly or if a mirror is tilted at a 
+</block:4.6>
+<block:4.7>
+ slightly wrong angle, the balls&apos; trajec-  tories will go astray. One or more balls  will deviate from their intended paths,  and in due course errors will combine  to invalidate the entire computation.  Even if perfectly elastic and friction-  less billiard balls could be manufac-  tured, the small amount of random  thermal motion in the molecules they  are niade of would be enough to cause  errors after a few dozen collisions.  Of course we could install some kind  of corrective device that would return  any errant billiard ball to its desired  path, but then we would be obliterat-  ing information about the ball&apos;s ear-  lier history. For example, we might  be discarding information about the  extent to which a mirror is tilted incor-  rectly. Discarding information, even  to correct an error, can be done only in  a system in which there is friction and  loss of energy. Any correctional device  must therefore dissipate some energy.  Many of the difficulties inherent in  the billiard-ball computer can be made  less extreme if microscopic or submi-  croscopic particles, such as electrons,  are used in place of billiard balls. As  Wojciech H. Zurek, who is now at the  Los Alamos National Laboratory, has  pointed out, quantum laws, which can  restrict particles to a few states of mo-  tion, could eliminate the possibility 
+</block:4.7>
+<block:5.1>
+ that a particle might go astray by a  small amount.  Although the discussion so far has  been based primarily on classical dy-  namics, several investigators have pro-  posed other reversible computers that  are based on quantum-mechanical  principles. Such computers, first pro-  posed by Paul Benioff of the Argonne  National Laboratory and refined by  others, notably Richard P. Feynman  of the California Institute of Technol-  ogy, have so far been described only in  the most abstract terms. Essentially  the particles in these computers would  be arranged so that the quantum-me-  chanical rules governing their interac-  tion would be precisely analogous to  the rules describing the predicted out-  puts of various reversible logic gates.  For example, suppose a particle&apos;s spin  can have only two possible values: up 
+</block:5.1>
+<block:5.2>
+ (corresponding to a binary 1) and down  (corresponding to a 0). The interac-  tions between particle spins can be pre-  scribed in such a way that the value of  one particle&apos;s spin changes depending  on the spin of nearby particles; the spin  of the particle would correspond to  one of the outputs of a logic gate. 
+</block:5.2>
+<block:5.3>
+ discussion has concentrat-  S o ed far on this information  processing. A 
+</block:5.3>
+<block:5.4>
+ computer must store information as  well as process it. The interaction be-  tween storage and processing is best  described in terms of a device called a  Turing machine, for Alan M. Turing,  who first proposed such a machine  in 1936. A Turing machine can per-  form any computation that can be per-  formed by a modern computer. One of  us (Bennett) has shown that it is possi-  ble to build a reversible Turing ma- 
+</block:5.4>
+<block:5.5>
+ chine: a Turing machine that does not  discard information and can therefore  be run with as small an expenditure of  energy as the user wishes.  A Turing machine has several com-  ponents. There is a tape, divided into  discrete frames or segments, each of  which is marked with a 0 or a 1; these  bits represent the input. A &quot;read/write  head&quot; moves along the tape. The head  has several functions. It can read one  bit of the tape at a time, it can print one  bit onto the tape and it can shift its  position by one segment to the left or  right. In order to remember from one  cycle to the next what it is doing, the  head mechanism has a number ofedis-  tinct &quot;states&quot;; each state constitutes a  slightly different configuration of the  head&apos;s internal parts.  In each cycle the head reads the bit  on the segment it currently occupies; 
+</block:5.5>
+<block:5.6>
+ flB AND NOT A 
+</block:5.6>
+<block:5.7>
+ &apos;4A AND NOT B 
+</block:5.7>
+<block:5.8>
+ B 
+</block:5.8>
+<block:5.9>
+ A AND B 
+</block:5.9>
+<block:5.10>
+ BILLIARD-BALL COMPUTER employs the movement of bii-  liard balls on a table to simulate the movement of bits through logic  gates. In billiard-ball logic gates (left) the balls&apos; paths are redirected  by collisions with one another or with reflecting &quot;mirrors.&quot;In addi-  tion to their role in gates, mirrors can deflect a ball&apos;s path (a), s h i i  the pathsideways (b),delay the ball&apos;smotion withoutchangingits final  direction or position (c) or allow two l i e s to crass (d). It is possible  to arrange mirrors so that the resulting Lbcomputer&quot;  implements the 
+</block:5.10>
+<block:5.11>
+ function of any logic chip. For example, a billiard-ball computer  could be made to test whether a number is prime. One such comput-  er (right) accepts as input any fivebit number (in this case 01101,  or 13) and the fixed input sequence 01. Like a Fredkin gate, a bil-  liard-ball computer typically returns more output bits than its user  needs. In the case shown, the computer returns the original input  number itself (which is the &quot;extra&quot; output), and an &quot;answer&quot; se-  quence: 10 if the input number is prime and 01 if it is composite. 
+</block:5.11>
+<block:6.1>
+ then it prints a new bit onto the tape,  changes its internal state and moves  one segment to the left or right. The bit  it prints, the state it changes into and  the direction in which it moves are de-  termined by a fixed set of transition  rules. Each rule specifies a particular  set of actions. Which rule the machine  follows is determined by the state of  the head and the value of the bit that it  reads from the tape. For example, one  rule might be: &quot;If the head is in state A  and is sitting on a segment of tape that  is printed with a 0, it should change  that bit to a 1, change its state to state B  and move one segment to the right.&quot; It  may happen that the transition rule in-  structs the machine not to change its  internal state, not to print a new bit  onto the tape or to halt its operation.  Not all Turing machines are revers-  ible, but a reversible Turing machine  can be built to perform any possible  computation.  The reversible Turing-machine  models have an advantage over such  machines as the frictionless billiard-  ball computer. In the billiard-ball  computer random thermal motion  causes unavoidable errors. Reversible  Turing-machine models actually ex-  ploit random thermal motion: they  are constructed in such a way that ther-  mal motion itself, with the assistance  of a very weak driving force, moves  the machine from one state to the  next. The progress of the computa-  tion resembles the motion of an ion (a  charged particle) suspended in a solu-  tion that is held in a weak electric field.  The ion&apos;s motion, as seen over a short  period of time, appears to be random;  it is nearly as likely to move in one  direction as in another. The applied  force of the electric field, however,  gives the net motion a preferred direc-  tion: the ion is a little likelier to move  in one direction than in the other.  It may a t first seem inconceivable  that a purposeful sequence of opera-  tions, such as a computation, could be  achieved in an apparatus whose direc-  tion of motion at any one time is near-  ly random. This style of operation is  quite common, however, in the micro-  scopic world of chemical reactions.  There the trial-and-error action of  Brownian motion, or random thermal  motion, suffices to bring reactant mol-  ecules into contact, to orient and bend  them into the specific conformation re-  quired for them to react, and to sepa-  rate the product molecules after the  reaction. All chemical reactions are in  principle reversible: the same Brown-  ian motion that accomplishes the for-  ward reaction sometimes brings prod-  uct molecules together and pushes  them backward through the transition. 
+</block:6.1>
+<block:6.2>
+ A 
+</block:6.2>
+<block:6.3>
+ READMIRITE 
+</block:6.3>
+<block:6.4>
+ HEAD 
+</block:6.4>
+<block:6.5>
+ TAPE 
+</block:6.5>
+<block:6.6>
+ / 
+</block:6.6>
+<block:6.7>
+ TURING MACHINE can be constructed in such a way that it can perform any computa-  tion a computer can. An infinitely long tape is divided into discrete segments, each of which  bears either a 0 or a 1. A &quot;read/write head,&quot; which can be in any of several internal states  (here there are only two states, A and B), moves along the tape. Each cycle begins as the  head reads one bit from a segment of the tape. Then, in accordance with a fixed set of transi-  tion rules, it writes a bit onto that segment, changes its own internalstate and moves one seg-  ment to the left or right. This Turing machine, because it has only two head states, can do  only trivial computations; more complicated machines with more head states are capable  of simulating any computer, even one much more complicated than themselves. To do s o  they store a representation of the larger machine&apos;s complete logical state on the unlimited  tape and break down each complex cycle into a large number of simple steps. The ma-  chine shown is logically reversible: it is always possible to deduce the machine&apos;s previous  configuration. Other Turing machines, with different transition rules, are not reversible 
+</block:6.7>
+<block:6.8>
+ In a state of equilibrium a backward  reaction is just as likely to occur as a  forward one.  In order to keep a reaction moving in  the forward direction, we must supply  reactant molecules and remove prod-  uct molecules; in effect, we must pro-  vide a small driving force. When the  driving force is very small, the reaction  will take nearly as many backward  steps as forward ones, but on the aver-  age it will move forward. In order to  provide the driving force we must ex-  pend energy, but as in our ball-and-  pipe realization of the Fredkin gate  the total amount of energy can be as  small as we wish; if we are willing to  allow a long time for an operation,  there is no minimum amount of ener-  gy that must be expended. The reason  is that the total energy dissipated de-  pends on the number of forward steps  divided by the number of backward  steps. (It is actually proportional to the  logarithm of this ratio, but as the ratio  increases or decreases so does its loga-  rithm.) The slower the reaction moves  forward, the smaller the ratio will be.  (The apalogy of the faster and slower  swimmers is valid once again: it re-  quires less total energy to go the same  net number of reaction steps ,forward  if the.reaction moves slowly.) 
+</block:6.8>
+<block:6.9>
+ can see how a Brownian Turing  W e machine  might work by examin- 
+</block:6.9>
+<block:6.10>
+ ing a Brownian tape-copying machine  that already exists in nature: R N A  polymerase, the enzyme that helps to  construct RNA copies of the D N A 
+</block:6.10>
+<block:6.11>
+ constituting a gene. A single strand of  D N A is much like the tape of a Turing  machine. At each position along the  strand there is one of four &quot;bases&quot;:  adenine, guanine, cytosine or thymine  (abbreviated A, G, C and T). RNA is  a similar chainlike molecule whose  four bases, adenine, guanine, cytosine  and uracil (A, G, C and U) bind to  &quot;complementary&quot; D N A bases.  The RNA polymerase catalyzes this  pairing reaction. The D N A helix is  normally surrounded by a solution  containing a large number of nucleo-  side triphosphate molecules, each con-  sisting of an RNA base linked to a  sugar and a tail of three phosphate  groups. The RNA-polymerase enzyme  selects from the solution a single R N A  base that is complementary to the base  about to be copied on the DNA strand.  It then attaches the new base to the end  of the growing RNA strand and releas-  es two of the phosphates into the sur-  rounding solution as a free pyrophos-  phate ion. Then the enzyme shifts for-  ward one notch along the strand of  D N A in preparation for attaching the  next RNA base. The result is a strand  of R N A that is complementary to the  template strand of DNA. Without  R N A polymerase this set of reactions  would occur very slowly, and there  would be little guarantee that the RNA  and D N A molecules would be com-  plementary.  The reactions are reversible: some-  times the enzyme takes up a free pyro-  phosphate ion, combines it with the  last base on the RNA strand and re- 
+</block:6.11>
+<block:7.1>
+leases the resulting nucleoside triphos-
+phate molecule into the surrounding
+solution, meanwhile backing up one
+notch along the D N A strand. At equi-
+librium, forward and backward steps
+would occur with equal frequency;
+normally other metabolic processes
+drive the reaction forward by remov-
+ing pyrophosphate and supplying the
+four kinds of nucleoside triphosphate.
+In the laboratory the speed with which
+RNA polymerase acts can be varied by
+adjusting the concentrations of the re-
+actants (as Judith Levin and Michael
+J. Chamberlin of the University of
+California at Berkeley have shown).
+As the concentrations are brought
+closer to equilibrium the enzyme
+works more slowly and dissipates less
+energy to copy a given section of
+DNA, because the ratio of forward to
+backward steps is smaller.
+Although RNA polymerase merely copies information  without proc-
+essing it, it is relatively easy to imaginehow a hypothetical chemical Turingmachine might work. The tape is a sin-gle long backbone molecule to whichtwo types of base, representing the bi-nary 0 and 1, attach at periodic sites. Asmall additional molecule is attachedto the 0 or 1 group at one site along thechain. The position of this additionalmolecule represents the position of
+</block:7.1>
+<block:7.2>
+the Turing machine's head. There areseveral different types of "head mole-cule," each type representing a differ-ent machine state.
+The machine's transition rules arerepresented by enzymes. Each enzymeis capable of catalyzing one particularreaction. The way these enzymes workis best demonstrated by an example.
+Suppose the head molecule is typeA (indicating that the machine is instate A) and is attached to a 0 base.Also suppose the following transitionrule applies: "When the head is in stateA and reads a 0, change the 0 to a 1,change state to B and move to theright." A molecule of the enzyme rep-resenting this rule has a site that fits atype-A head molecule attached to a 1
+base. It also has one site that fits a 0base and one site that fits a B head [seeillustration on opposite page].
+T o achieve the transition, the en-zyme molecule first approaches thetape molecule at a location just to theright of the base on which the A headresides. Then it detaches from the tapeboth the head molecule and the 0 base
+to which the head was attached, put-ting in their place a 1 base. Next itattaches a B head to the base that is tothe right of the 1 base it has just addedto the tape. At this point the transitionis complete. The head's original site ischanged from a 0 to a 1, the head mole-
+</block:7.2>
+<block:7.3>
+cule is now a type B, and it is attached
+to the base that is one notch to the right
+of the previous head position.
+During the operation of a Brownian
+Turing machine the tape would have
+to be immersed in a solution contain-
+ing many enzyme molecules, as well
+as extra O's, l's, A's and B's. T o drive
+the reaction forward there would have
+to be some other reaction that cleaned
+the enzyme molecules of detached
+heads and bases. The concentrations
+of the reactants that clean the enzyme
+molecules represent the force that
+drives the Turing machine forward.
+Again we can expend as little energy
+as we wish simply by driving the ma-
+chine forward very slowly.
+The enzymatic Turing machine
+would not be error-free. Occasionally
+a reaction that is not catalyzed by any
+enzyme might occur; for example, a 0
+base could spontaneously detach itself
+from the backbone molecule and a 1
+base could be attached in its place.
+Similar errors do indeed occur during
+RNA synthesis.
+In principle it would be possible to
+eliminate errors by building a Brown-
+ian Turing machine out of rigid, fric-
+tionless clockwork. The clockwork
+Turing machine involves less idealiza-
+tion than the billiard-ball computer
+but more than the enzymatic Turing
+machine. On the one hand, its parts
+need not be manufactured to perfect
+tolerances, as the billiard balls would
+have to be; the parts fit loosely togeth-
+er, and the machine can operate even
+in the presence of a large amount of
+thermal noise. Still, its parts must be
+perfectly rigid and free of static fric-
+tion, properties not found in any mac-
+roscopic body.
+Because the machine's parts fit to-
+gether loosely, they are held in place
+not by friction but by grooves or
+notches in neighboring parts [see illus-
+tration on page 561. Although each part
+of the machine is free to jiggle a lit-
+tle, like the pieces of a well-worn
+wood puzzle, the machine as a whole
+can only follow one "computational
+path." That is, the machine's parts in-
+terlock in such a way that at any time
+the machine can make only two kinds
+of large-scale motion: the motion cor-
+responding to a forward computation-
+al step and that corresponding to a
+backward step.
+The computer makes such transi-
+tions only as the accidental result of
+the random thermal motion of its parts
+biased by the weak external force. It is
+nearly as likely to proceed backward
+along the computational path, undoing
+the most recent transition, as it is to
+proceed forward. A small force, pro-
+vided externally, drives the computa-
+tion forward. This force can again be
+</block:7.3>
+<block:7.4>
+RNA POLYMERASE, an enzyme, acts as a reversible tape-copying machine; it catalyzes
+the reaction that constructs RNA copies of segments of DNA. As the enzyme moves along
+a strand of DNA, it selects from the surrounding solution a nucleoside triphosphate mole-
+cule (an RNA base bound to a sugar and a "tail" of three phosphate groups) that is comple-
+mentary to the DNA base about to be copied. It then attaches the new base to the end of the
+RNA strand and releases a free pyrophosphaie ion consisting of two phosphates. The reac-
+tion is reversible:sometimes the enzyme takes up the last link of RNA, attaches it to a pyro-
+phosphate ion and returns the resulting molecule to the solution, backing up a notch on the
+DNA strand. When the reaction is close to chemical equilibrium, the enzyme takes almost
+as many backward as forward steps and the total energy needed to copy any segment of
+DNA is very small. The reaction can be made less dissipative by being run more slowly;
+there is no minimum amount of energy that must be expended to copy a segment of DNA.
+</block:7.4>
+<block:8.1>
+ as small as we wish, and so there is no  minimum amount of energy that must  be expended in order to run a Brown-  ian clockwork Turing machine. 
+</block:8.1>
+<block:8.2>
+ I 4 
+</block:8.2>
+<block:8.3>
+ ccording to classical thermodynam-  A  ics, then, there is no minimum  amount of energy required in order to 
+</block:8.3>
+<block:8.4>
+ perform a computation. Is the classi-  cal thermodynamical analysis in con-  flict with quantum theory? After all,  the quantum-mechanical uncertainty  principle states there must be an in-  verse relation between our uncertain-  ty about how long a process takes and  our uncertainty about how much ener-  gy the process involves. Some investi-  gators have suggested that any switch-  ing process occurring in a short period  of time must involve a minimum-ex-  penditure of energy.  In fact the uncertainty principle  does not require any minimum energy  expenditure for a fast switching event.  The uncertainty principle would be ap-  plicable only if we attempted to meas-  ure the precise time at which the event  took place. Even in quantum mechan-  ics extremely fast events can take  place without any loss of energy. Our  confidence that quantum mechanics  allows computing without any mini-  mum expenditure is bolstered when  we remember that Benioff and oth-  ers have developed models of reversi-  ble quantum-mechanical computers,  which dissipate no energy and obey  the laws of quantum mechanics.  Thus the uncertainty principle does  not seem to dace a fundamental limit  on the proce&apos;ss of computation; neither  does classical thermodynamics. Does  this mean there are no physical limita-  tions to computing? Far from it. The  real limitations are associated with  questions that are much harder to an-  swer than those we have asked in this  article. For example, do elementary  logic operations require some mini-  mum amount of time? What is the  smallest possible gadgetry that could  accomplish such operations? Because  scales of size and time are connected  by the velocity of light, it is likely that  these two questions have related an-  swers. We may not be able to find these  answers, however, until it is deter-  mined whether or not there is,some  ultimate graininess in the universal  scales of time and length.  At the other extreme, how large can  we make a computer memory? How  many particles in the universe can we  bring and keep together for that pur-  pose? The maximum possible size of a  computer memory limits the precision  with which we can calculate. It will  limit, for example, the number of deci-  mal places to which we can calculate  pi. The inevitable deterioration proc- 
+</block:8.4>
+<block:8.5>
+ HYPOTHETICAL ENZYMATIC TURING MACHINE could perform a computation  with no minimum expenditure of energy. Molecules representing 0 and 1 bits are attached  at periodic intervals to a backbone molecule. A small additional molecule, representing the  Turing machine&apos;s head, is attached to the 0 or 1 group at one site on the chain (I).There  are several types of- head molecule, each type representing a different internal machine  state. Transition rules are represented by enzymes. In each cycle an enzyme attaches itself  to the head molecule and the bit molecule to which the head is attached (2); then it detaches  them from the chain, putting in their place the appropriate bit molecule (3). As it does so it  rotates, so that it attaches the appropriate head molecule to the bit that occupies the site one  notch to the right or left of the hit it has just changed. Now the cycle is complete (4): the  value of a bit has been changed, and the head has changed state and shifted its position.  Esch kind of enzyme is able to catalyze one such set of reactions. As in the case of RNA  synthesis, these reactions can be made to dissipate an arbitrarily small amount of energy. 
+</block:8.5>
+<block:9.1>
+ esses that occur in real computers pose  another, perhaps related, question:  Can deterioration, at least in principle,  be reduced to any desired degree, or  does it impose a limit on the maximum  length of time we shall be able to de-  vote to any one calculation? That is, 
+</block:9.1>
+<block:9.2>
+ are there certain calculations that can-  not be completed before the comput-  er&apos;s hardware decays into uselessness?  Such questions really concern limi-  tations on the physical execution of  mathematical operations. Physical  laws, on which the answers must ulti- 
+</block:9.2>
+<block:9.3>
+ mately be based, are themselves ex-  pressed in terms of such mathematical  operations. Thus we are asking about  the ultimate form in which the laws of  physics can be applied, given the con-  straints imposed by the universe that  the laws themselves describe. 
+</block:9.3>
+<block:9.4>
+ MASTER CAMSHAFT 
+</block:9.4>
+<block:9.5>
+ OBSTRUCTIVEREAD 
+</block:9.5>
+<block:9.6>
+ BROWNIAN CLOCKWORK TURING MACHINE, made out  of rigid, frictionless parts, relies on random jiggling of its loosely  fitted parts to change from state to state. When a part is held in  place, it is not by friction but by grooves or notches in neighboring  parts. Parts interlock in such a way that they can follow only one  &quot;computational patb&quot;; although they are free to jiggle a little, the  only large-scale motions they can make correspond to forward or  backward computational steps. The operation of the machine is  driven slowly forward by a very weak force; a t any instant the ma-  chine is almost as likely to move backward as forward. On the aver-  age, however, the machine will move forward and the computation  will eventually end. The machine can be made to dissipate as small  a n amount of energy as the user wishes, simply by employing a  force of the correct weakness. Segments of tape are represented by  grooved disks; bits are represented by E-shaped blocks, which are  locked onto the disks in either the up (1)or the down (0) position.  The head consists of a rigid framework and a complicated mecha-  nism (most of which is not shown) from which are suspended a read-  er, a manipulator and a screwdriver-shaped rod. The machine&apos;s  operation is controlled by a grooved &quot;master camshaft,&quot; which re-  sembles a phonograph record (top left and far right); different  grooves correspond to different head states. At the beginning of a  cycle the head is positioned above one of the disks and a &quot;stylus&quot; is  in the &quot;read&quot;segment of the groove in the master camshaft that cor-  responds to the machine&apos;s current head state. During the &quot;read&quot;  part of the cycle ( I ) the reader determines whether the disk&apos;s &quot;bit*  block is up or down by a process called an obstructive read (center 
+</block:9.6>
+<block:9.7>
+ right). In an obstructive read the reader moves past the block, fol-  lowing a high or a low path; one of the paths will be obstructed by  the knob on the end of the block, and so there will be only one patb  for the reader to follow. At the point on the master camshaft that  corresponds to this &quot;decision&quot; the grooves branch; each groove  splits into two, and the stylus is guided into the groove that corre-  sponds to the bit&apos;s value (2). Then the master camshaft turns until  the stylus is in the &quot;write&quot;segment (3). In this segment each groove  contains a different set of &quot;instructions&quot; for the machine t o follow;  the instructions are transmitted by a complex linkage between the  stylus and the rest of the mechanim. If the instructions call for the  bit&apos;s value to change, the manipulator moves over and grasps the  knob; then the screwdriver rotates the disk until the block is free to  move, the manipulator moves the block up or down and the screw-  driver rotates the disk again to hold the block in place. After the  stylus passes through the L&apos;write&quot; segment of the master camshaft it  enters the &quot;shift&quot;segment (4). Each groove in this segment contains  instructions to move the head one segment t o the left or right. Then  the stylus enters the &quot;change state&quot; segment of the camshaft (9,  where grooves merge in such a way that the stylus falls into the  groove representing the next head state. The cycle is now complete  (6). Disks adjacent to the one being read are held in place by the  head&apos;s framework. Disks that are farther away are held by &quot;locking  tabs.&quot; The locking tab on each disk is coupled to a special bit, called  the Q bit, on a n adjacent disk. The linkages between Q bits and  locking tabs are constructed so that the disk currently being read  is free to move, while disks far to the right or left are held still. 
+</block:9.7>

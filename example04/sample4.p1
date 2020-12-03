@@ -1,0 +1,7 @@
+Limits on fundamental limits to computation 
+An indispensable part of our personal and working lives, computing has also become essential to industries and governments.
+Steady improvements in computer hardware have been supported by periodic doubling of transistor densities in integrated circuits over the past fifty years.
+Such Moore scaling now requires ever-increasing efforts, stimulating research in alternative hardware and stirring controversy.
+To help evaluate emerging technologies and increase our understanding of integrated-circuit scaling, here I review fundamental limits to computation in the areas of manufacturing, energy, physical space, design and verification effort, and algorithms.
+To outline what is achievable in principle and in practice, I recapitulate how some limits were circumvented, and compare loose and tight limits.
+Engineering difficulties encountered by emerging technologies may indicate yet unknown limits.

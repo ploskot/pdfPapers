@@ -1,0 +1,67 @@
+#!/bin/bash
+# keywords locator, use whole txt paper
+
+# directory of executables
+DIR=".."
+
+# file to process
+infile=sample4
+
+# txt file to scan (see ex1-sample4)
+f=$infile.txt
+#f=$infile.out1
+#f=$infile.out2
+[[ -f "$f" ]] || { echo "File $f not found."; exit 0; }
+
+K=10 # number of top words in each part
+S=3  # words with this or less characters to discard
+
+# find most frequent words
+# word, list-num, position-num, occurrences
+
+# remove stopwords
+w1=$($DIR/texttoinfo -bow -nomsg -ef $DIR/en-stopwords -w $S -$K $f)
+WL1="$(echo "$w1" | awk '{print $2,1,NR,$1}' OFS=",")"
+
+# remove dictionary words
+w2=$($DIR/texttoinfo -bow -nomsg -ef $DIR/en-dat -w $S -$K $f)
+WL2="$(echo "$w1" | awk '{print $2,2,NR,$1}' OFS=",")"
+
+WL=$(cat <(echo "$WL1") <(echo "$WL2"))
+words=$(echo "${WL}" | cut -d, -f1)
+nw=$(echo "$words" | wc -l)
+
+# find similar words (i.e. having the minimum length prefix)
+#swords=$(for(( i=1;i<=$nw;i++ )); do
+#	     w=$(echo "$words" | sed -n "${i}p")
+#	     ww=$($DIR/texttoinfo -nomsg -nstrdist -noeq -3 -o2 "$w" "$words")
+#	     [[ -z "$ww" ]] || echo "$ww"    
+#	 done | sed 's/,/\n/')
+#swords="$(echo "$swords" | sort | uniq)"
+
+# calculate scores for both lists separately
+# 1:word, 2:list, 3:position-num, 4:occurrences
+# corresponding weights: w3, w4
+# sort -nrk2 -t,
+WL11=$(echo "$WL1" | awk -F, 'BEGIN{w3=1.0; w4=2.0} 
+	    { s=w3*$3+w4*$4; print $1 "," s}')
+WL21=$(echo "$WL2" | awk -F, 'BEGIN{w3=1.0; w4=2.0} 
+	    { s=w3*$3+w4*$4; print $1 "," s}')
+
+# use WL11 or WL21
+for w in $WL21; do
+    w="${w%,*}"
+    #echo ">>>> " $w
+    lst1=$(while IFS= read -r p; do
+	       np="$(grep -o -iE "\b\w*$p\w*\b" $f 2> /dev/null | wc -l)"
+	       (( np > 1)) && echo "$np,$p"
+	   done <<< "$($DIR/texttoinfo -nomsg -nwords -p "$w" \
+	   	    		       -o0 -n +1 -ef $DIR/en-stopwords $f)")   
+    lst2=$(while IFS= read -r p; do
+	       np="$(grep -o -iE "\b\w*$p\w*\b" $f 2> /dev/null | wc -l)"
+	       (( np > 1)) && echo "$np,$p"
+	   done <<< "$($DIR/texttoinfo -nomsg -nwords -p "$w" -o0 -n -1 \
+       	    	    		   -ef $DIR/en-stopwords $f)")
+    [[ -z "$lst1" && -z "$lst2" ]] \
+	|| cat <(echo "$lst1") <(echo "$lst2") 
+done | sed '/^\s*$/d' | grep " " | sort -nrk1 | uniq

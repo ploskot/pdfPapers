@@ -1,0 +1,34 @@
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.meta.log
+++ Created output file sample1.meta
+++ Output file set to sample1.meta
+ < cleanblocks sample1.out1 sample1.meta  addmeta before
+ + cleaning block 1.23
+ + cleaning block 1.24
+ + cleaning block 1.25
+ + cleaning block 1.26
+ + cleaning block 1.27
+ + cleaning block 1.28
+ + cleaning block 1.29
+ + cleaning block 1.30
+ + cleaning block 1.31
+ + cleaning block 1.32
+ + cleaning block 1.33
+ + cleaning block 1.34
+ + cleaning block 1.35
+ + cleaning block 1.36
+ + cleaning block 1.37
+ + cleaning block 1.38
+ + cleaning block 1.39
+ + cleaning block 1.40
+ + cleaning block 1.41
+ + cleaning block 1.42
+ + cleaning block 1.43
+ + cleaning block 1.44
+ + cleaning block 1.45
+ + cleaning block 1.46
+ + cleaning block 1.47
+ + cleaning block 1.48
+ + cleaning block 1.49
+ > cleanblocks ok

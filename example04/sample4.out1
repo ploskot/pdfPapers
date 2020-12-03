@@ -1,0 +1,434 @@
+<block:1.3>
+Limits on fundamental limits  to computation 
+</block:1.3>
+<block:1.4>
+An indispensable part of our personal and working lives, computing has also become essential to industries and governments.
+Steady improvements in computer hardware have been supported by periodic doubling of transistor densities in  integrated circuits over the past fifty years.
+Such Moore scaling now requires ever-increasing efforts, stimulating research  in alternative hardware and stirring controversy.
+To help evaluate emerging technologies and increase our understanding  of integrated-circuit scaling, here I review fundamental limits to computation in the areas of manufacturing, energy,  physical space, design and verification effort, and algorithms.
+To outline what is achievable in principle and in practice, I  recapitulate how some limits were circumvented, and compare loose and tight limits.
+Engineering difficulties encountered  by emerging technologies may indicate yet unknown limits.
+</block:1.4>
+<block:1.5>
+E 
+merging technologies for computing promise to outperform conventional integrated circuits in computation bandwidth or speed,  power consumption, manufacturing cost, or form factor 1,2 .
+However, razor-sharp focus on any one nascent technology and its benefits sometimes neglects serious limitations or discounts ongoing improvements in  established approaches.
+To foster a richer context for evaluating emerging technologies, here I review limiting factors and the salient trends in  computing that determine what is achievable in principle and in practice.
+Several fundamental limits remain substantially loose, possibly indicating  viable opportunities for emerging technologies.
+To clarify this uncertainty,  I examine the limits on fundamental limits.
+</block:1.5>
+<block:1.6>
+Universal and general-purpose computers  If we view clocks and watches as early computers, it is easy to see the importance of long-running calculations that can be repeated with high accuracy by mass-produced devices.
+The significance of programmable digital  computers became clear at least 200 years ago, as illustrated by Jacquard  looms in textile manufacturing.
+However, the existence of universal computers that can efficiently simulate (almost) all other computing devices--  analogue or digital--was only articulated in the 1930s by Church and Turing  (Turing excluded quantum physics when considering universality) 3 .
+Efficiency was studied from a theoretical perspective at first, but strong demand  in military applications in the 1940s led Turing and von Neumann to develop  detailed hardware architectures for universal computers--Turing's design  (Pilot ACE) was more efficient, but von Neumann's was easier to program.
+The stored-program architecture made universal computers practical in  the sense that a single computer design could be effective in many diverse  applications if supplied with appropriate software.
+Such practical universality thrives (1) in economies of scale in computer hardware and (2) among  extensive software stacks.
+Not surprisingly, the most sophisticated and commercially successful computer designs and components, such as Intel and  IBM central processing units (CPUs), were based on the von Neumann paradigm.
+The numerous uses and large markets of general-purpose chips,  as well as the exact reproducibility of their results, justify the enormous  capital investment in the design, verification and manufacturing of leadingedge integrated circuits.
+Today general-purpose CPUs power cloud serverfarms and displace specialized (but still universal) mainframe processors  in many supercomputers.
+Emerging universal computers based on fieldprogrammable gate-arrays and general-purpose graphics processing units 
+outperform CPUs in some cases, but their efficiencies remain complementary to those of CPUs.
+The success of deterministic general-purpose computing is manifest in the convergence of diverse functionalities in portable,  inexpensive smartphones.
+After steady improvement, general-purpose computing displaced entire industries (newspapers, photography, and so on)  and launched new applications (video conferencing, GPS navigation, online  shopping, networked entertainment, and so on) 4 .
+Application-specific integrated circuits streamline input-output and networking, or optimize functionalities previously performed by general-purpose hardware.
+They speed  up biomolecular simulation 100-fold 5,6 and improve the efficiency of video  decoding 500-fold 7 , but they require design efforts with a keen understanding of specific computations, impose high costs and financial risks, need markets where general-purpose computers lag behind, and often cannot adapt  to new algorithms.
+Recent techniques for customizable domain-specific  computing 8 offer better tradeoffs, while many applications favour the combination of general-purpose hardware and domain-specific software, including specialized programming languages 9,10 such as Erlang, which was used  to implement the popular Whatsapp instant messenger.
+</block:1.6>
+<block:1.7>
+Limits as aids to evaluating emerging technologies  Without sufficient history, we cannot extrapolate scaling laws for emerging technologies, yet expectations run high.
+For example, new proposals  for analogue processors appear frequently (as illustrated by adiabatic quantum computers), but fail to address concerns about analogue computing,  such as its limitations on scale, reliability, and long-running error-free computation.
+General-purpose computers meet these requirements with digital  integrated circuits and now command the electronics market.
+In comparison, quantum computers--both digital and analogue--hold promise only  in niche applications and do not offer faster general-purpose computing  because they are no faster for sorting and other specific tasks 11-13 .
+In exaggerating the engineering impact of quantum computers, the popular press has  missed this important point.
+But in scientific research, attempts to build  quantum computers may help in simulating quantum-chemical phenomena  and reveal new fundamental limits.
+The sections 'Asymptotic space-time  limits' and 'Conclusions' below discuss the limits on emerging technologies.
+</block:1.7>
+<block:1.8>
+Technology extrapolation versus fundamental limits  The scaling of commercial computing hardware regularly runs into formidable obstacles 1,2 , but near-term technological advances often circumvent 
+them.
+The ITRS 14 keeps track of such obstacles and possible solutions with  a focus on frequently revised consensus estimates.
+For example, consensus  estimates initially predicted 10-GHz CPUs for the 45-nm technology node 15 ,  versus the 3-4-GHz range seen in practice.
+In 2004, the unrelated Quantum Information Science and Technology Roadmap 16 forecast 50 'digital'  physical qubits by 2012.
+Such optimism arose by assuming technological  solutions long before they were developed and validated, and by overlooking important limits.
+The authors of refs 17 and 18 classify the limits to  devices and interconnects as fundamental, material, device, circuit, and  system limits.
+These categories define the rows of Table 1, and the columns  reflect the sections of this Review in which I examine the impact of specific  limits on feasible computing technologies, looking for 'tight' limits, which  obstruct the long-term improvement of key parameters.
+</block:1.8>
+<block:1.9>
+Engineering obstacles 
+</block:1.9>
+<block:1.10>
+Engineering obstacles limit specific technologies and choices.
+For example,  a key bottleneck today is integrated circuit manufacture, which packs billions of transistors and wires in several square centimetres of silicon, with  astronomically low defect rates.
+Layers of material are deposited on silicon  and patterned with lasers, fabricating all circuit components simultaneously.
+Precision optics and photochemical processes ensure accuracy.
+</block:1.10>
+<block:1.11>
+Limits on manufacturing  No account of limits to computing is complete without the Abbe diffraction limit: light with wavelength l, traversing a medium with refractive  index g, and converging to a spot with angle h (perhaps focused by a lens)  creates a spot with diameter d 5 l/NA, where NA 5 gsinh is the numerical aperture.
+NA reaches 1.
+4 for modern optics, so it would seem that  semiconductor manufacturing is limited to feature sizes of l/2.
+8.
+Hence,  argon-fluoride lasers with a wavelength of 193 nm should not support photolithographic manufacturing of transistors with 65-nm features.
+Yet these  lasers can support subwavelength lithography even for the 45-nm to 14-nm  technology nodes if asymmetric illumination and computational lithography are used 19 .
+In these techniques, one starts with optical masks that  look like the intended image, but when the image gets blurry, the masks  are altered by gently shifting the edges to improve the image, possibly  eventually giving up the semblance between the original mask and the  final image.
+Clearly, some limits are formulated to be broken! Ten years  ago, researchers demonstrated the patterning of nanomaterials by live  viruses 20 .
+Known virions exceed 20 nm in diameter, whereas subwavelength  lithography using a 193-nm ArF laser was recently extended to 14-nm semiconductor manufacturing 14 .
+Hence, viruses and microorganisms are no  longer at the forefront of semiconductor manufacturing.
+Extreme ultraviolet (X-ray) lasers have been energy-limited, but are improving.
+Their  use requires changing the optics from refractive to reflective.
+Additional 
+progress in multiple patterning and directed self-assembly promises to  support photolithography beyond the 10-nm technology node.
+</block:1.11>
+<block:1.12>
+Limits on individual interconnects  Despite the doubling of transistor density with Moore's law 21 , semiconductor integrated circuits would not work without fast and dense interconnects.
+Copper wires can be either fast or dense, but not both at the same  time--a smaller cross-section increases electrical resistance, while greater  height or width increase parasitic capacitance with neighbouring wires  (wire delay grows with the product of resistance and capacitance, RC).
+As  pointed out in 1995 by an Intel researcher, on-chip interconnect scaling  has become the real limiter of high-performance integrated circuits 22 .
+The  scaling of interconnect is also moderated by electron scattering against  rough edges of metallic wires 18 , which is inevitable with atomic-scale wires.
+Hence, integrated circuit interconnect stacks have evolved 15,23 from four  equal-pitch layers in 2000 to 16 layers with some wires up to 32 times  thicker than others (as in Fig.
+3) including a large amount of dense (thin)  wiring and fast (thick) wires used for global on-chip communication (Fig.
+3).
+Aluminium and copper remain unrivalled for conventional interconnects  and can be combined in short wires 98 ; carbon-nanotube and spintronic interconnects are also evaluated in ref.
+98.
+Photonic waveguides and radio  frequency links offer alternative integrated circuit interconnect 24,25 , but  still obey fundamental limits derived from Maxwell's equations, such as  the maximum propagation speed of electromagnetic waves 18 .
+The number of input-output links can only grow with the perimeter or surface area  of a chip, whereas chip capacity grows with area or volume, respectively.
+</block:1.12>
+<block:1.13>
+Limits on conventional transistors  Transistors are limited by their tiniest feature--the width of the gate  dielectric--which recently reached the size of several atoms (Fig.
+1), creating problems: (1) a few missing atoms can alter transistor performance,  (2) manufacturing variation makes all the transistors slightly different  (Fig.
+2), (3) electric current tends to leak through thin narrow dielectrics 17 .
+Therefore, transistors are redesigned with wider dielectric layers 26 that surround a fin shape (Fig.
+4).
+Such configurations improve the control of the  electric field, reduce current densities and leakage, and diminish process  variations.
+Each field effect transistor (FET) can use several fins, extending transistor scaling by several generations.
+Semiconductor manufacturers  adopted such FinFETs for upcoming technology nodes.
+Going a step further, in tunnelling transistors 27 , a gate wraps around the channel to control the tunnelling rate.
+</block:1.13>
+<block:1.14>
+Limits on design effort  In the 1980s, Mead and Conway formalized integrated circuit design using  a regular grid, enabling automated layout through algorithms.
+But the 
+resulting optimization problems remain difficult to solve, and heuristics  are only good enough for practical use.
+Besides frequent algorithmic improvements, each technology generation alters circuit physics and requires new  computer-aided design software.
+The cost of design has doubled in a few  years, becoming prohibitive for integrated circuits with limited market  penetration 14 .
+Emerging technologies, such as FinFETs and high-k dielectrics (k is the dielectric constant), circumvent known obstacles using forms  of design optimization.
+Therefore, reasonably tight limits should account  for potential future optimizations.
+Low-level technology enhancements,  no matter how powerful, are often viewed as one-off improvements, in  contrast to architectural redesigns that affect many processor generations.
+Between technology enhancements and architectural redesigns are global  and local optimizations that alter the 'texture' of integrated circuit design,  such as logic restructuring, gate sizing and device parameter selection.
+Moore's law promises higher transistor densities, but some transistors are  designed to be 32 times larger than others.
+Large gates consume greater  power to drive long interconnects at acceptable speed and satisfy performance constraints.
+Minimizing circuit area and power, subject to timing  constraints (by configuring each logic gate to a certain size, threshold voltage, and so on), is a difficult but increasingly important optimization with  a large parameter space.
+A recent convex optimization method 28 saved 30%  power in Intel chips, and the impact of such improvements grows with  circuit size.
+Many aspects of integrated circuit design are being improved,  continually raising the bar for technologies that compete with complementary metal-oxide-semiconductors (CMOSs).
+Completing new integrated circuit designs, optimizing them and verifying them requires great effort and continuing innovation; for example,  the lack of scalable design automation is a limiting factor for analogue 
+integrated circuits 29,30 .
+In 1999, bottom-up analysis of digital integrated  circuit technologies 15,31 outlined design scaling up to self-contained modules  with 50,000 standard cells (each cell contains one to three logic gates), but  further scaling was limited by long-range interconnect.
+In 2010, physical  separation of modules became less critical, as large-scale placement optimizations, implemented as software tools, assumed greater responsibility  for integrated circuit layout and can now intersperse components of nearby  modules 32,33 .
+In a general trend, powerful design automation 34 frees circuit  engineers to focus on microarchitecture 33 , but increasingly relies on algorithmic optimization.
+Until recently, this strategy suffered significant losses  in performance 35 and power 36 compared to ideal designs, but has now become  both successful and indispensable owing to the rapidly increasing complexity of digital and mixed-signal electronic systems.
+Hardware and software must now be co-designed and co-verified, with software improving  at a faster rate.
+Platform-based design combines high-level design abstractions  with the effective re-use of components and functionalities in engineered  systems 37 .
+Customizable domain-specific computing 8 and domain-specific  programming languages 9,10 offload specialization to software running on  re-usable hardware platforms.
+</block:1.14>
+<block:1.15>
+Energy-time limits 
+</block:1.15>
+<block:1.16>
+In predicting the main obstacles to improving modern electronics, the  2013 edition of the International Technology Roadmap for Semiconductors (ITRS) highlights the management of system power and energy as  the main challenge 14 .
+The faster the computation, the more energy it consumes, but actual power-performance tradeoffs depend on the physical  scale.
+While the ITRS, by its charter, focuses on near-term projections and  integrated circuit design techniques, fundamental limits reflect available  energy resources, properties of the physical space, power-dissipation constraints, and energy waste.
+</block:1.16>
+<block:1.17>
+Reversibility  A 1961 result by Landauer 38 shows that erasing one bit of information entails  an energy loss that $kTln2 (the thermodynamic threshold), where k is  the Boltzmann constant and T is the temperature in Kelvin.
+This principle  was validated empirically in 2012 (ref.
+39) and seems to motivate reversible computing 40 , where all input information is preserved, incurring additional costs.
+Formally speaking, zero-energy computation is prohibited by 
+the energy-time form of the Heisenberg uncertainty principle (DtDE $ B /2):  faster computation requires greater energy 41,42 .
+However, recent work  in applied superconductivity 43 demonstrates ''highly exotic'' physically  reversible circuits operating at 4uK with energy dissipation below the thermodynamic threshold.
+They apparently fail to scale to large sizes, run into  other limits, and remain no more practical than 'mainstream' superconducting circuits and refrigerated low-power CMOS circuits.
+Technologies that implement quantum circuits 44 can approximate reversible  Boolean computing, but currently do not scale to large sizes, are energyinefficient at the system level, rely on fragile components, and require  heavy fault-tolerance overheads 13 .
+Conventional integrated circuits also  do not help to obtain energy savings from reversible computing because  they dissipate 30%-60% of all energy in (reversible) wires and repeaters 23 .
+At room temperature, Landauer's limit amounts to 2.
+85 3 10 221 J--a  very small fraction of the total, given that modern integrated circuits  dissipate 0.
+1-100 W and contain ,10 9 logic gates.
+With the increasing  dominance of interconnect (see section 'Asymptotic space-time limits'),  more energy is spent on communication than on computation.
+Logically reversible computing is important for reasons other than energy  reduction--in cryptography, quantum information processing, and  so on 45 .
+</block:1.17>
+<block:1.18>
+Power constraints and CPUs  The end of CPU frequency scaling .
+In 2004, Intel abruptly cancelled a  4-GHz CPU project because its high power density required awkward  cooling technologies.
+Other CPU manufacturers kept clock frequencies  in the 1-6-GHz range, but also resorted to multicore CPUs 46 .
+Since dynamic  circuit power grows with clock frequency and supply voltage squared 47 ,  energy can be saved by distributing work among slower, lower-voltage  parallel CPU cores if the parallelization overhead is small.
+Dark, darker, dim, grey silicon .
+A companion trend to Moore's law--  the Dennard scaling theory 48 --shows how to keep power consumption  of semiconductor integrated circuits constant while increasing their density.
+But Dennard scaling broke down ten years ago 48 .
+Extrapolation of  semiconductor scaling trends for CMOSs--the dominant semiconductor  technology for the past 20 years--shows that the power consumption of  transistors available in modern integrated circuits reduces more slowly  than their size (which is subject to Moore's law) 49,50 .
+To ensure acceptable  performance characteristics of transistors, chip power density must be limited, and a fraction of transistors must be kept dark at any given time.
+Modern  CPUs have not been able to use all their circuits at once, but this asymptotic effect--termed the ''utilization wall'' 49 --will soon black out 99%  of the chip, hence the term 'dark silicon' and a reasoned reference to the  apocalypse 49 .
+Saving power by slowing CPU cores down is termed 'dim  silicon'.
+Detailed studies of dark silicon 50 show similar results.
+To this end,  executives from Microsoft and IBM have recently proclaimed an end to 
+the era of multicore microprocessors 51 .
+Two related trends appeared earlier:  (1) increasingly large integrated circuit regions remain transistor-free to aid  routeing and physical synthesis, to accommodate power-supply networks,  and so on 52,53 --we call them 'darker silicon', (2) increasingly many gates  do not perform useful computation but reinforce long, weak interconnects 54  or slow down wires that are too short--which I call 'grey silicon'.
+Today,  50%-80% of all gates in high-performance integrated circuits are repeaters.
+Limits for power supply and cooling .
+Data centres in the USA consumed  2.
+2% of its total electricity in 2011.
+Because power plants take time to build,  we cannot sustain past trends of doubled power consumption per year.
+It is possible to improve the efficiency of transmission lines (using hightemperature superconductors 55 ) and power conversion in data centres,  but the efficiency of on-chip power networks may soon reach 80%-90%,  leaving little room for improvement.
+Modern integrated circuit power  management includes clock-network and power gating 46 , per-core voltage  scaling 56 , charge recovery 57 and, in recent processors, a CPU core dedicated to power scheduling.
+Integrated circuit power consumption depends  quadratically on supply voltage, which has decreased steadily for many  years, but has recently stabilized at 0.
+5-2 V (ref.
+47).
+Supply voltage typically exceeds the threshold voltage of FETs by a safety margin that ensures  circuit reliability, fast operation and low leakage.
+Threshold voltage depends  on the thickness of the gate dielectric, which reached a practical limit of  several atoms (see section 'Engineering obstacles').
+Transistors cannot  operate with supply voltage below approximately 200 mV (ref.
+17)--five  times below current practice--and simple circuits reach this limit.
+With  slower operation, nearand sub-threshold circuits may consume a hundred  times less energy 58 .
+Cooling technologies can improve too, but fundamental  quantum limits bound the efficiency of heat removal 59-61 .
+</block:1.18>
+<block:1.19>
+Broader limits  The study in ref.
+62 explores a general binary-logic switch model with  binary states represented by two quantum wells separated by a potential  barrier.
+Representing information by electric charge requires energy for  binary switching and thus limits the logic-switching density, if a significant fraction of the chip can switch simultaneously.
+To circumvent this  limit, one can encode information in spin-states, photon polarizations,  super-conducting currents, or magnetic flux, noting that these carriers  have already been in commercial use (spin-states are particularly attractive  because they promise high-density nonvolatile storage 63 ).
+More powerful  limits are based on the amount of material in the Earth's crust (where silicon is the second most common element after oxygen), on atomic spacing  (see section 'Engineering obstacles'), radii, energies and bandgaps, as well  as the wavelength of the electron.
+We are currently using only a tiny fraction of the Earth's mass for computing, and yet various limits could be  circumvented if new particles are discovered.
+Beyond atomic physics, some  limits rely on basic constants: the speed of light, the gravitational constant, 
+the quantum (Planck) scale, the Boltzmann constant, and so on.
+Lloyd 42 and  Kraus 64 extend well-known bounds by Bremermann and Bekenstein, and  give Moore's law another 150 years and 600 years, respectively.
+These results  are too loose to obstruct the performance of practical computers.
+In contrast, current consensus estimates from the ITRS 14 give Moore's law only  another 10-20 years, due to technological and economic considerations 2 .
+</block:1.19>
+<block:1.20>
+Asymptotic space-time limits 
+</block:1.20>
+<block:1.21>
+Engineering limits for deployed technologies can often be circumvented,  while first-principles limits on energy and power are loose.
+Reasonably tight  limits are rare.
+</block:1.21>
+<block:1.22>
+Limits to parallelism  Suppose we wish to compare a parallel and sequential computer built  from the same units, to argue that a new parallel algorithm is many times  faster than the best sequential algorithm (the same reasoning applies to  logic gates on an integrated circuit).
+Given N parallel units and an algorithm that runs M times faster on sufficiently large inputs, one can simulate the parallel system on the sequential system by dividing its time between  N computational slices.
+Since this simulation is roughly N times slower, it  runs M/N times faster than the original sequential algorithm.
+If this original sequential algorithm was the fastest possible, we have M # N.
+In other  words, a fair comparison should not demonstrate a parallel speedup that  exceeds the number of processors--a superlinear speedup can indicate an  inferior sequential algorithm or the availability of a larger amount of memory  to N processors.
+The bound is reasonably tight in practice for small N and  can be violated slightly because N CPUs include more CPU cache, but  such violations alone do not justify parallel algorithms--one could instead  buy or build one CPU with a larger cache.
+A linear speedup is optimistically assumed for the parallelizable component in the 1988 Gustafson's  law that suggests scaling the number of processors with input size (as illustrated by instantaneous search queries over massive data sets) 5 .
+Also in 1988,  Fisher 65 employed asymptotic runtime estimates instead of numerical limits without considering the parallel and sequential runtime components  that were assumed in Amdahl's law 66 and Gustafson's law 5 .
+Asymptotic  estimates neglect leading constants and offer a powerful way to capture  nonlinear phenomena occurring at large scale.
+Fisher 65 assumes a sequential computation with T(n) elementary steps  for input of size n, and limits the performance of its parallel variants that  can use an unbounded d-dimensional grid of finite-size computing units  (electrical switches on a semiconductor chip, logic gates, CPU cores, and  so on) communicating at a finite speed, say, bounded by the speed of light.
+I highlight only one aspect of this four-page work: the number of steps  required by parallel computation grows as the (d 1 1)th root of T(n).
+This  result undermines the N-fold speedup assumed in Gustafson's law for N  processors on appropriately sized input data 5 .
+A speedup from runtime  polynomial in n to approximately logn can be achieved in an abstract model  of computation for matrix multiplication and fast Fourier transforms.
+But  not in physical space 65 .
+Surprising as it may seem, after reviewing many  loose limits to computation, we have identified a reasonably tight limit  (the impact of input-output, which is a major bottleneck today, is also  covered in ref.
+65).
+Indeed, many parallel computations today (excluding  multimedia processing and World Wide Web searching) are limited by  several forms of communication and synchronization, including network  and storage access.
+The billions of logic gates and memory elements in  modern integrated circuits are linked by up to 16 levels of wires (Fig.
+3);  longer wires are segmented by repeaters.
+Most of the physical volume and  circuit delay are attributed to interconnect 23 .
+This is relatively new, because  gate delays were dominant until 2000 (ref.
+14), but wires get slower relative  to gates at each new technology node.
+This uneven scaling has compounded  in ways that would have surprised Turing and von Neumann--a single  clock cycle is now far too short for a signal to cross the entire chip, and  even the distance covered in 200 ps (5 GHz) at light speed is close to the  chip size.
+Yet most electrical engineers and computer scientists are still  primarily concerned with gates.
+</block:1.22>
+<block:1.23>
+Implications for three-dimensional and other emerging circuits  The promise of three-dimensional integration for improving circuit  performance can be undermined by the technical obstructions to its industry adoption.
+To derive limits on possible improvement, we use the result  from ref.
+65, which is sensitive to the dimension of the physical space: a  sequential computation with T(n) steps requires of the order of T 1/3 (n)  steps in two dimensions and T 1/4 (n) in three.
+Letting t 5 T 1/3 (n) shows that  three-dimensional integration asymptotically reduces t to t 3/4 --a significant but not dramatic speedup.
+This speedup requires an unbounded  number of two-dimensional device layers, otherwise there is no asymptotic speedup 67 .
+For three-dimensional integrated circuits with two to three  layers, the main benefits of three-dimensional integrated circuit integration  today are in improving manufacturing yield, improving input-output  bandwidth, and combining two-dimensional integrated circuits that are  optimized for random logic, dense memory, field-programmable gatearrays, analogue, microelectromechanical systems and so on.
+Ultrahighdensity CMOS logic integrated circuits with monolithic three-dimensional  integration 68 suffer higher routeing congestion than traditional twodimensional integrated circuits.
+Emerging technologies promise to improve device parameters, but often  remain limited by scale, faults, and interconnect.
+For example, quantum  dots enable terahertz switching but hamper nonlocal communication 69 .
+Carbon nanotube FETs 70 leverage the extraordinary carrier mobility in semiconducting carbon nanotubes to use interconnect more efficiently by improving drive strength, while reducing supply voltage.
+Emerging interconnects  include silicon photonics, demonstrated by Intel in 2013 (ref.
+71) and intended as a 100-Gb s 21 replacement of copper cables connecting adjacent chips.
+Silicon photonics promises to reduce power consumption and form factor.
+In a different twist, quantum physics alters the nature of communication  with Einstein's ''spooky action at a distance'' facilitated by entanglement 13 .
+However, the flows of information and entropy are subject to quantum  limits 59,60 .
+Several quantum algorithms run asymptotically faster than the  best conventional algorithms 13 , but fault-tolerance overhead offsets their  potential benefits in practice except for large input sizes, and the empirical  evidence of quantum speedups has not been compelling so far 72,73 .
+Several stages in the development of quantum information processing remain  challenging 99 , and the surprising difficulty of scaling up reliable quantum  computation could stem from limits on communication and entropy 13,59,60 .
+In contrast, Lloyd 42 notes that individual quantum devices now approach  the energy limits for switching, whereas non-quantum devices remain orders  of magnitude away.
+This suggests a possible obstacle to simulating quantum physics on conventional parallel computers (abstract models aside).
+In terms of computational complexity though, quantum computers cannot attain a significant advantage for many problem types 11-13 and are unlikely to overcome the Fisher limit on parallelism from ref.
+65.
+A similar lack  of a consistent general-purpose speedup limits the benefits of several emerging technologies in mature applications that contain diverse algorithmic  steps, such as World Wide Web searching and computer-aided design.
+Accelerating one step usually does not dramatically speed up the entire  application, as noted by Amdahl 66 in 1967.
+Figuratively speaking, the most  successful computers are designed for the decathlon rather than for the  sprint only.
+</block:1.23>
+<block:1.24>
+Complexity-theoretic limits 
+</block:1.24>
+<block:1.25>
+The previous section, 'Asymptotic space-time limits', enabled tighter limits  by neglecting energy and using asymptotic rather than numeric bounds.
+I  now review a more abstract model in order to focus on the impact of scale,  and to show how recurring trends quickly overtake one-off device-specific  effects.
+I neglect spatial effects and focus on the nature of computation in  an abstract model (used by software engineers) that represents computation by elementary steps with input-independent runtimes.
+Such limits  survive many improvements in computer technologies, and are often stronger for specific problems.
+For example, the best-known algorithms for multiplying large numbers are only slightly slower than reading the input (an  obvious speed limit), but only in the asymptotic sense: for numbers with  less than a thousand bits, those algorithms lag behind simpler algorithms 
+in actual performance.
+To focus on what matters most, I no longer track  the asymptotic worst-case complexity of the best algorithms for a given  problem, but merely distinguish polynomial asymptotic growth from  exponential.
+Limits formulated in such crude terms (unsolvability in polynomial  time on any computer) are powerful 74 : the hardness of number-factoring  underpins Internet commerce, while the P ? NP conjecture explains the  lack of satisfactory, scalable solutions to important algorithmic problems,  in optimization and verification of integrated circuit designs, for example 75 .
+(Here P is the class of decision problems that can be solved using simple  computational steps whose number grows no faster than a polynomial of  the size of input data, and NP is the non-deterministic polynomial class  representing those decision problems for which a non-deterministically  guessed solution can be reliably checked using a polynomial number of  steps.
+) A similar conjecture, P ? NC, seeks to explain why many algorithmic problems that can be solved efficiently have not parallelized efficiently 76 .
+Most of these limits have not been proved.
+Some can be circumvented by  using radically different physics, for example, quantum computers can solve  number factoring in polynomial time (in theory).
+But quantum computation does not affect P ? NP (ref.
+77).
+The lack of proofs, despite heavy  empirical evidence, requires faith and is an important limitation of many  nonphysical limits to computing.
+This faith is not universally shared--  Knuth (see question 17 in http://www.
+informit.
+com/articles/article.
+aspx?  p52213858) argues that P 5 NP would not contradict anything we know  today.
+A rare proved result by Turing states that checking whether a given  program ever halts is undecidable: no algorithm solves this problem in all  cases regardless of runtime.
+Yet software developers solve this problem  during peer code reviews, and so do computer science teachers when grading exams in programming courses.
+Worst-case analysis is another limitation of nonphysical limits to computing, but suggests potential gains through approximation and specialization.
+For some NP-hard optimization problems, such as the Euclidean  Travelling Salesman Problem, polynomial-time approximations exist, but  in other cases, such as the Maximum Clique problem, accurate approximation is as hard as finding optimal solutions 78 .
+For some important problems  and algorithms, such as the Simplex algorithm for linear programming,  few inputs lead to exponential runtime, and minute perturbations reduce  runtime to polynomial 79 .
+</block:1.25>
+<block:1.26>
+Conclusions 
+</block:1.26>
+<block:1.27>
+The death march of Moore's law 1,2 invites discussions of fundamental  limits and alternatives to silicon semiconductors 70 .
+Near-term constraints  (obstacles to performance, power, materials, laser sources, manufacturing technologies and so on) are invariably tied to costs and capital, but are  disregarded for the moment as new markets for electronics open up, populations increase, and the world economy grows 2 .
+Such economic pressures  emphasize the value of computational universality and the broad applicability of integrated circuit architectures to solve multiple tasks under  conventional environmental conditions.
+In a likely scenario, only CPUs,  graphics processing units, field-programmable gate-arrays and dense memory integrated circuits will remain viable at the end of Moore's law, while  specialized circuits will be predominantly manufactured with less advanced  technologies for financial reasons.
+Indeed, memory chips have exemplified  Moore scaling because of their simpler structure, modest interconnect,  and more controllable manufacturing, but the miniaturization of memory cells is now slowing down 2 .
+The decelerated scaling of CMOS integrated circuits still outperforms the scaling of the most viable emerging  technologies.
+Empirical scaling laws describing the evolution of computing  are well known 80 .
+In addition to Moore's law, Dennard scaling, Amdahl's  law and Gustafson's law (reviewed above), Metcalfe's law 81 states that the  value of a computer network, such as the Internet or Facebook, scales as  the number of user-to-user connections that can be formed.
+Grosch's law 82  ties N-fold improvements in computer performance to N 2 -fold cost increases  (in equivalent units).
+Applying it in reverse, we can estimate the acceptable performance of cheaper computers.
+However, such laws only capture  ongoing scaling and may not apply in the future.
+</block:1.27>
+<block:1.28>
+The roadmapping process represented by the ITRS 14 relies on consensus  estimates and works around engineering obstacles.
+It tracks improvements  in materials and tools, collects best practices and outlines promising design  strategies.
+As suggested in refs 17 and 18, it can be enriched by an analysis of  limits.
+I additionally focus on how closely such limits can be approached.
+Aside from the historical 'wrong turns' mentioned in the 'Engineering  obstacles' and 'Energy-time limits' sections above, I uncover interesting  effects when examining the tightness of individual limits.
+Although energytime limits are most critical in computer design 14,83 , space-time limits appear  tighter 65 and capture bottlenecks formed by interconnect and communication.
+They suggest optimizing gate locations and sizes, and placing gates in  three dimensions.
+One can also adapt algorithms to spatial embeddings 84,85  and seek space-time limits.
+But the gap between current technologies and  energy-time limits hints at greater possible rewards.
+Charge recovery 57 ,  power management 46 , voltage scaling 56 , and near-threshold computing 58  reduce energy waste.
+Optimizing algorithms and circuits simultaneously  for energy and spatial embedding 86 gives biological systems an edge (from  the 'one-dimensional' nematode Caenorhabditis elegans with 302 neurons  to the three-dimensional human brain with 86 billion neurons) 1 .
+Yet, using  the energy associated with mass (according to Einstein's E 5 mc 2 formula)  to compute can truly be a 'nuclear option'--both powerful and controversial.
+In a well known 1959 talk, which predated Moore's law, Richard  Feynman suggested that there was ''plenty of room at the bottom,'' forecasting the miniaturization of electronics.
+Today, with relatively little physical room left, there is plenty of energy at the bottom.
+If this energy is tapped  for computing, how can the resulting heat be removed? Recycling heat  into mass or electricity seems to be ruled out by limits to energy conversion and the acceptable thermal range for modern computers.
+Technology-specific limits for modern computers tend to express tradeoffs, especially for systems with conflicting performance parameters and  properties 87 .
+Little is known about limits on design technologies.
+Given  that large-scale complex systems are often designed and implemented  hierarchically 52 with multiple levels of abstraction, it would be valuable to  capture losses incurred at abstraction boundaries (for example, the physical layout and manufacturing considerations required to optimize and  build a logic circuit may mean that the logic circuit itself needs to change)  and between levels of design hierarchies.
+It is common to estimate resources  required for a subsystem and then to implement the subsystem to satisfy  resource budgets.
+Underestimation is avoided because it leads to failures,  but overestimation results in overdesign.
+Inaccuracies in estimation and  physical modelling also lead to losses during optimization, especially in  the presence of uncertainty.
+Clarifying engineering limits gives us the hope  of circumventing them.
+Technology-agnostic limits appear to be simple and have had significant effects in practice; for example, Aaronson explains why NP-hardness  is unlikely to be circumvented through physics 77 .
+Limits to parallel computation became prominent after CPU speed levelled off ten years ago.
+These limits suggest that it will be helpful to use the following: faster  interconnect 18 , local computation that reduces communication 88 , timedivision multiplexing of logic 89 , architectural and algorithmic techniques 90 ,  and applications altered to embrace parallelism 5 .
+Gustafson advocates a  'natural selection': the survival of the applications that are fittest for parallelism.
+In another twist, the performance and power consumption of  industry-scale distributed systems is often described by probability distributions, rather than single numbers 91,92 , making it harder even to formulate appropriate limits.
+We also cannot yet formulate fundamental limits  related to the complexity of the software-development effort, the efficiency  of CPU caches 93 , and the computational requirements of incremental  functional verification, but we have noticed that many known limits are  either loose or can be circumvented, leading to secondary limits.
+For example, the P ? NP limit is worded in terms of worst-case rather than averagecase performance, and has not been proved despite much empirical evidence.
+Researchers have ruled out entire categories of proof techniques as insufficient to complete such a proof 75,94 .
+They may be esoteric, but such tertiary  limits can be effective in practice--in August 2010, they helped researchers  quickly invalidate Vinay Deolalikar's highly technical attempt at proving 
+</block:1.28>
+<block:1.29>
+P ? NP.
+On the other hand, the correctness of lengthy proofs for some key  results could not be established with an acceptable level of certainty by reviewers, prompting efforts towards verifying mathematics by computation 95 .
+In summary, I have reviewed what is known about limits to computation, including existential challenges arising in the sciences, optimization  challenges arising in engineering, and the current state of the art.
+These  categories are closely linked during rapid technology development.
+When  a specific limit is approached and obstructs progress, understanding its  assumptions is a key to circumventing it.
+Some limits are hopelessly loose  and can be ignored, while other limits remain conjectural and are based  on empirical evidence only; these may be very difficult to establish rigorously.
+Such limits on limits to computation deserve further study.
+</block:1.29>
+<block:1.30>
+Figure 1 | As a metal oxide-semiconductor field effect transistor  (MOSFET) shrinks, the gate dielectric (yellow) thickness approaches several  atoms (0.
+5 nm at the 22-nm technology node).
+Atomic spacing limits the  device density to one device per nanometre, even for radical devices.
+For  advanced transistors, grey spheres indicate silicon atoms, while red and blue  spheres indicate dopant atoms (intentional impurities that alter electrical  properties).
+Image redrawn from figure 1 of http://cnx.
+org/content/m32874/  latest/, with permission from Gold Standard Simulations.
+</block:1.30>
+<block:1.31>
+Figure 2 | As a MOSFET transistor shrinks, the shape of its electric field  departs from basic rectilinear models, and the level curves become  disconnected.
+Atomic-level manufacturing variations, especially for dopant  atoms, start affecting device parameters, making each transistor slightly  different 96,97 .
+Image redrawn from figure 'DOTS and LINES' of ref.
+97, with  permission from Gold Standard Simulations.
+</block:1.31>
+<block:1.32>
+Figure 3 | The evolution of metallic wire stacks from 1997 to 2010.
+Stacks  are ordered by the designation of the semiconductor technology node.
+Image redrawn from a presentation image by C.
+Alpert of IBM Research,  with permission.
+</block:1.32>
+<block:1.33>
+Figure 4 | FinFET transistors possess a much wider gate dielectric layer (surrounding the fin shape) than do MOSFET transistors and can use multiple fins.
+</block:1.33>
+<block:1.34>
+Table 1 | Some of the known limits to computation 
+Limits 
+Engineering 
+Design and validation 
+Energy, time 
+Space, time 
+Information, complexity 
+Fundamental 
+Abbe (diffraction);  Amdahl; Gustafson 
+Error-correction and  dense codes; faulttolerance thresholds 
+Einstein (E 5 mc 2 );  Heisenberg (DEDt);  Landauer (kTln2);  Bremermann;  adiabatic theorems 
+Speed of light; Planck  scale; Bekenstein;  Fisher (T(n) 1/(d 1 1) ) 
+Shannon channel capacity;  Holevo bound;  NC, NP, #P; decidability 
+Material 
+Dielectric constant;  carrier mobility;  surface morphology;  fabrication-related 
+Analytical and numerical  modelling 
+Conductivity; permittivity;  bandgap; heat flow 
+Propagation speed;  atomic spacing; no  gravitational collapse 
+Information transfer  between carriers 
+Device 
+Gate dielectric; channel  charge control; leakage;  latency; cross-talk; ageing 
+Compact modelling;  parameter selection 
+CMOS; quantum;  charge-centric;  signal-to-noise ratio;  energy conversion 
+Interfaces and contacts; entropy density; entropy flow;  size and delay variation; universality 
+Circuit 
+Delay; inductance;  thermal-related; yield;  reliability; input-output 
+Interconnect; test;  validation 
+Dark, darker, dim and grey silicon; interconnect;  cooling efficiency; power density; power supply;  two or three dimensions 
+Circuit complexity bounds 
+System and  software 
+Specification; implementation; validation; cost 
+Synchronization; physical integration; parallelism;  ab initio limits (Lloyd) 
+The 'consistency,  availability, partitioning  tolerance' (CAP) theorem 
+</block:1.34>
+<block:1.35>
+Information transfer  between carriers 
+</block:1.35>
+<block:1.36>
+Device 
+</block:1.36>
+<block:1.37>
+Gate dielectric; channel  charge control; leakage;  latency; cross-talk; ageing 
+</block:1.37>
+<block:1.38>
+Compact modelling;  parameter selection 
+</block:1.38>
+<block:1.39>
+CMOS; quantum;  charge-centric;  signal-to-noise ratio;  energy conversion 
+</block:1.39>
+<block:1.40>
+Interfaces and contacts; entropy density; entropy flow;  size and delay variation; universality 
+</block:1.40>
+<block:1.41>
+Circuit 
+</block:1.41>
+<block:1.42>
+Delay; inductance;  thermal-related; yield;  reliability; input-output 
+</block:1.42>
+<block:1.43>
+Interconnect; test;  validation 
+</block:1.43>
+<block:1.44>
+Dark, darker, dim and grey silicon; interconnect;  cooling efficiency; power density; power supply;  two or three dimensions 
+</block:1.44>

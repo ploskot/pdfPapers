@@ -1,0 +1,15 @@
+Figure 1 | As a metal oxide-semiconductor field effect transistor (MOSFET) shrinks, the gate dielectric (yellow) thickness approaches several atoms (0.
+5 nm at the 22-nm technology node).
+Atomic spacing limits the device density to one device per nanometre, even for radical devices.
+For advanced transistors, grey spheres indicate silicon atoms, while red and blue spheres indicate dopant atoms (intentional impurities that alter electrical properties).
+Image redrawn from figure 1 of http://cnx.
+org/content/m32874/ latest/, with permission from Gold Standard Simulations.
+Figure 2 | As a MOSFET transistor shrinks, the shape of its electric field departs from basic rectilinear models, and the level curves become disconnected.
+Atomic-level manufacturing variations, especially for dopant atoms, start affecting device parameters, making each transistor slightly different 96,97 .
+Image redrawn from figure 'DOTS and LINES' of ref.
+97, with permission from Gold Standard Simulations.
+Figure 3 | The evolution of metallic wire stacks from 1997 to 2010.
+Stacks are ordered by the designation of the semiconductor technology node.
+Image redrawn from a presentation image by C.
+Alpert of IBM Research, with permission.
+Figure 4 | FinFET transistors possess a much wider gate dielectric layer (surrounding the fin shape) than do MOSFET transistors and can use multiple fins.

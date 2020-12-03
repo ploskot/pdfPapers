@@ -1,0 +1,444 @@
+#page,#block,#counter,#words,#chars,#np-chars,np-chars,#spell-errs,text
+1,23,1,3,30,1,"",0,keywords: synthetic circuits 
+1,23,2,9,60,1,"",0,| optimal filtering | noise cancellation | adaptive design 
+1,24,1,6,48,1,"",0,Molecular circuits for dynamic noise filtering 
+1,25,1,20,142,1,"",1,The invention of the Kalman filter is a crowning achievement of  filtering theory--one that has revolutionized technology in countless  ways.
+1,25,2,18,144,1,"",1,By dealing effectively with noise the Kalman filter has enabled  various applications in positioning navigation control and telecommunications.
+1,25,3,27,192,1,"",1,In the emerging field of synthetic biology noise and  context dependency are among the key challenges facing the successful implementation of reliable complex and scalable synthetic circuits.
+1,25,4,30,218,1,"",1,Although substantial further advancement in the field may  very well rely on effectively addressing these issues a principled protocol to deal with noise--as provided by the Kalman filter--remains  completely missing.
+1,25,5,14,94,1,"",0,Here we develop an optimal filtering theory that  is suitable for noisy biochemical networks.
+1,25,6,26,187,1,"",0,We show how the resulting filters can be implemented at the molecular level and provide  various simulations related to estimation system identification and  noise cancellation problems.
+1,25,7,27,181,1,"",5,We demonstrate our approach in vitro  using DNA strand displacement cascades as well as in vivo using flow  cytometry measurements of a light-inducible circuit in Escherichia coli.
+1,26,1,1,14,1,"",0,Significance 
+1,27,1,20,127,1,"",0,Signaling modules in living cells function and respond in a  surprisingly robust way in spite of their very noisy environment.
+1,27,2,36,207,1,"",1,In contrast this is not the case for most synthetic circuits  in living cells which are usually designed and tuned in silico  under specific assumptions that do not hold in the real environment of the cell.
+1,27,3,27,171,1,"",0,To recover the robust behavior synthetic  circuits need a means to make inference about their dynamic  environment which in turn can be used to effectively counteract it.
+1,27,4,24,152,1,"",0,Here we show how such inference can be implemented as biochemical modules and illustrate how this can  guide the design of adaptive synthetic circuits.
+1,28,1,1,3,1,"",0,R 
+1,28,2,28,215,1,"",3,ecent developments in synthetic biology have enabled a revolution of biomolecular engineering (1 2) prompting numerous  applications in therapeutics (3-5) biocomputing (6-8) and plant  engineering (9) for instance.
+1,28,3,18,112,1,"",0,However a variety of practical limitations have to be addressed before the field can achieve its full  promise.
+1,28,4,18,125,1,"",2,Above all engineered circuits often exhibit a substantial  mismatch between in silico predictions and in vivo behavior (10).
+1,28,5,21,169,1,"",1,Such mismatch is largely attributed to so-called context dependencies causing individual cells to behave differently depending  on their intracellular environment (11).
+1,28,6,26,164,1,"",1,The latter can be understood as the congregation of environmental factors that affect  the target circuit such as the ribosomal abundance or the cell cycle  stage.
+1,28,7,26,189,1,"",1,Variations of those factors across cells and over time--also  termed "extrinsic noise" (12)--can impair a circuit's functionality in  an unpredicted way and cause total functional failure.
+1,28,8,28,190,1,"",0,Because extrinsic noise arises outside a circuit it can be handled  in a more systematic fashion than intrinsic molecular noise (13)  which is ultimately dictated by biophysical principles.
+1,28,9,30,201,1,"",0,Intuitively if  an extrinsic perturbation is present one could in principle apply a  second perturbation that steers the network into the opposite direction such that the two competing effects cancel.
+1,28,10,19,134,1,"",0,This idea is akin  to conventional noise cancellation techniques encountered in  communication systems where a target signal X?t? (e.
+1,28,11,1,3,1,"",0,g.
+1,28,12,9,51,1,"",0, a recorded  voice) is corrupted by noise Z?t? (e.
+1,28,13,1,3,1,"",0,g.
+1,28,14,17,120,1,"",0, through wireless transmission) and subsequently reconstructed by reversing the effect of  Z?t? in a suitable way (14).
+1,28,15,34,234,1,"",0,Because this requires some sort of  knowledge about Z?t? the most pertinent ingredient to achieve  noise cancellation is a means to estimate dynamically changing  noise signals [Z?t? in the example above] from available measurements.
+1,28,16,20,173,1,"",0,A multitude of such estimation techniques--often termed  "optimal filters"--have been developed driven by applications in  control telecommunications and signal processing.
+1,28,17,33,249,1,"",1,However the  assumptions underlying existing techniques are often incompatible  with the scenarios encountered in molecular biology such as the  assumptions of linearity or additive Gaussian noise associated with  the well-known Kalman filter (15).
+1,28,18,37,261,1,"",1,In quantitative biology optimal filtering and related concepts  have been used in the literature either to reconstruct biochemical  processes from experimental data in silico (16) or to analyze  whether existing biochemical networks can act as optimal filters 
+1,28,19,7,62,1,"",1,that process intracellular and extracellular signals (17-20).
+1,28,20,30,181,1,"",0,Along  those lines it has been shown theoretically that the suppression of  noise is fundamentally bounded by the precision at which the noise  can be estimated from the past (21).
+1,28,21,14,101,1,"",0,This underpins the high potential of implementing biochemical estimators that achieve such a  bound.
+1,28,22,16,112,1,"",1,Nevertheless the use of optimal filters for the de novo  engineering of synthetic networks remains nonexistent.
+1,28,23,29,224,1,"",1,Conventional statistical methods aim at inferring molecular  signals or parameters based on experimental data which have  been recorded beforehand through dedicated technical devices  such as flow cytometers or microscopes.
+1,28,24,14,84,1,"",1,In other words the inference itself is performed in silico by the observing entity.
+1,28,25,20,110,1,"",0,The  goal of this work is to move the observing entity inside a cell or any  biochemical network of interest.
+1,28,26,21,140,1,"",0,To this end we reinterpret such  estimators as dynamical systems themselves and map their specification to a list of biochemical reactions.
+1,29,1,2,21,1,"",0,Theoretical Results 
+1,30,1,4,33,1,"",0,Biochemical Signals and Sensors.
+1,30,2,5,32,1,"",0,Assume a synthetic circuit re- 
+1,30,3,15,99,1,"",0,quires knowledge about the abundance of a biochemical signal Z?t?  that it cannot access directly.
+1,30,4,28,165,1,"",0,For instance Z?t? could be an environmental perturbation that the circuit has to adapt to or the internal state of another dynamical system that it aims to control.
+1,30,5,29,189,1,"",0,In the former case Z?t? does not necessarily have a physical interpretation but rather serves as a phenomenological proxy that  reflects the multitude of noise sources affecting a circuit.
+1,30,6,13,78,1,"",0,The  synthesis rate of a protein for instance depends on various factors  (e.
+1,30,7,1,3,1,"",0,g.
+1,30,8,21,145,1,"",1, gene dosage and ribosomal abundance) but itself may be  described reasonably well by a one-dimensional quantity that fluctuates over time (22).
+1,30,9,19,115,1,"",0,For the sake of illustration we assume Z?t? is  a one-dimensional birth-death model with parameters r and f  (Fig.
+1,30,10,13,81,1,"",0,1A); we will be concerned with more general scenarios later in  this manuscript.
+1,30,11,22,127,1,"",0,Although Z?t? is assumed to be hidden to the circuit of interest  that circuit might have access to indirect readouts of Z?t?.
+1,30,12,13,73,1,"",1,For instance it might be able to recognize specific mRNAs which give an 
+1,30,13,16,93,1,"",0,indication about the activity of a gene Z?t? that cannot be sensed  directly by the circuit.
+1,30,14,27,178,1,"",0,In the simplest case this indirect readout (in  the following termed "sensor") could relate to Z?t? through a single  catalytic reaction modeled by the stochastic birth process 
+1,30,15,13,68,1,"",0,with c Y as a rate constant determining the speed of this reaction.
+1,30,16,23,130,1,"",1,Note that the symbol ? serves as a wildcard that will be concretized later when the sensor is interfaced with the filter circuit.
+1,30,17,32,195,1,"",0,Implicitly the sensor reaction carries information about the  unknown Z?t?: if one observes many firings in a short amount of  time one can conclude that Z?t? was probably large and vice  versa.
+1,30,18,34,185,2,"",0,Mathematically the number of reactions that fired in the  time interval 1/2 0 t is a random variable that can be described as a  time-varying Poisson process Y ?t? with rate c Y Z?t?.
+1,30,19,30,164,1,"",0,The differential version of this process can be viewed as a random pulse  train dY ?t? that has value one only at the sensor firing times and  zero otherwise (Fig.
+1,30,20,1,5,1,"",0,1B).
+1,30,21,18,87,1,"",0,A complete sensor trajectory consists of  the random reaction times Y t = ?t 1  t 2  .
+1,30,22,1,2,1,"",0,.
+1,30,23,1,2,1,"",0,.
+1,30,24,19,113,1,"",0, t Y ?t? ? as opposed to  most usual readouts that reveal abundances (corrupted by additive noise for instance).
+1,30,25,25,130,1,"",0,Note that the informativeness of the  sensor increases with c Y  and from this perspective large c Y are  superior to small c Y .
+1,30,26,22,119,1,"",1,At the same time however one tries to  keep the energy cost at a minimum to prevent interferences with  the host cell.
+1,30,27,26,162,1,"",1,The resulting tradeoff highlights the need for optimal estimators that can extract as much information as possible  from the sensor especially when c Y is small.
+1,31,1,3,27,1,"",0,Optimal Signal Estimation.
+1,31,2,20,133,1,"",0,The theory of optimal filtering (23)  provides a mathematical framework for estimating dynamic signals  Z?t? from measurements Y t .
+1,31,3,10,69,1,"",0,More specifically it is centered around  finding the conditional (i.
+1,31,4,1,3,1,"",0,e.
+1,31,5,7,43,1,"",0, filtering) distribution P?Z?t? = zjY t ?.
+1,31,6,25,140,1,"",0,In  this context we denote as "filter" an estimator of Z?t? that is based  on statistics of that distribution such as its mean or variance.
+1,31,7,41,214,3,"",1,It can  be shown that estimators of the form M?t? = E 1/2 Z?t?jY t  minimize the mean squared error MSE Z ?t? = E 1/2 ?Z?t? - M?t?? 2  and  are therefore termed minimum mean squared error (MMSE) estimators (14).
+1,31,8,20,132,1,"",2,In the special case of linear dynamics and Gaussian  noise the MMSE estimator is analytically tractable through the  Kalman filter.
+1,31,9,27,214,1,"",2,The Kushner-Stratonovich differential equation  describes filters also for the more general case of nonlinear and  non-Gaussian models although their practical handling is typically  challenging if not impossible.
+1,31,10,10,64,1,"",1,The MMSE estimator for the given  birth-death process from Fig.
+1,31,11,6,28,1,"",0,1A can be shown to satisfy 
+1,31,12,16,83,2,"",0,with V ?t? = Var 1/2 Z?t?jY t  as the estimator variance (SI Appendix  section S.
+1,31,13,1,4,1,"",0,1).
+1,31,14,3,14,1,"",0,Note that Eq.
+1,31,15,17,101,1,"",0,1 can be informally rewritten as an  ordinary differential equation driven by a sum of Dirac pulses 
+1,31,16,18,83,1,"",1,k d?t - t k ? with summand k stemming from the kth reaction firing  of the sensor.
+1,31,17,16,106,1,"",0,Between two consecutive firing times t k and t k+1  the  estimator signal M?t? evolves deterministically.
+1,31,18,14,91,1,"",0,Every time a sensor  reaction fires M?t? instantaneously changes by the factor V ?t?=M?t?.
+1,31,19,34,176,2,"",0,This factor can be understood as an adaptation gain that determines  how much weight is put on the correction term 1/2 dY ?t? - c Y M?t?dt:  if the filter is very certain [i.
+1,31,20,1,3,1,"",0,e.
+1,31,21,12,72,1,"",0, variance V ?t? small] only little correction is needed and vice versa.
+1,31,22,27,203,1,"",1,Unfortunately the adaptation gain  is analytically intractable because V ?t? generally involves the thirdorder moment and so forth leading to an infinite-dimensional system of differential equations (i.
+1,31,23,1,3,1,"",0,e.
+1,31,24,3,26,1,"",0, moment closure problem).
+1,31,25,17,119,1,"",0,However two tractable filters can be derived under the assumption of either weakly or highly informative measurements.
+1,31,26,29,152,1,"",0,We refer to the first one as the Poisson filter and it is based on  the assumption that c Y is small for instance when available  resources are scarce.
+1,31,27,13,75,1,"",0,Because this assumption implies that  V ?t? = M?t? (SI Appendix section S.
+1,31,28,1,3,1,"",0,1.
+1,31,29,9,58,1,"",0,3) the filter reduces to a  single differential equation 
+1,32,1,29,168,1,"",0,The second filter called the gamma filter is based on the fact that  for large c Y Z?t? the filtering distribution is approximately gamma  (24) (SI Appendix section S.
+1,32,2,1,3,1,"",0,1.
+1,32,3,1,4,1,"",0,4).
+1,32,4,14,93,1,"",0,This filter requires a second  differential equation corresponding to V ?t? (SI Appendix Eq.
+1,32,5,1,5,1,"",0,20).
+1,32,6,19,117,1,"",0,Taking a systems perspective those filters are now understood as  kinetic models driven by an external input dY ?t?.
+1,32,7,14,107,1,"",0,The goal is to  synthesize their dynamics through simple biochemical reactions  with mass-action kinetics.
+1,32,8,24,135,1,"",0,In the case of the Poisson filter this is  rather straightforward because the filter is already in the form of a  valid rate equation.
+1,32,9,20,118,1,"",0,In particular it describes the concentration of a  birth-death process with parameters r and ?f + c Y ? respectively.
+1,32,10,17,101,1,"",0,Note that despite its noisy input dY ?t? the estimator M?t? should  be as deterministic as possible.
+1,32,11,22,136,1,"",1,We therefore allow it to be rescaled  by a constant factor n to ensure a deterministic high-copy-number  regime (SI Appendix section S.
+1,32,12,1,3,1,"",0,1.
+1,32,13,1,4,1,"",0,5).
+1,32,14,11,78,1,"",0,Overall the Poisson filter can  be implemented through only three reactions: 
+1,33,1,25,114,1,"",0,For a given n the abundance of the species M at time t is a discrete  random variable which we denote by M n ?t?.
+1,33,2,19,123,1,"",0,For large n the large  copy number limit will be approached and the filter reactions will  become virtually deterministic.
+1,33,3,26,129,1,"",0,Note that this will not be the case  for the sensor reaction whose rate depends on the abundance of  Z which is not scaled by n.
+1,33,4,11,52,1,"",0,This gives us a way to realize the  solution of Eq.
+1,33,5,4,28,1,"",0,2 using chemical reactions.
+1,33,6,4,23,1,"",0,More precisely for  a.
+1,33,7,1,3,1,"",0,s.
+1,33,8,15,59,2,"",0,any t in the interval 1/2 0 T: lim n->? M n ?t?=n = M?t?.
+1,33,9,10,54,1,"",0,Therefore for  large values of n the reactions in Eq.
+1,33,10,18,94,1,"",0,3 give us the molecular filter  realization we seek because for such values M n ?t?=n ? M?t?.
+1,33,11,19,124,1,"",0,In the case of the gamma filter challenges arise because the  filter equations are incompatible with biophysical rate laws.
+1,33,12,35,234,3,"",0,We  addressed this problem by applying a suitable variable transform  1/2 A?t? B?t? = f 1/2 M?t? V ?t? and implementing the transformed  dynamics A?t? and B?t? and corresponding inverse transforms as  standard mass-action kinetics.
+1,33,13,15,84,1,"",0,A detailed derivation and list of  reactions can be found in SI Appendix section S.
+1,33,14,1,3,1,"",0,1.
+1,33,15,1,3,1,"",0,5.
+1,33,16,17,97,1,"",0,Example  trajectories of both filters for different values of c Y are shown in  SI Appendix Fig.
+1,33,17,1,3,1,"",0,S.
+1,33,18,1,3,1,"",0,1.
+1,33,19,24,173,1,"",3,To quantitatively check the accuracy of the filters we compared their empirical MSE to the MMSE obtained through numerical integration of the Kushner-Stratonovich equation.
+1,33,20,15,86,1,"",0,The  results reflect the conditions of c Y under which the two filters  were derived.
+1,33,21,23,140,1,"",1,Taken together the filters provide a reasonable  approximation of the exact MMSE estimator along the entire  range of c Y (SI Appendix Fig.
+1,33,22,1,3,1,"",0,S.
+1,33,23,1,4,1,"",0,2).
+1,33,24,11,80,1,"",0,Optimal filters can typically tolerate a substantial degree of  model mismatch.
+1,33,25,7,48,1,"",0,This has great practical relevance because the 
+1,33,26,8,60,1,"",0,dynamic noise model is sometimes only poorly characterized.
+1,33,27,18,109,1,"",0,In  the considered example for instance precise knowledge of the  parameters r and f might not be available.
+1,33,28,20,134,1,"",0,We performed additional simulations and found both filters to be largely robust  with respect to parameter mismatch (SI Appendix Fig.
+1,33,29,1,3,1,"",0,S.
+1,33,30,1,4,1,"",0,2).
+1,33,31,27,179,1,"",0,Although the Poisson filter performs generally worse than the  gamma filter for little or no mismatch it is surprisingly robust  also in case of substantial parameter variations.
+1,34,1,2,20,1,"",0,Ensemble Averaging.
+1,34,2,10,46,1,"",0,When a filter is scaled by n a single sensor 
+1,34,3,8,45,1,"",0,reaction has to produce n molecules at once.
+1,34,4,28,197,1,"",1,Although this could be  achieved for instance using DNA hybridization cascades challenges  arise in cellular systems where the degree to which stoichiometries  can be engineered is rather limited.
+1,34,5,11,82,1,"",0,Ensemble averaging offers a  viable and attractive alternative to filter scaling.
+1,34,6,23,139,1,"",1,The idea here is to  achieve determinism by running n independent copies M ?j? ?t? of the  original (unscaled) filter and averaging these.
+1,34,7,15,94,1,"",1,For example n could  correspond to the number of identical plasmid replicates within a  cell.
+1,34,8,25,148,1,"",1,Similarly one could use a population of n isogenic cells to sense  extracellular signals such as the abundance of a certain chemical in  the media.
+1,34,9,31,181,1,"",0,Although intrinsic fluctuations will affect the individual  ?j?  instance  P M ?t? they will average out in the mixture process  M?t? = nj=1 M ?j? ?t?=n if n is sufficiently large.
+1,34,10,3,20,1,"",0,This has important 
+1,34,11,2,24,1,"",0,practical implications.
+1,34,12,29,179,1,"",0,First the resulting one-molecule sensors  Z -> Z + M are much simpler to achieve using cellular mechanisms  and second they provide a cheap way to exploit biological parallelism.
+1,34,13,34,201,1,"",0,This idea is related to the concept of ensemble learning (25)  where a collection of noisy algorithms add up to a single accurate  predictor and we refer to these filter variants as "ensemble filters.
+1,34,14,8,37,1,"",0,"  We show in SI Appendix section S.
+1,34,15,14,88,1,"",0,2 that for large n the ensemble  Poisson filter converges to the differential equation 
+1,34,16,14,97,1,"",0,which is reminiscent of a state observer equation--a quantity frequently used in control theory.
+1,34,17,35,229,1,"",2,This filter variant appears particularly relevant for in vivo applications where it could be realized  through multiple replicates of a single gene that has both a constitutive and an inducible promoter (see case studies below).
+1,34,18,41,199,1,"",0,When comparing the ensemble Poisson filter to the Poisson  filter in terms of the MSE one finds that for any n &gt; 1 the ensemble variant is guaranteed to achieve a lower MSE for any r  f and c Y .
+1,34,19,31,172,1,"",0,This is due to the fact that fluctuations of the sensor  are repressed in the ensemble filter whereas this fails to be true  for the Poisson filter (SI Appendix section S.
+1,34,20,1,3,1,"",0,2.
+1,34,21,1,4,1,"",0,1).
+1,34,22,11,60,1,"",0,For large n  this difference can be seen by multiplying Eq.
+1,34,23,8,35,1,"",0,4 with dt and  comparing it to Eq.
+1,34,24,25,152,1,"",0,2: the two equations coincide except that the  term stemming from the sensor dY ?t? is replaced by its deterministic noise-free counterpart c Y Z?t?dt.
+1,35,1,5,34,1,"",0,Extensions to More General Cases.
+1,35,2,15,98,1,"",0,The filter variants described  above are suitable in cases where the sensor is attached directly 
+1,35,3,5,28,1,"",0,to the unknown signal Z?t?.
+1,35,4,22,154,1,"",0,In various practical applications  however a circuit might require knowledge about unknown  signals that are multiple steps away from the sensed species.
+1,35,5,30,189,1,"",0,For  instance we would like to conceive a filter circuit that only uses  information of a certain gene product to make inference about  the transcription factor abundance that controls it.
+1,35,6,12,91,1,"",0,This requires  an extension of our filtering framework to general multivariate  scenarios.
+1,35,7,12,73,1,"",1,As it turns out the MMSE estimator of any biochemical species satisfies 
+1,35,8,29,131,1,"",0,with Z k ?t? as the species attached to the sensor Z i ?t? as any other  species that depends on Z k ?t? in an arbitrary way (Fig.
+1,35,9,17,82,2,"",0,2A) and  Cov 1/2 Z i ?t? Z k ?t? as the conditional covariance of those species.
+1,35,10,25,126,1,"",0,The term D i ?t? refers to the unconditional dynamics of the mean  of Z i ?t? as dictated by the chemical P  master equation.
+1,35,11,35,168,1,"",0,Mathematically this can be written as D i ?t? = z zA i P?Z i ?t? = zjY t ? with A i  as the infinitesimal generator of the (unconditional) stochastic  process Z i ?t?.
+1,35,12,16,76,1,"",0,For instance if Z i ?t? is a birth-death process such  as the one from Fig.
+1,35,13,11,32,1,"",0,1A then D i ?t? = r - fM i ?t?.
+1,35,14,3,14,1,"",0,Note that Eq.
+1,35,15,20,115,1,"",0,5  is general and our previously derived filters and other known  estimators can be framed as special cases of it.
+1,35,16,12,68,1,"",0,For instance if  the components Z i ?t? are constant parameters [i.
+1,35,17,1,3,1,"",0,e.
+1,35,18,7,24,1,"",0, D i ?t? = 0]  then Eq.
+1,35,19,15,97,1,"",0,5 can be understood as a continuous-time variant of  the recursive least squares algorithm (26).
+1,35,20,7,34,1,"",0,Although estimator M i ?t? in Eq.
+1,35,21,25,161,1,"",0,5 may not be directly realizable an estimator that satisfies a close approximation of it is  always achievable using molecular circuits (SI Appendix section  S.
+1,35,22,1,4,1,"",0,3).
+1,35,23,8,51,1,"",0,This will be shown in Applications and Discussion.
+1,36,1,28,195,1,"",2,Applications  In the following sections we demonstrate practical applications  of our filtering circuits using two simulation studies as well as  experimental data recorded in vitro and in vivo.
+1,37,1,3,32,1,"",0,Adaptive System Identification.
+1,37,2,23,156,1,"",0,We use a multivariate filter to solve a  combined state and parameter estimation problem that is associated  with a biochemical system identification task.
+1,37,3,19,99,1,"",0,In particular we  consider a birth-death process Z 2 ?t? with unknown but static birth  rate Z 1 .
+1,37,4,11,96,1,"",0,The corresponding multivariate estimator is realizable  through five elementary reactions (Fig.
+1,37,5,8,39,1,"",0,2B) as shown in SI Appendix section S.
+1,37,6,1,3,1,"",0,3.
+1,37,7,1,3,1,"",0,1.
+1,37,8,19,103,1,"",0,Our simulations demonstrate that the filter is  able to accurately identify both Z 2 ?t? and Z 1 (Fig.
+1,37,9,5,30,1,"",0,2C) after a short  transient.
+1,37,10,18,89,1,"",1,Note that this filter is able to readapt to spontaneous  changes in the birth rate Z 1 .
+1,37,11,30,164,1,"",0,This suggests an application of this  filter to scenarios in which the true birth rate Z 1 slowly varies over  time for instance over the duration of a cell cycle.
+1,37,12,24,147,1,"",0,If the filter is  adjusting itself quickly enough it should be able to track the  temporal dynamics of a time-varying and possibly complex system.
+1,37,13,21,116,1,"",0,In the derived filter the speed of adaptation depends on c Y and an  additional parameter l (SI Appendix section S.
+1,37,14,1,3,1,"",0,3.
+1,37,15,1,4,1,"",0,1).
+1,37,16,19,119,1,"",1,We used this  filter to identify a birth-death process whose birth rate is controlled by a stochastic bistable switch.
+1,37,17,1,5,1,"",0,Fig.
+1,37,18,23,130,1,"",0,2D shows that if l and  c Y are reasonably large the filter is indeed able to closely resemble  the complex switch-like dynamics.
+1,38,1,4,33,1,"",0,Cancellation of Extrinsic Noise.
+1,38,2,17,111,1,"",1,In the following we show how  the newly developed filters could guide the design of noiseinsensitive circuits.
+1,38,3,15,83,1,"",0,Although a more detailed view on this  topic is provided in SI Appendix section S.
+1,38,4,20,118,1,"",1,4 we illustrate the  concept by means of an example that is representative of what  is typically encountered in vivo.
+1,38,5,16,115,1,"",2,In particular we consider  a microRNA circuit that is deployed to mammalian cells  through transient transfection.
+1,38,6,24,132,1,"",0,The goal of the circuit is to  stably express RNA X?t? but the rate at which it is transcribed  is corrupted by contextual factors.
+1,38,7,24,149,1,"",2,First we assume that each  cell receives a random number of plasmid copies during deployment and that the plasmids deplete randomly as cells divide.
+1,38,8,13,60,1,"",1,We refer to the number of plasmid copies at time t as n?t?.
+1,38,9,18,118,1,"",0,Furthermore we assume transcription to be affected by  a slowly varying random process C?t? that correlates with the 
+1,38,10,3,17,1,"",0,cell cycle (Fig.
+1,38,11,1,5,1,"",0,3A).
+1,38,12,16,84,1,"",0,Overall we obtain a transcription rate  h T ?n?t? C?t?? : = an?t?C?t? = aZ?t? (Fig.
+1,38,13,1,5,1,"",0,3B).
+1,38,14,28,163,1,"",2,The goal is to construct an estimator M?t? of the cumulative  context Z?t? and to use this estimator as a repressor of X?t? through  RNA interference (RNAi) (Fig.
+1,38,15,1,5,1,"",0,3A).
+1,38,16,21,127,1,"",0,Intuitively the two effects are  expected to compensate for each other such that the overall effect  of Z?t? on X?t? vanishes.
+1,38,17,15,89,1,"",0,In fact this idea can be framed mathematically as demonstrated in SI Appendix section S.
+1,38,18,1,3,1,"",0,4.
+1,38,19,32,209,1,"",0,In the considered scenario the ensemble Poisson filter is  particularly suitable to serve as an estimator because it can exploit the availability of multiple gene replicates per cell to improve  its accuracy.
+1,38,20,28,171,1,"",2,The gene M corresponding to this filter is present twice  on the plasmid once attached to a constitutive promoter pMc and  once attached to a Z?t?-inducible promoter pMi.
+1,38,21,19,117,1,"",0,Note that in realistic scenarios also the constitutive version of M is likely to be  affected by contextual factors.
+1,38,22,15,87,1,"",0,We therefore accounted for an unintended dependency of this gene on Z?t? in our model.
+1,38,23,16,113,1,"",0,We performed stochastic simulations of the resulting circuit that accounts  for both intrinsic and extrinsic (i.
+1,38,24,1,3,1,"",0,e.
+1,38,25,7,55,1,"",0, contextual) fluctuations (see SI  Appendix section S.
+1,38,26,1,3,1,"",0,4.
+1,38,27,3,11,1,"",0,4 and Fig.
+1,38,28,4,21,1,"",0,3 for more details).
+1,38,29,33,195,1,"",1,It turns out  that if the sensor rate c Y of the ensemble Poisson filter is sufficiently  large the noise canceller performs well even though it is based on  strongly simplifying assumptions [i.
+1,38,30,1,3,1,"",0,e.
+1,38,31,17,106,1,"",0, Z?t? modeled as a birth-death  process] and it is affected by extrinsic and intrinsic noise itself (Fig.
+1,38,32,4,12,1,"",0,3 C and D).
+1,38,33,18,112,1,"",1,An additional case study showing noise cancellation in  a bistable switch is provided in SI Appendix section S.
+1,38,34,1,3,1,"",0,4.
+1,38,35,1,3,1,"",0,5.
+1,39,1,7,47,1,"",1,In Vitro Implementation of the Poisson Filter.
+1,39,2,24,153,1,"",1,As a proof of principle  we forward-engineered and tested a DNA-based filtering circuit  in vitro as DNA strand displacement (DSD) cascades (6 7 27-29).
+1,39,3,25,187,1,"",0,Strand displacement is a competitive hybridization reaction where  an incoming single-stranded DNA molecule binds to a complementary strand in the process displacing an incumbent strand.
+1,39,4,13,105,1,"",0,This  elementary mechanism allows one to directly synthesize arbitrary  chemical reaction networks (30).
+1,39,5,31,224,1,"",1,Furthermore because individual  DSD reactions can be described by conventional bimolecular rate  laws at a remarkably high precision (31) they provide a higher  degree of quantitative control compared with cellular systems.
+1,39,6,20,119,1,"",0,To enable a comparison of the molecular filter with its  mathematical counterpart and the true value of Z?t? only the 
+1,39,7,3,18,1,"",0,filter itself [i.
+1,39,8,1,3,1,"",0,e.
+1,39,9,11,74,1,"",1, the equation describing the dynamics of M?t?]  was implemented in vitro.
+1,39,10,9,54,1,"",0,The noise Z?t? and respective sensor  time points [i.
+1,39,11,1,3,1,"",0,e.
+1,39,12,29,157,1,"",0, the times where dY ?t? = 1] were simulated on a  computer and the latter were manually transferred to the test  tube in which the filter was operated (Fig.
+1,39,13,1,5,1,"",0,4A).
+1,39,14,21,115,1,"",0,In particular the  concentration of M?t? had to be increased by a constant value  DM at each of those time points.
+1,39,15,37,197,1,"",0,Here we want M?t? to estimate  the concentration of Z?t? (as opposed to absolute copy numbers)  and thus DM = V -1  Z with V Z as the reaction volume associated  with the virtual signal Z?t? (Fig.
+1,39,16,1,5,1,"",0,4A).
+1,39,17,4,20,1,"",0,In reference to Eq.
+1,39,18,31,132,1,"",0,2 this  would correspond to a scaling factor of n = V M =V Z at the level of  copy numbers with V M as the volume of the test tube.
+1,39,19,5,30,1,"",0,The reaction network from Eq.
+1,39,20,11,55,1,"",0,2 was mapped to a DSD circuit  (SI Appendix section S.
+1,39,21,3,11,1,"",0,5 and Fig.
+1,39,22,1,3,1,"",0,S.
+1,39,23,18,138,1,"",0,10) under the join-fork paradigm (6 32) and quantified experimentally using calibrated  fluorescence measurements (SI Appendix section S.
+1,39,24,1,3,1,"",0,6.
+1,39,25,1,4,1,"",0,1).
+1,39,26,30,202,1,"",0,An initial  perturbation experiment was performed to check the circuit's  sensitivity with respect to small changes in M and to compute  initial estimates of kinetic parameters (SI Appendix section  S.
+1,39,27,1,3,1,"",0,6.
+1,39,28,1,3,1,"",0,1.
+1,39,29,1,4,1,"",0,4).
+1,39,30,10,69,1,"",0,Based on those estimates we designed three time course  experiments.
+1,39,31,25,175,1,"",1,The corresponding fluorescence trajectories show  that the in vitro filter resembles the ideal mathematical model at a  remarkably high precision in all three scenarios (Fig.
+1,39,32,2,8,1,"",0,4 C-E).
+1,40,1,5,40,1,"",1,Ensemble Filtering in Escherichia coli.
+1,40,2,19,162,1,"",0,Engineering biochemical  circuits and their properties in living organisms is associated with  substantial additional challenges compared with cell-free systems.
+1,40,3,16,118,1,"",0,It is therefore important to show that the desired circuit  characteristics are attainable using cellular mechanisms.
+1,40,4,20,134,1,"",1,In the  following we demonstrate experimentally that a simple genetic  circuit in Escherichia coli can function as an optimal filter.
+1,40,5,25,139,1,"",0,To check whether our circuit is indeed able to estimate a noise  signal Z?t? unknown to it we must know the noise signal being  estimated.
+1,40,6,14,77,1,"",0,A good way to achieve this is to generate the random  signal Z?t? ourselves.
+1,40,7,18,113,1,"",1,To that end we used an optogenetically  controlled sensor to which we can apply arbitrary light sequences  Z?t?.
+1,40,8,15,81,1,"",0,This allowed us to compare the filter estimate M?t? to the  true values of Z?t?.
+1,40,9,17,120,1,"",1,In practical applications the optogenetic  sensor could be replaced by one that recognizes another signal of  interest.
+1,40,10,7,47,1,"",0,The procedures we followed are described next.
+1,40,11,26,168,1,"",2,We used an optogenetic circuit encoded in plasmid pJT119b  (33) which expresses a fluorescent protein (GFP) at a basal rate  through a weak constitutive promoter (34).
+1,40,12,16,92,1,"",1,This rate can be enhanced through a second promoter that is inducible by green light  (Fig.
+1,40,13,1,5,1,"",0,5A).
+1,40,14,52,317,1,"",1,Due to this particular promoter configuration and the  fact that plasmids are present in multiple copies per cell  [n ? 50 - 70 (35)] this circuit closely resembles an ensemble Poisson  filter that optimally estimates a light signal Z?t? generated according to noise dynamics with a particular set of parameters r f.
+1,40,15,4,20,1,"",0,Indeed based on Eq.
+1,40,16,32,156,1,"",1,4 there always exist a r and f for which the  optogenetic circuit functions as an optimal filter as long as the  degradation rate of M is larger than c Y .
+1,40,17,45,293,1,"",2,To figure out these inverse  optimal parameters for our specific optogenetic circuit we performed calibration experiments using a designed light profile Z 1 ?t?  to infer the mRNA transcription dynamics along with the parameters a v and t that account for reporter maturation and degradation.
+1,40,18,18,97,1,"",0,From the inferred transcription dynamics we can get the  parameters r f and c Y according to Eq.
+1,40,19,4,17,1,"",0,4 (see also Fig.
+1,40,20,7,32,1,"",0,5 A and SI  Appendix section S.
+1,40,21,1,3,1,"",0,7.
+1,40,22,3,11,1,"",0,5 and Fig.
+1,40,23,1,3,1,"",0,S.
+1,40,24,1,5,1,"",0,16).
+1,40,25,24,144,1,"",0,The inferred filter circuit  parameters allow us to assess the performance that the filter would  achieve in terms of its MSE (SI Appendix Fig.
+1,40,26,1,3,1,"",0,S.
+1,40,27,1,5,1,"",0,16).
+1,40,28,13,72,1,"",0,Finally we tested the function of our circuit as an estimator of  Z?t?.
+1,40,29,23,125,1,"",1,We generated a random trajectory Z 2 ?t? and applied it as a  light input to our optogenetic circuit (SI Appendix section S.
+1,40,30,1,3,1,"",0,7.
+1,40,31,1,4,1,"",0,7).
+1,40,32,23,163,1,"",0,We found that the corresponding experimental fluorescence  measurements are in very good agreement with the response  predicted by the inferred filter model (Fig.
+1,40,33,22,148,1,"",1,5B) indicating that  the corresponding transcriptional output M?t? is indeed able to  estimate Z?t? with high fidelity (see SI Appendix sections S.
+1,40,34,1,3,1,"",0,7.
+1,40,35,2,7,1,"",0,5-  S.
+1,40,36,1,3,1,"",0,7.
+1,40,37,4,21,1,"",0,7 for more details).
+1,41,1,18,129,1,"",1,Circuits like the one above could serve as modules for estimating dynamic transcription factor abundances from transcribed RNAs.
+1,41,2,62,348,1,"",0,The estimator could be optimized to specific Z?t?  dynamics (characterized by r f) by tuning the strengths of the  promoters: the constitutive expression rate should be designed to  be close to r whereas the induced transcription rate should be  close to c Y := ?k - f? where k is the degradation rate constant of  M which should satisfy k &gt; f.
+1,41,3,27,136,1,"",0,As shown earlier in this article the  robustness of the filter with respect to mismatch in r and f increases with the sensor rate c Y .
+1,42,1,18,143,1,"",0,Discussion  Our results illustrate that a seemingly complex filtering operation  may be realizable through very simple biochemical mechanisms.
+1,42,2,28,183,1,"",3,This simplicity allowed us to showcase our filtering approach  in vitro using DNA strand displacement cascades but also in vivo  using a light-inducible gene expression circuit in E.
+1,42,3,1,6,1,"",1,coli.
+1,42,4,23,152,1,"",0,A key strength of model-based filtering techniques is that the  assumed model dynamics of Z?t? are steadily corrected through  a feedback control loop.
+1,42,5,16,88,1,"",1,This way a filter can exploit all information about Z?t? that is available a priori (e.
+1,42,6,1,3,1,"",0,g.
+1,42,7,21,132,1,"",1, its autocorrelation or mean abundance) but at the same time can tolerate  a substantial degree of model mismatch (SI Appendix Fig.
+1,42,8,1,3,1,"",0,S.
+1,42,9,3,13,1,"",0,2  and Figs.
+1,42,10,3,12,1,"",0,2D and 3D).
+1,42,11,22,151,1,"",0,The latter property appears particularly  relevant for synthetic biology where the true dynamics of a signal  Z?t? is often only poorly characterized.
+1,42,12,23,149,1,"",0,We found that the proposed ensemble filter variants are favorable over normal ones when replicates of identical circuits  are easy to accomplish (e.
+1,42,13,1,3,1,"",0,g.
+1,42,14,3,29,1,"",1, through multiple plasmids).
+1,42,15,42,252,1,"",0,By  exploiting this parallelism they lead to a damping of the sensor  noise that is inversely proportional to the ensemble size n and as  a consequence ensemble filters achieve a reduced MSE for all  n &gt; 1 compared with their original counterparts.
+1,42,16,30,206,1,"",0,Most importantly however the ensemble concept entails a  general recipe for building optimal estimators of arbitrary biochemical signals even if they are nonlinear and multiple steps away  from the sensor.
+1,42,17,22,120,1,"",0,In particular they can be realized from n replications of the signal of interest Z i ?t? extended by a sensor reaction 
+1,42,18,9,68,1,"",0,and an additional (controlled) degradation (SI Appendix section  S.
+1,42,19,1,4,1,"",0,3).
+1,42,20,18,117,1,"",0,The individual replicates serve as stochastic simulations of  Z i ?t? to emulate its unconditional mean dynamics [i.
+1,42,21,1,3,1,"",0,e.
+1,42,22,9,47,1,"",0, D i ?t?] as an  n-sample Monte Carlo average.
+1,42,23,18,119,1,"",0,As a striking implication the moment closure problem is bypassed facilitating applications also to  nonlinear Z i ?t?.
+1,42,24,26,155,1,"",0,Another desirable side effect of replicating Z i ?t? is  that parameter and model mismatch between the assumed and true  dynamics is reduced to a minimum.
+1,42,25,21,179,1,"",1,Our simulation studies suggest several potential applications  of optimal filters to biomolecular estimation system identification and the design of context-independent circuits.
+1,42,26,17,117,1,"",1,In contrast  to trial-and-error approaches the circuits are derived in a principled fashion under an MMSE criterion.
+1,42,27,19,129,1,"",1,We believe that the ability to perform statistical computations  in situ will be crucial for devising robust synthetic networks.
+1,42,28,15,112,1,"",0,Those will allow circuits to sense estimate and adapt to their  environment facilitating context-aware designs.
+1,42,29,20,163,1,"",0,We envision  many potential applications ranging from adaptive therapeutics  to self-reporting cells that estimate and display inaccessible parameters and states.
+1,43,1,3,23,1,"",0,Materials and Methods 
+1,44,1,15,121,1,"",0,Detailed information about mathematical derivations simulations and experimental procedures can be found in SI Appendix.
+1,44,2,5,27,1,"",0,In SI Appendix section  S.
+1,44,3,12,91,1,"",0,1 we provide discussions around the optimal filtering framework for  biochemical networks.
+1,44,4,12,80,1,"",0,The ensemble and multivariate filters are described in  SI Appendix sections S.
+1,44,5,3,9,1,"",0,2 and S.
+1,44,6,2,16,1,"",0,3 respectively.
+1,44,7,4,23,1,"",0,SI Appendix section S.
+1,44,8,15,120,1,"",0,4 introduces a mathematical framework for noise cancellation and contains  details about the corresponding simulations.
+1,44,9,18,125,1,"",0,Rational design and experimental methods related to the DNA-based filtering circuit are provided in SI  Appendix sections S.
+1,44,10,3,9,1,"",0,5 and S.
+1,44,11,1,3,1,"",0,6.
+1,44,12,14,94,1,"",0,Experimental methods related to the bacterial circuit are described in SI Appendix section S.
+1,44,13,1,3,1,"",0,7.
+1,45,1,1,5,1,"",0,Fig.
+1,45,2,1,3,1,"",0,1.
+1,45,3,3,29,1,"",0,Sensing biochemical signals.
+1,45,4,3,23,1,"",0,(A) Schematic diagram.
+1,45,5,29,163,1,"",0,The noise Z?t? is  modeled as a birth-death process with birth rate r and death rate f and is  assumed to be observable only indirectly through a sensor reaction.
+1,45,6,7,40,1,"",0,The corresponding rate constant c Y (i.
+1,45,7,1,3,1,"",0,e.
+1,45,8,15,95,1,"",0, sensor rate) determines how much information about Z?t? is on average revealed per time unit.
+1,45,9,11,74,1,"",0,It consequently determines  the precision at which Z?t? can be estimated.
+1,45,10,17,106,1,"",0,(B) The two plots show realizations  of the hidden noise Z?t? and the corresponding sensor firings dY?t?.
+1,46,1,1,5,1,"",0,Fig.
+1,46,2,1,3,1,"",0,2.
+1,46,3,3,32,1,"",0,Generalized filtering circuits.
+1,46,4,3,28,1,"",0,(A) Schematic illustration.
+1,46,5,22,119,1,"",0,The signal of  interest Z i ?t? relates to a sensed signal Z k ?t? through an arbitrary and possibly  complex network.
+1,46,6,11,57,1,"",0,Optimal estimates of Z i ?t? can be computed through Eq.
+1,46,7,1,3,1,"",0,5.
+1,46,8,6,42,1,"",0,(B) The 2D system identification circuit.
+1,46,9,29,157,1,"",0,The red species correspond to the  hidden process that consists of a birth-death process Z 2 ?t? with birth and death  rates rZ 1 and fZ 2 ?t? respectively.
+1,46,10,25,119,1,"",0,We assume both Z 1 and Z 2 ?t? to be unknown  (red nodes) but that Z 2 ?t? can be observed indirectly through sensors.
+1,46,11,16,81,1,"",0,The  corresponding optimal filters M 1 ?t? and M 2 ?t? are shown as green nodes.
+1,46,12,6,41,1,"",0,(C) Joint state and parameter inference.
+1,46,13,18,102,1,"",0,After a short transient the filter is able  to correctly identify the unknown birth rate Z 1 (Upper).
+1,46,14,27,155,1,"",0,Even though the birth  rate is initially far off the true value Z 2 ?t? is estimated very accurately due to  the self-adjusting property of the estimator.
+1,46,15,4,36,1,"",0,(D) Adaptive system identification.
+1,46,16,11,65,1,"",0,We applied the filter from B to a system identification problem.
+1,46,17,29,160,1,"",2,In particular  we tried to identify a birth-death process with a complex time-varying birth  rate Z 1 : = Z 1 ?t? modeled by the bistable Schloegl system (36).
+1,46,18,29,162,1,"",0,The results indicate that as long as the filter adapts sufficiently fast (larger l and c Y ) it is able  to track the complex system dynamics accurately (Right).
+1,46,19,27,145,1,"",0,However when the  dynamics of Z 1 ?t? are fast compared with the timescale of adaptation (small l  and c Y ) the performance breaks down (Left).
+1,47,1,1,5,1,"",0,Fig.
+1,47,2,1,3,1,"",0,3.
+1,47,3,5,44,1,"",0,Noise cancellation using optimal filtering.
+1,47,4,7,48,1,"",1,(A) Schematic diagram of  the microRNA circuit.
+1,47,5,13,90,1,"",1,The expression of the transiently transfected gene X is  assumed to be context-dependent.
+1,47,6,13,70,1,"",1,First it is affected by the number of  plasmids present in each cell.
+1,47,7,30,121,1,"",1,We assume that at time t = 0 a random number  of plasmids is deployed to each cell [n?0? ~ NB?r p? with r = 2 and p = 0.
+1,47,8,10,68,1,"",0,01] and  that this number decreases randomly through cell division.
+1,47,9,26,127,1,"",0,This is modeled  by a degradation reaction n -> 0 with rate log?2?n?t?=T 0 and T 0 = 15 h as the  average cell cycle duration.
+1,47,10,15,100,1,"",0,Furthermore we model a dependency of the  transcription rate on a cell cycle-dependent factor C?t?.
+1,47,11,13,72,1,"",0,Overall the transcription rate of gene X is given by an?t?C?t? = aZ?t?.
+1,47,12,25,153,1,"",2,The estimator gene M is  present twice on the plasmid: once attached to a Z(t)-inducible promoter pMi  and once attached to a constitutive promoter pMc.
+1,47,13,14,78,1,"",0,Note that in practice pMc  is also likely to be affected by contextual noise.
+1,47,14,16,102,1,"",0,We therefore accounted for  an unintended dependency of this promoter on Z(t) as well (dashed arrow).
+1,47,15,13,88,1,"",0,(B) Example realizations of the overall contextual noise Z?t? for two different  cells.
+1,47,16,17,85,1,"",0,Realizations of the target gene X?t? for small (C) and large (D) sensor  rates c Y .
+1,47,17,18,104,1,"",0,If c Y is too small Z?t? cannot be captured sufficiently well resulting in  a poor circuit performance.
+1,47,18,31,185,1,"",1,In contrast if c Y is reasonably large the output  variability can be suppressed almost entirely such that X?t? can be expressed  at a high stability across the window of transfection.
+1,48,1,1,5,1,"",0,Fig.
+1,48,2,1,3,1,"",0,4.
+1,48,3,6,40,1,"",1,In vitro estimation of dynamic signals.
+1,48,4,3,24,1,"",0,(A) Experimental setup.
+1,48,5,33,217,1,"",2,The hidden signal Z?t? and corresponding sensor reactions Y?t? are simulated in silico  and subsequently transferred to the reaction volume of the in vitro estimator M?t? each time increasing its concentration by DM.
+1,48,6,14,101,1,"",1,In vitro dynamics are  monitored through fluorescence experiments at acquisition intervals of 1 min.
+1,48,7,11,71,1,"",0,(B) Biochemical implementation of the Poisson filter as a DSD cascade.
+1,48,8,19,117,1,"",0,The  overall circuit consists of two modules one for production of M and one for combined degradation and reporting.
+1,48,9,19,103,1,"",0,Strand displacement reactions are described  as single events with rate parameters g J  g F  and g D .
+1,48,10,25,125,1,"",0,The desired birth and death rates r and ?f + c Y ? are set by choosing appropriate initial concentrations of  gates H and D.
+1,48,11,26,175,1,"",2,Every time a degradation event happens a fluorophore is irreversibly unquenched such that the measured fluorescence is proportional to the  integral of M?t? (SI Appendix Fig.
+1,48,12,1,3,1,"",0,S.
+1,48,13,1,5,1,"",0,10).
+1,48,14,10,78,1,"",0,(C-E) Experimental assessment of the estimator using three different signals.
+1,48,15,16,94,1,"",1,The simulated sensor time points when  dY?t? = 1 are indicated by the triangles (Dataset S1).
+1,48,16,28,177,1,"",0,If more than one of those time points fell into one acquisitions cycle the respective multiples of DM were  added simultaneously (indicated by the numbers above the triangles).
+1,48,17,18,124,1,"",0,The estimator M?t? was extracted by differentiating the measured fluorescence FL?t? as  described in SI Appendix section S.
+1,48,18,1,3,1,"",0,6.
+1,48,19,1,3,1,"",0,1.
+1,48,20,1,3,1,"",0,6.
+1,48,21,24,143,1,"",0,C shows filtering results for a random realization of the birth-death process Z?t? with r and f matching the prior  assumptions of the filter.
+1,48,22,16,91,1,"",0,In D and E the filter was further tested using two artificially designed profiles Z?t? (i.
+1,48,23,1,3,1,"",0,e.
+1,48,24,2,26,1,"",1, singleand double-pulse).
+1,49,1,1,5,1,"",0,Fig.
+1,49,2,1,3,1,"",0,5.
+1,49,3,5,33,1,"",0,Ensemble filtering circuit in E.
+1,49,4,1,6,1,"",1,coli.
+1,49,5,3,23,1,"",0,(A) Schematic diagram.
+1,49,6,23,146,1,"",2,Transcription  of mRNA M?t? is activated by an inducible promoter pMi whose activity depends on the intensity of the applied light stimulus Z?t?.
+1,49,7,14,90,1,"",0,A basal level of transcription is present due to an additional constitutive promoter pMc.
+1,49,8,17,115,1,"",0,Synthesis  and degradation of protein are modeled as a delay differential equation to  account for GFP maturation.
+1,49,9,16,116,1,"",0,To explain experimental day-to-day variability we  allowed the protein synthesis rate a to vary across experiments.
+1,49,10,3,23,1,"",0,(B) Filter validation.
+1,49,11,22,135,1,"",0,We applied a randomly generated light sequence Z 2 ?t? to the circuit and  compared the experimental outcome to the model predictions.
+1,49,12,14,98,1,"",1,The mathematical solution of GFP closely resembles the GFP abundance recorded by flow  cytometry.
+1,49,13,21,148,1,"",1,The corresponding transcriptional response M?t? inferred from the  model shows that this circuit yields accurate estimates of the light input Z?t?.

@@ -1,0 +1,28 @@
+#!/bin/bash
+# generate list of keywords from table of acronyms in a book
+
+# directory of executables
+DIR=".."
+
+# file to process
+infile=acronyms
+
+[[ -f "$infile.pdf" ]] || { echo "Input file does not exist."; exit 0; }
+
+# delete $infile.* files except $infile.pdf
+find . -maxdepth 1 -type f -name "$infile.*" -not -name "$infile.pdf" \
+     -exec rm {} \;
+
+# with page layouts
+$DIR/pdfastext -c1 -t1 -m2 -b0 -gjpgpdf -i $infile.pdf
+
+# copy selected blocks to output file
+$DIR/textblocks $infile.txt -append $infile.out1 -log 3 -copy \
+	   "{1.4 1.6 2.2 2.4}"
+
+# produce clean output with block labels removed
+$DIR/textblocks $infile.out1 -overwrite $infile.out2 -log 3 -clean 
+
+# sort keywords
+sort -o $infile.out2 $infile.out2
+

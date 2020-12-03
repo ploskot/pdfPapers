@@ -1,0 +1,98 @@
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample4.out1.log
+++ Created output file sample4.out1
+++ Output file set to sample4.out1
+ < copyblocks sample4.txt sample4.out1 "1.3 1.5 1.7 1.6 1.8 1.10-12 2.36-43 3.10 3.15 3.16 3.20 3.21 4.13-16 5.2-8 6.2-5 7.2 3.9 3.19 3.14 4.12 2.2-34"
+ > copyblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample4.out1.log
+++ Changes to be made on input file sample4.out1
+ < mergeblocks sample4.out1 "1.7 1.6"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample4.out1.log
+++ Changes to be made on input file sample4.out1
+ < mergeblocks sample4.out1 "2.2-34"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample4.out1.log
+++ Changes to be made on input file sample4.out1
+ < autoblocks sample4.out1 merge
+ < mergeblocks sample4.out1 {1.8 1.10}
+ > mergeblocks ok
+ < mergeblocks sample4.out1 {1.12 2.36}
+ > mergeblocks ok
+ < mergeblocks sample4.out1 {2.39 2.40}
+ > mergeblocks ok
+ < mergeblocks sample4.out1 {2.43 3.10 3.15}
+ > mergeblocks ok
+ < mergeblocks sample4.out1 {3.21 4.13}
+ > mergeblocks ok
+ < mergeblocks sample4.out1 {4.14 4.15}
+ > mergeblocks ok
+ < mergeblocks sample4.out1 {4.16 5.2}
+ > mergeblocks ok
+ < mergeblocks sample4.out1 {5.8 6.2}
+ > mergeblocks ok
+ > autoblocks blocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample4.out1.log
+++ Changes to be made on input file sample4.out1
+ < autoblocks sample4.out1 renumber
+ < renumberblocks sample4.out1 from 1.3 to 2.29
+ > renumberblocks ok
+ > autoblocks blocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample4.out1.log
+++ Changes to be made on input file sample4.out1
+ < cleanblocks sample4.out1 sample4.out1  rs "\([a-z]\)- \+\([a-z]\):\1\2" sed /^\s*$/d as .:
+ sed s/^ *//g
+ + cleaning block 1.3
+ + cleaning block 1.4
+ + cleaning block 1.5
+ + cleaning block 1.6
+ + cleaning block 1.7
+ + cleaning block 1.8
+ + cleaning block 1.9
+ + cleaning block 1.10
+ + cleaning block 1.11
+ + cleaning block 1.12
+ + cleaning block 1.13
+ + cleaning block 1.14
+ + cleaning block 1.15
+ + cleaning block 1.16
+ + cleaning block 1.17
+ + cleaning block 1.18
+ + cleaning block 1.19
+ + cleaning block 1.20
+ + cleaning block 1.21
+ + cleaning block 1.22
+ + cleaning block 1.23
+ + cleaning block 1.24
+ + cleaning block 1.25
+ + cleaning block 1.26
+ + cleaning block 1.27
+ + cleaning block 1.28
+ + cleaning block 1.29
+ + cleaning block 1.30
+ + cleaning block 1.31
+ + cleaning block 1.32
+ + cleaning block 1.33
+ + cleaning block 1.34
+ + cleaning block 1.35
+ + cleaning block 1.36
+ + cleaning block 1.37
+ + cleaning block 1.38
+ + cleaning block 1.39
+ + cleaning block 1.40
+ + cleaning block 1.41
+ + cleaning block 1.42
+ + cleaning block 1.43
+ + cleaning block 1.44
+ > cleanblocks ok

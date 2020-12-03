@@ -1,0 +1,73 @@
+# LQi 25.11.2020
+# help file for texttoinfo command
+
+General usage:
+>> texttoinfo COMMAND [OPTIONS] inputfile
+
+To get the version number and quit:
+>> texttoinfo -version
+
+To show this help and quit:
+>> texttoinfo -help
+
+To suppress all messages except the generated output:
+>> texttoinfo -nomsg COMMAND [OPTIONS] inputfile
+
+To generate bag of words (bow) for inputfile to standard output, so the
+output can be stored to a file or processed further:
+>> texttoinfo -bow [OPTIONS] inputfile
+
+where OPTIONS:
+
+ -ef {filename} exclude stop words in given file
+ -es {string}   exclude space separated words in given string
+ -ep {pat}      removes words matching the pattern {pat}
+ -w {nubmber}   exclude words shorter than {number} of characters
+ -{number}      truncate the output to {number} of lines
+ -gt|-eq|lt|-ge|-le {number}  keep only words with given occurrences   
+ -so            sort output by number of occurrences
+ -sa            sort output alphanumerically
+ -sar	       sort output alphanumerically in reverse order
+ -sl	       sort by length of strings
+ -slr	       sort by length of strings in reverse order
+ -o array|clean|freq (default)|rfreq  format output
+
+To get a given number of words before and after and including the given
+pattern from inputifle displayed to standard output, so the output can be
+stored to a file or further processed:
+>> texttoinfo -nwords -p "pattern" [OPTIONS] inputfile
+>> texttoinfo -nwords -p "{pattern" [OPTIONS] inputfile
+>> texttoinfo -nwords -p "pattern}" [OPTIONS] inputfile
+>> texttoinfo -nwords -p "{pattern}" [OPTIONS] inputfile
+
+where "{pattern" matches left word boundary of pattern
+      "pattern}" matches right word boundary of pattern
+
+The output is the number of terms before and including the pattern, and the
+number of terms after and including the patter, and the complete phrase
+containing the pattern in the middle.
+
+and OPTIONS:
+
+ -ef {filename}  exclude stop words given in given file
+ -es {string}    exclude space separated words in given string
+ -ep {pat}       removes words matching the pattern {pat}
+ -w {nubmber}    exclude words shorter than {number} of characters
+ -n {+n}         select words from pattern to +n words ahead
+ -n {-n}         select words from -n words before to pattern
+ -n {-n},{+n}    combine the two selections above
+ -n ,{+n}        from beginning of line to +n words ahead of pattern
+ -n {-n},        from -n words behind pattern to end of line
+
+To calculate the distance between two word strings:
+>> texttoinfo -strdist [-nomsg] [-{number}] {"string1"} {"string2"}
+
+To calculate the distances between one word and the list of other words:
+>> texttoinfo -strdist [-nomsg] [-{number}] [-noeq] [-o12|-o1|-o2] \
+>>            {"strings"} {"string21"} ... {"string2n"}
+
+The {number} in these commands restrict the output to matches having more
+characters than this value. The -noeq option suppresses comparison of equal
+strings. The -o option formats the output.
+
+EOF

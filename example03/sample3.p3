@@ -1,0 +1,91 @@
+CONVENTIONAL COMPUTING DEVICES, the abacus and the logic chip, both dissipate energy when they are operated.
+The &apos;Vogic gates&quot; central to the design of a chip expend energy because they discard information.
+A chip consumes energy for a less fundamental reason as well: it employs circuits that draw power even when they merely hold information and d o not process it.
+The abacus is 
+dissipative because of friction between its beads and rods.
+It could not be built of frictionless components: if there were no static friction, the beadsy positions would change under the influence of random thermal motion.
+Static friction exerts a certain minimum force no matter what the beads&apos; velocity, and so there is some minium energy that the abacus requires no matter how slowly it is operated.
+FREDKIN REVERSIBLE LOGIC GATE need not dissipate energy; the input can alwaysbe deduced from the output.
+The gate has a ucontrol" line, the value of which is not changedby the gate.
+If the bit on the control line is a 0, the values of the other two lines are also un-
+touched; if it is a I, however, the input of line A becomes the output of line B and vice versa.
+Reversible gates can be arranged to implement any function performed by an irreversiblegate.
+To implement the and operation (right) one input is preset to equal 0, and two outputbits, called garhge bits, are temporarily ignored.
+When the computation is complete, thesebits are used to operate the gate in reverse, returning the computer to its original state.
+IDEALIZED PHYSICAL REALIZATION of a Fredkin gate substitutes pipes for wires and the presence or absence of a ball for a 1 or 0.
+A narrow, split segment of pipe represents the control channei.
+When a ball passes through it, the pipe spreads apart, operating a switching mechanism; the mechanism in turn switches any input ball from line A to line B and vice versa.
+A pair of springs keeps the 
+control channel closed when no ball is in it.
+This gate does not need static friction in order to operate; it could be immersed in a viscous fluid, and the frictional forces could be made to depend only on the balls&apos; velocity.
+Then the energy dissipation could be as small as the user wished: to lower the amount of energy dissipated, it would only be necessary to drive the balls through the device more slowly.
+BILLIARD-BALL COMPUTER employs the movement of biiliard balls on a table to simulate the movement of bits through logic gates.
+In billiard-ball logic gates (left) the balls&apos; paths are redirected by collisions with one another or with reflecting &quot;mirrors.
+&quot;In addition to their role in gates, mirrors can deflect a ball&apos;s path (a), s h i i the pathsideways (b),delay the ball&apos;smotion withoutchangingits final direction or position (c) or allow two l i e s to crass (d).
+It is possible to arrange mirrors so that the resulting Lbcomputer&quot; implements the 
+function of any logic chip.
+For example, a billiard-ball computer could be made to test whether a number is prime.
+One such computer (right) accepts as input any fivebit number (in this case 01101, or 13) and the fixed input sequence 01.
+Like a Fredkin gate, a billiard-ball computer typically returns more output bits than its user needs.
+In the case shown, the computer returns the original input number itself (which is the &quot;extra&quot; output), and an &quot;answer&quot; sequence: 10 if the input number is prime and 01 if it is composite.
+TURING MACHINE can be constructed in such a way that it can perform any computation a computer can.
+An infinitely long tape is divided into discrete segments, each of which bears either a 0 or a 1.
+A &quot;read/write head,&quot; which can be in any of several internal states (here there are only two states, A and B), moves along the tape.
+Each cycle begins as the head reads one bit from a segment of the tape.
+Then, in accordance with a fixed set of transition rules, it writes a bit onto that segment, changes its own internalstate and moves one segment to the left or right.
+This Turing machine, because it has only two head states, can do only trivial computations; more complicated machines with more head states are capable of simulating any computer, even one much more complicated than themselves.
+To do s o they store a representation of the larger machine&apos;s complete logical state on the unlimited tape and break down each complex cycle into a large number of simple steps.
+The machine shown is logically reversible: it is always possible to deduce the machine&apos;s previous configuration.
+Other Turing machines, with different transition rules, are not reversible 
+RNA POLYMERASE, an enzyme, acts as a reversible tape-copying machine; it catalyzes
+the reaction that constructs RNA copies of segments of DNA.
+As the enzyme moves along
+a strand of DNA, it selects from the surrounding solution a nucleoside triphosphate mole-
+cule (an RNA base bound to a sugar and a "tail" of three phosphate groups) that is comple-
+mentary to the DNA base about to be copied.
+It then attaches the new base to the end of the
+RNA strand and releases a free pyrophosphaie ion consisting of two phosphates.
+The reac-
+tion is reversible:sometimes the enzyme takes up the last link of RNA, attaches it to a pyro-
+phosphate ion and returns the resulting molecule to the solution, backing up a notch on the
+DNA strand.
+When the reaction is close to chemical equilibrium, the enzyme takes almost
+as many backward as forward steps and the total energy needed to copy any segment of
+DNA is very small.
+The reaction can be made less dissipative by being run more slowly;
+there is no minimum amount of energy that must be expended to copy a segment of DNA.
+HYPOTHETICAL ENZYMATIC TURING MACHINE could perform a computation with no minimum expenditure of energy.
+Molecules representing 0 and 1 bits are attached at periodic intervals to a backbone molecule.
+A small additional molecule, representing the Turing machine&apos;s head, is attached to the 0 or 1 group at one site on the chain (I).
+There are several types ofhead molecule, each type representing a different internal machine state.
+Transition rules are represented by enzymes.
+In each cycle an enzyme attaches itself to the head molecule and the bit molecule to which the head is attached (2); then it detaches them from the chain, putting in their place the appropriate bit molecule (3).
+As it does so it rotates, so that it attaches the appropriate head molecule to the bit that occupies the site one notch to the right or left of the hit it has just changed.
+Now the cycle is complete (4): the value of a bit has been changed, and the head has changed state and shifted its position.
+Esch kind of enzyme is able to catalyze one such set of reactions.
+As in the case of RNA synthesis, these reactions can be made to dissipate an arbitrarily small amount of energy.
+BROWNIAN CLOCKWORK TURING MACHINE, made out of rigid, frictionless parts, relies on random jiggling of its loosely fitted parts to change from state to state.
+When a part is held in place, it is not by friction but by grooves or notches in neighboring parts.
+Parts interlock in such a way that they can follow only one &quot;computational patb&quot;; although they are free to jiggle a little, the only large-scale motions they can make correspond to forward or backward computational steps.
+The operation of the machine is driven slowly forward by a very weak force; a t any instant the machine is almost as likely to move backward as forward.
+On the average, however, the machine will move forward and the computation will eventually end.
+The machine can be made to dissipate as small a n amount of energy as the user wishes, simply by employing a force of the correct weakness.
+Segments of tape are represented by grooved disks; bits are represented by E-shaped blocks, which are locked onto the disks in either the up (1)or the down (0) position.
+The head consists of a rigid framework and a complicated mechanism (most of which is not shown) from which are suspended a reader, a manipulator and a screwdriver-shaped rod.
+The machine&apos;s operation is controlled by a grooved &quot;master camshaft,&quot; which resembles a phonograph record (top left and far right); different grooves correspond to different head states.
+At the beginning of a cycle the head is positioned above one of the disks and a &quot;stylus&quot; is in the &quot;read&quot;segment of the groove in the master camshaft that corresponds to the machine&apos;s current head state.
+During the &quot;read&quot; part of the cycle ( I ) the reader determines whether the disk&apos;s &quot;bit* block is up or down by a process called an obstructive read (center 
+right).
+In an obstructive read the reader moves past the block, following a high or a low path; one of the paths will be obstructed by the knob on the end of the block, and so there will be only one patb for the reader to follow.
+At the point on the master camshaft that corresponds to this &quot;decision&quot; the grooves branch; each groove splits into two, and the stylus is guided into the groove that corresponds to the bit&apos;s value (2).
+Then the master camshaft turns until the stylus is in the &quot;write&quot;segment (3).
+In this segment each groove contains a different set of &quot;instructions&quot; for the machine t o follow; the instructions are transmitted by a complex linkage between the stylus and the rest of the mechanim.
+If the instructions call for the bit&apos;s value to change, the manipulator moves over and grasps the knob; then the screwdriver rotates the disk until the block is free to move, the manipulator moves the block up or down and the screwdriver rotates the disk again to hold the block in place.
+After the stylus passes through the L&apos;write&quot; segment of the master camshaft it enters the &quot;shift&quot;segment (4).
+Each groove in this segment contains instructions to move the head one segment t o the left or right.
+Then the stylus enters the &quot;change state&quot; segment of the camshaft (9, where grooves merge in such a way that the stylus falls into the groove representing the next head state.
+The cycle is now complete (6).
+Disks adjacent to the one being read are held in place by the head&apos;s framework.
+Disks that are farther away are held by &quot;locking tabs.
+&quot; The locking tab on each disk is coupled to a special bit, called the Q bit, on a n adjacent disk.
+The linkages between Q bits and locking tabs are constructed so that the disk currently being read is free to move, while disks far to the right or left are held still.

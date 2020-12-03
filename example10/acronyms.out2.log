@@ -1,0 +1,7 @@
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to acronyms.out2.log
+++ Created output file acronyms.out2
+++ Output file set to acronyms.out2
+ < cleanblocks acronyms.out1 acronyms.out2 
+ > cleanblocks ok

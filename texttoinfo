@@ -1,0 +1,441 @@
+#!/bin/bash
+version=0.1.0
+############################################################################
+##                                                                        ##
+##  texttoinfo: A shell-script to extract information from text blocks    ##
+##              extracted from pdf file with pdfastext and textblocks     ##
+##              or just pdftotext utilities                               ##
+##                                                                        ##
+##  Author: Pavel Loskot, loskot@gmail.com                                ##
+##                                                                        ##
+##  Usage: "texttoinfo -help"                                             ##
+##                                                                        ##
+##  License: GNU/GPL version 2 or later. No other warranty.               ##
+##                                                                        ##
+##  Configuration file may appear in future versions.                     ##
+##                                                                        ## 
+##  Developed and tested with GNU bash version 5.0.17                     ##
+##                                                                        ##
+############################################################################
+
+trap "echo :exiting;exit 1" SIGINT SIGTERM
+
+set -e
+
+export LC_CTYPE="en_US.utf8"
+
+help_file="$0.1"
+
+this="${0/#*\/}"
+
+# check BASH version used is at least 5.0
+printf "5.0\n${BASH_VERSION%.*}" | sort -C || echo "Warning use BASH >= 5.0"
+
+req_commands="pdftotext" # external dependencies
+
+# check dependencies on external commands
+for c in $req_commands; do
+    hash "$c" 2>/dev/null || err_exit "$c required but not found"
+done
+
+pdftotext_cmd='/usr/bin/pdftotext -eol unix -enc UTF-8 -nodiag -nopgbrk -q'
+
+# message to stdout (for debuggin)
+DM() { echo -e "$@" >&1; }
+
+# messages to stdout
+msg0() { echo -n ""; } # no messages
+msg1() { echo -e "$@" >&1; }  # stdout
+[[ "$@" =~ -nomsg ]] && MSG=msg0 || MSG=msg1
+[[ "$1" == "-nomsg" ]] && shift
+
+# exit ok
+ok_exit() { $MSG "$1" ; exit 0; }
+
+# exit with error
+err_exit() { echo "Error: $1" >&2; exit 1; }
+
+# display help
+[[ "$1" == "-help" ]] && { cat "$help_file" | sed '1,/^#/d'; exit 0; }
+
+# show version number
+[[ "$1" == "-version" ]] &&
+    ok_exit "Text to information processor $this version $version"
+
+# initial checks
+[[ "$#" == "0" ]] && err_exit "Use $this -help for instructions."
+[[ "$#" == "1" ]] && err_exit "Nothing to do. Try $this -help"
+
+
+############################################################################
+#                                                                          #
+#  Functions                                                               #
+#                                                                          #
+############################################################################
+
+# obtain bag of words from input file, and send result to standard output
+# Usage: bow inputfile OPTIONS
+#   -ef {filename} exclude stop words in given file
+#   -es {string}   exclude space separated words in given string
+#   -ep {pat}      removes words matching the pattern {pat}
+#   -w {nubmber}   exclude words shorter than {number} of characters
+#   -{number}      truncate the output to {number} of lines
+#   -gt|-eq|lt|-ge|-le {number}  keep only words with given occurrences   
+#   -so            sort output by number of occurrences
+#   -sa            sort output alphanumerically
+#   -sar	   sort output alphanumerically in reverse order
+#   -sl		   sort by length of strings
+#   -slr	   sort by length of strings in reverse order
+#   -o array|clean|freq (default)|rfreq  format output
+# OUTPUT
+# number of occurences of words formatted using -o option
+bow() { 
+    [[ -f "$1" ]] || err_exit "File $1 not found."
+    local fin="$1" s=o o=freq
+    if [[ "$(/usr/bin/file $fin)" =~ (pdf|PDF) ]]; then
+	[[ -f "${fin%.*}.txt" ]] \
+	    && err_exit "File ${fin%.*}.txt already exists."
+	$pdftotext_cmd "$fin" "${fin%.*}.txt"
+	$MSG "++ Converted $fin to ${fin%.*}.txt"
+	fin="${fin%.*}.txt"
+    fi
+    shift
+    ww="$(cat "$fin" | tr -dc '[:print:]\n\r' | \
+    	      sed 's/[/+=<>{}|(),*-.;:0-9"?!]/ /g' | sed 's/[][]/ /g' | \
+	      sed 's/ /\n/g' | sed '/^\s*$/d' | \
+	      sed '/^[0-9A-Z \t]\+$/!s/.*/\L&/')"
+    ww="$(echo "$ww" | sort | uniq -c | sort -rnk1)"
+    while [[ ! -z "$@" ]]; do
+	case "$1" in
+	    -ef)
+		[[ -f "$2" ]] || err_exit "File $2 not found."
+		ww0="$(comm -13 <(cat "$2" | sort) \
+			   <(echo "$ww" | awk '{print $2}' | sort))"
+		ww="$(echo "$ww" | grep -i -w "$ww0")"
+		shift 2;;
+	    -es)
+		ww0="$(echo "$2" | sed 's/ /|/g')"
+		ww="$(echo "$ww" | grep -vE "$ww0")"
+		shift 2;;
+	    -w)
+		[[ "$2" =~ [0-9][0-9]* ]] \
+		    || err_exit "Parameter -w must be followed by a number."
+		ww="$(echo "$ww" | awk -v n="$2" 'length($2)>n{print $0}')"
+		shift 2;;
+	    -ep)
+		[[ "${2::1}" == "-" ]] && err_exit "Missing pattern after -ex"
+		ww="$(echo "$ww" | grep -ve "$2")"
+		shift 2;;
+	    -[0-9]*)
+		ww="$(echo "$ww" | head $1)"
+		shift;;
+	    -gt)
+		ww="$(echo "$ww" | awk -v v="$2" '$1>v{print $0}')"
+		shift 2;;
+	    -eq)
+		ww="$(echo "$ww" | awk -v v="$2" '$1==v{print $0}')"
+		shift 2;;
+	    -lt)
+		ww="$(echo "$ww" | awk -v v="$2" '$1<v{print $0}')"
+		shift 2;;
+	    -ge)
+		ww="$(echo "$ww" | awk -v v="$2" '$1>=v{print $0}')"
+		shift 2;;
+	    -le)
+		ww="$(echo "$ww" | awk -v v="$2" '$1<=v{print $0}')"
+		shift 2;;
+	    -o)
+		local o="$2"
+		shift 2;;
+	    -s*)
+		s=${1:2}
+		shift;;
+	    -nomsg)
+		shift;;
+	    *)
+		echo "Unkonwn parameter $1 in bow() function."
+		;;
+	esac
+    done
+    # sort
+    case "$s" in
+	o)
+	    :;;
+	a)
+	    ww="$(echo "$ww" | sort -k2)";;
+	ar)
+	    ww="$(echo "$ww" | sort -rk2)";;
+	l)
+	    ww="$(echo "$ww" | awk '{print length($2), $0 }' | sort -n | \
+	    	       cut -d" " -f2-)";;
+	lr)
+	    ww="$(echo "$ww" | awk '{print length($2), $0 }' | sort -nr | \
+	    	       cut -d" " -f2-)";;
+	*)
+	    err_exit "Unknown sort option $s in texttoinfo/bow.";;
+    esac
+    # output
+    case "$o" in
+	freq)
+	    echo "$ww";;
+	array)
+	    echo "$ww" | awk '{ printf "[%s]=%d\n",$2,$1 }';;
+	clean)
+	    echo "$ww" | awk '{ print $2}';;
+	rfreq)
+	    echo "$ww" | awk '{ printf "%18s %d\n",$2,$1}';;
+	*)
+	    err_exit "Unknown output option in texttoinfo/bow.";;
+    esac
+}
+
+
+# get N words after or before given pattern
+# Usage: getnwords inputfile -p "pattern" [OPTIONS] 
+# OPTIONS 
+#     -p "{pattern"    match left word boundary of pattern
+#     -p "pattern}"    match right word boundary of pattern
+#     -ef {stopwords}  exclude stop words in file {stopwords}
+#     -es {otherwords} exclude words in string {otherwords}
+#     -ep {pat}        removes words matching pattern {pat}
+#     -w {number}      exclude words shorter than {number} characters
+#     -n {+n}          select words from pattern to +n words ahead
+#     -n {-n}          select words from -n words before to pattern
+#     -n {-n},{+n}     combine the two selections above
+#     -n ,{+n}         from beginning of line to +n words ahead of pattern
+#     -n {-n},         from -n words behind pattern to end of line
+#     -o1 (default)    show the number of terms before/after the pattern
+#     -o0              don't show the number of terms before/after the pattern
+# OUTPUT
+# n1,n2,phrase where n1 is the number of terms before until the pattern
+# inclusive, n2 is the number of terms after the pattern inclusive
+# and phrase is the complete phrase 
+getnwords() {
+    [[ -f "$1" ]] || err_exit "File $1 not found."
+    local fin="$1" pat ww
+    if [[ "$(/usr/bin/file $fin)" =~ (pdf|PDF) ]]; then
+	[[ -f "${fin%.*}.txt" ]] \
+	    && err_exit "File ${fin%.*}.txt already exists."
+	$pdftotext_cmd "$fin" "${fin%.*}.txt"
+	$MSG "++ Converted $fin to ${fin%.*}.txt"
+	fin="${fin%.*}.txt"
+    fi
+    shift
+    local n1=-1 n2=+1 o=1 # default values
+    [[ "$@" =~ -p[[:space:]] ]] \
+	|| err_exit "Command -nwords requires mandatory pattern."
+    while [[ ! -z "$@" ]]; do
+	case "$1" in
+	    -ef)
+		[[ -f "$2" ]] || err_exit "File $2 not found."
+		ww0="$(cat "$2" | tr '\n' ' ' | tr -s ' ' | sed 's/ /|/g')"
+		ww="$(cat "$fin" | sed -E "s/\\b(${ww0::-1})\\b//gi")"
+		shift 2;; 
+	    -es)
+       		[[ "${2::1}" == "-" ]] && err_exit "Missing pattern after -es"
+		ww0="$(echo -n "$2" | tr '\n' ' ' | tr -s ' ' | sed 's/ /|/g')"
+		ww="$(cat "$fin" | sed -E "s/\\b($ww0)\\b//g")"
+		shift 2;;
+	    -w)
+		[[ "$2" =~ [0-9][0-9]* ]] \
+		    || err_exit "Parameter -w must be followed by a number."
+		ww="$(echo "$ww" | sed -E "s/\b.{1,$2}\b//g" | tr -s ' ')"
+		shift 2;;
+	    -ep)
+		[[ "${2::1}" == "-" ]] && err_exit "Missing pattern after -ep"
+		ww="$(echo "$ww" | sed "s/"$2"//g")"
+		shift 2;;
+	    -p)
+		[[ "${2::1}" == "-" ]] && err_exit "Missing pattern after -p"
+		pat="$2";pat1="$2"
+		[[ "${2::1}" == "{" ]] 	\
+		    && { pat1="${pat1/\{/^}"; pat="${pat/\{/\\b}"; }
+		[[ "${2: -1}" == "}" ]] \
+		    && { pat1="${pat1/\}/$}"; pat="${pat/\}/\\b}"; }		
+		shift 2;;
+	    -n)
+		[[ "$2" =~ ^\+[0-9]*$ ]] && { n1=0; n2="$2"; }
+		[[ "$2" =~ ^-[0-9]*$ ]] && { n1="$2"; n2=0; }
+		[[ "$2" =~ ^-[0-9]*,\+[0-9]*$ ]] \
+		    && { n1="${2%,*}"; n2="${2#*,}"; }		
+		[[ "$2" =~ ^,\+[0-9]*$ ]] && { n1=-9999; n2="${2/,}"; }
+		[[ "$2" =~ ^-[0-9]*,$ ]] && { n1="${2/,}"; n2=+9999; }
+		shift 2;;
+	    -o[01])
+		o=${1:2}
+		shift;;
+	    -nomsg)
+		shift;;
+	    *)
+		err_exit "Unknown option $1 in getnwords."
+		;;
+	esac
+    done
+    [[ -z "$n1" ]] && err_exit "Bound n1 in -n option not set."
+    [[ -z "$n2" ]] && err_exit "Bound n2 in -n option not set."
+    [[ -z "$pat" || -z "$pat1" ]] \
+	&& err_exit "Pattern in getnwords not set."
+    [[ -z "$ww" ]] && ww="$(cat "$fin")"
+    ww="$(echo "$ww" | grep -i "${pat}")"
+    echo "$ww" | sed 's/,//g' | \
+	awk -F" " -v n1=$n1 -v n2=$n2 -v pat="$pat1" -v o=$o \
+	    'BEGIN{ORS=" "}
+	    { delete arr; for (i=1; i<=NF; ++i) { if($i ~ pat) arr[i]=i }
+		 for (i in arr) { i0=arr[i]
+	  	  (i0+n1>1) ? i1=i0+n1 : i1=1
+		  (i0+n2<NF) ? i2=i0+n2 : i2=NF
+		  if(o==1) { printf "-%d,+%d,",i0-i1+1,i2-i0+1 }
+	      	 for (i=i1; i<=i2; ++i) { print $i } 
+		 print "\n" } }' | sed 's/^ //' 
+}
+
+
+# calculate distance between two word strings
+# Usage: strdist {"string1"} {"string2"}
+# more accurate, but slow, so temporarily SUSPENDED
+_strdist() {
+    [[ "$1" == "-nomsg" ]] && shift
+    [[ "$1" == "$2" ]] && { echo "${#1},$1"; return; }
+    local c cm=0 tm= tt cm ttm n1 n2 s2pad s1e s2e
+    local s1e="$(printf "%s\n" $1 | grep -o .)"
+    local s2e="$(printf "%s\n" $2 | grep -o .)"
+    n1="$(wc -l <<< "$s1e")"
+    s2pad="$(echo "$s1e" | sed 's/^.*$/ /')"
+    s2e="$(echo -e "$s2pad" "\n$s2e\n" "$s2pad")"
+    n2="$(wc -l <<< "$s2e")"
+
+    for (( i=2; i<=$((n2-n1)); i++ )); do
+	c=0;tt=
+	while IFS= read -r l; do
+	    IFS="," read t1 t2 <<< "$l"
+	    [[ "$t1" == "$t2" ]] && { tt="$tt${t1}"; (( ++c )); }
+	done  <<< "$(paste -d"," <(echo "$s1e") \
+    		  	     <(echo "$s2e" | sed -n "$i,$((i+n1-1))p"))"
+	(( c>cm )) && { cm=$c; tm="$c,$tt"; }
+    done
+    echo $tm
+}
+
+# calculate longest common prefix of two strings if it's longer than {number}
+# Usage: strdist [-{number}] {"string1"} {"string2"}
+strdist() {
+    local n w
+    [[ "${1::1}" == "-" ]] && { n="${1:1}";shift; } || n=0
+    w=$(printf "%s\n%s" "$1" "$2" | \
+	    sed -e '$!{N;s/^\(.*\).*\n\1.*$/\1\n\1/;D;}')
+    (( "${#w}" > n )) && echo "${#w},$w,$1,$2"
+    :
+}
+
+# calculate distances between one word and the other set of words
+# only show output if distance is greater than {number}
+# use -noeq to supress comparisons of equal strings
+# use -o1, -o2 or -o12 to format output
+# Usage: nstrdist [OPTIONS] {"string1"} {"string21"} ... {"string2n"}
+nstrdist() {
+    local w1 w2 n=0 nq=f o=12x
+    while [[ "${1::1}" == "-" ]]; do
+	case "$1" in
+	    -nomsg)
+		shift;;
+	    -noeq)
+		nq=
+		shift;;
+	    -[0-9]*)
+		n="${1:1}"
+		shift;;
+	    -o[0-9]*)
+		o="${1:2}"
+		shift;;
+	    *)
+		err_exit "Unknown option to nstrdist."
+		;;
+	esac
+    done
+    w1="$1";shift
+    for w2 in $@; do
+	[[ -z "$nq" && "$w1" == "$w2" ]] && continue
+	case "$o" in
+	    12)
+		strdist "-$n" "$w1" "$w2";;
+	    1)
+		strdist "-$n" "$w1" "$w2" | awk -F, '{print $1,$2}' OFS=',';;
+	    2)
+		strdist "-$n" "$w1" "$w2" | awk -F, '{print $3,$4}' OFS=',';;
+	    *)
+		err_exit "Unknown output format to nstrdist."
+		;;
+	esac
+    done
+}
+
+
+############################################################################
+#                                                                          #
+#  Main loop of command processor                                          #
+#                                                                          #
+############################################################################
+
+case "$1" in
+    -dict)
+	# Command: -dict build [-l lang] [-o filename] inputfile
+	#    Call: buildaspelldict inputfile [-l {lang}] [-o filename]
+	case "$2" in
+	    build)
+		shift 2
+		inf="${@: -1}"
+		[[ -f "$inf" ]] || err_exit "Input file $inf does not exist."
+		set -- "${@:1:$(($#-1))}"
+		$MSG "<< buildaspelldict $inf $@"
+		buildaspelldict "$inf" "$@"
+		;;
+	    dump)
+		shift
+		$MSG "<< dumpaspelldict $@"
+		dumpaspelldict "$@"
+		;;
+	    *)
+		err_exit "Unknown option $2 for -dict command."
+		;;
+	esac
+	;;
+    -bow)
+	# Command: -bow [OPTIONS] inputfile
+	#    Call: bow inputfile [OPTIONS]
+	shift
+	inf="${@: -1}"
+	[[ -f "$inf" ]] || err_exit "Input file $inf does not exist."
+	set -- "${@:1:$(($#-1))}"
+	$MSG "<< bow $inf $@"
+	bow "$inf" "$@"
+	;;
+    -nwords)
+	# Command: -nwords pattern [OPTIONS] inputfile
+	#    Call: getnwords inputfile [OPTIONS] 
+	shift
+	inf="${@: -1}"
+	[[ -f "$inf" ]] || err_exit "Input file $inf does not exist."
+	set -- "${@:1:$(($#-1))}"
+	$MSG "<< getnwords $inf $@"
+	getnwords "$inf" "$@"
+	;;
+    -strdist)
+	# Command: -strdist [-number] string1 string2
+	#    Call: strdist [-number] string1 string2
+	shift
+	$MSG "<< strdist $@"
+	strdist "$@"
+	;;
+    -nstrdist)
+	# Command: -nstrdist [-number] [-noeq] [-o12] {"strings"}
+	#    Call: nstrdist [-number] [-noeq] [-o12] {"strings"}
+	shift
+	$MSG "<< strdist $@"
+	nstrdist "$@"
+	;;    
+    *)
+	err_exit "Unknown command $1"
+	;;
+esac
+[[ "$MSG" == "msg1" ]] && ok_exit ">> Processing terminated normally."
+

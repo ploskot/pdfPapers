@@ -1,0 +1,45 @@
+#!/bin/bash
+# produce multiple text files separting key parts of original pdf file
+# to be run after ex1-sample4
+
+# directory of executables
+DIR=".."
+
+# log level
+LL=0;
+
+# file to process
+infile=sample4
+
+[[ -f "$infile.txt" ]] || { echo "Input file does not exist."; exit 0; }
+rm -f $infile.p[0-9]*
+
+echo "$infile.p1: title+abstract"
+$DIR/textblocks $infile.txt -append $infile.p1 -log $LL -copy "{1.3 1.5}"
+
+echo "$infile.p2: pages"
+$DIR/textblocks $infile.txt -append $infile.p2 -log $LL -copy \
+		"{expand(1.{7,6,8,10-12}) 2.36-43 \
+		  expand(3.{10,15,16,20,21}) 4.13-16 5.2-8 6.2-5 7.2}"
+$DIR/textblocks $infile.p2 -inplace -log $LL -merge "{1.7 1.6}"
+
+echo "$infile.p3: captions"
+$DIR/textblocks $infile.txt -append $infile.p3 -log $LL -copy \
+		"{3.9 3.19 3.14 4.12}"
+
+echo "$infile.p4: table"
+$DIR/textblocks $infile.txt -append $infile.p4 -log $LL -copy "{2.2-34}"
+$DIR/textblocks $infile.p4 -inplace -log $LL -merge "{2.2-34}"
+
+echo "$infile.p5: references"
+$DIR/textblocks $infile.txt -append $infile.p5 -log $LL -copy "{7.30-31 8.2-3}"
+
+for i in {1..5}; do
+    echo $infile.p$i: cleanup
+    $DIR/textblocks $infile.p$i -inplace -log $LL -automerge
+    $DIR/textblocks $infile.p$i -inplace -log $LL -autorenumber
+    $DIR/textblocks $infile.p$i -inplace -log $LL -clean \
+		    rs \"\\\([a-z]\\\)- \\+\\\([a-z]\\\):\\1\\2\" \
+		    sed "/^\s*$/d" as ".:\\n" sed "s/^ *//g"
+    $DIR/textblocks $infile.p$i -inplace -log $LL -clean
+done

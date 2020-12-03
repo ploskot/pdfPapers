@@ -1,0 +1,413 @@
+#!/bin/bash
+version=0.1.0
+############################################################################
+##                                                                        ##
+##  pdfviewer:  A shell-script to search pdf files using regular          ##
+##              expressions                                               ##  
+##                                                                        ##
+##  Author: Pavel Loskot, loskot@gmail.com                                ##
+##                                                                        ##
+##  Usage: "textblocks -help"                                             ##
+##                                                                        ##
+##  License: GNU/GPL version 2 or later. No other warranty.               ##
+##                                                                        ##
+##  Configuration file may appear in future versions.                     ##
+##                                                                        ## 
+##  Developed and tested with GNU bash version 4.0.X                      ##
+##                                                                        ##
+############################################################################
+
+trap "echo :exiting;exit 1" SIGINT SIGTERM
+
+set -e
+
+export LC_CTYPE="en_US.utf8"
+
+PDFVIEW=/usr/bin/okular
+TXTVIEW="/usr/bin/emacs --geometry 80x44+1020+0"
+PDFTOTEXT="/usr/bin/pdftotext -eol unix -q"
+
+if [[ "$#" == "0" ]]; then
+    echo "Usage: pdfsearch [params] "pattern" files|-f <filename> [filters]
+
+        Patterns:
+	 "p1\&p2\&p3"    must contain all sub-patterns p1, p2, p3
+	 "p1\|p2\|p3"    must contain any sub-patterns p1, p2, p3 
+    	 "@p1"         pattern p1 passed directly to grep
+    	 "p1?n"	     must contain enough occurrences of p1 where 
+                      ? can be >, <, >=, <=
+         "\(p1\|p2\)\&p3"  combining patterns using parentheses
+         "@@p1p2p3"    @@ raw pattern to be passed directly to grep
+
+        Commands:
+	 -r, --refresh    regenerate text files
+	 -t, --textfiles  search text files instead of pdf files      
+	 -s, --save <filename> save output to this file
+ 	 -f, --file <filename> read input file names from this file	
+	 -q, --quiet      do not display any messages
+	 -g-<s1s2>, --grep-<s1s2> pass switches -s1 -s2 to grep
+	 -n, --nomatch    show results even if no match
+	 -m, --multiline  consider pattern may span over two consecutive lines
+	 -a, --addup [\"?n\"] report sum of occurrences for multiple patterns
+	     	             ? can be >, <, >=, <=
+
+	Filters:
+	 first sort, then select and possibly view
+
+	 [R]SC, [R]SORTBYCOUNT [reverse] sort results by count
+	 [R]SD, [R]SORTBYDATE  [reverse] sort results by date substring
+	 [R]SN, [R]SORTBYNAME  [reverse] sort results by file name
+	 
+	 BN, BASENAME    only show basenames
+	 FN, FULLNAME    only show full names
+	 CSV 		 csv format
+	 STAT            show statistics of matches
+	 HD, HEAD <n>	 only show first n records
+	 TL, TAIL <n>	 only show last n records
+	 GR, GREP /pat/	 only show records matching pattern
+
+	 VF, VIEWFILES	 view files
+	 "
+    exit 0
+fi
+
+# defaults
+quiet=no
+refresh=no
+pdffiles=yes
+save=no
+sfname=
+fromfile=no
+fname=
+rawpattern=
+files=
+grepopt=-no
+nomatch=no
+addup=no
+aucmp=">0"
+multiline=no
+filteropt=
+
+args=
+while [ $# -gt 0 ]; do
+    if [[ "$1" =~ .*\ .* ]]; then
+	args="$args:\"$1\""
+	shift; continue
+    fi
+    if [[ "$1" =~ ^-[a-z][a-z]+$ ]]; then
+	args="$args$(echo "${1/-/}" | sed 's/./:-&/g')"
+	shift; continue
+    fi
+    args="$args:$1"
+    shift
+done
+args="$args:"
+
+while [[ ! -z "${args//:/}" ]]; do
+    case ${args%%:*} in
+	-q|--quiet)
+	    quiet=yes
+	    ;;
+	-r|--refresh)
+	    refresh=yes
+	    ;;
+	-t|--textfiles)
+	    pdffiles=no
+	    ;;
+	-s|--save)
+	    args=${args#*:}
+	    save=yes
+	    sfname=${args%%:*}
+	    ;;
+	-f|--file)
+	    fromfile=yes
+	    args=${args#*:}
+	    fname=${args%%:*}
+	    ;;
+	-g-*|--grep-*)
+	    grepopt="$grepopt $(echo "${args%%:*}"|sed 's/^-.*-//;s/./-& /g')"
+	    ;;
+	-n|--nomatch)
+	    nomatch=yes
+	    ;;
+	-m|--multiline)
+	    multiline=yes
+	    ;;
+	-a|--add)
+	    addup=yes
+	    args=${args#*:}
+	    if [[ "$args" =~ ^[\<\>=]{1,2}[0-9]+ ]]; then
+		aucmp="${args%%:*}"
+	    else
+		continue
+	    fi
+	    ;;
+	-*)
+	    echo unknown parameter "${args%%:*}"
+	    exit 1
+	    ;;
+	*)
+	    if [[ -z "$rawpattern" ]]; then
+		rawpattern=${args%%:*}
+		args=${args#*:}
+		continue
+	    fi
+	    break
+    esac
+    args=${args#*:}
+done
+
+rawpattern=${rawpattern//\"/}
+args=${args//:/ }
+re="\<[A-Z][A-Z][A-Z]*\>"
+if [[ "$args" =~ $re ]]; then
+    n=$(echo "$args" | grep -boE "[A-Z][A-Z][A-Z\ ]" | sed -n '1s/:.*//p')
+    filteropt=${args:$n}
+    files=${args::$n}
+else
+    files="$args"
+fi
+
+if [[ "$files" =~ ^\ *$ ]]; then
+    echo no files given, consider -t switch
+    exit 1
+fi
+if [[ "$pdffiles" == "yes" ]]; then
+    files=$(find $files | grep -i ".pdf")
+    s="$?"
+else
+    files=$(find $files | grep -i ".txt")
+    s="$?"
+fi
+if [ "$s" -eq 1 ]; then
+    echo no pdf/txt files found
+    exit 1
+fi
+if [[ "$quiet" == "yes" ]] && [[ "$filteropt" =~ ^\ *$ ]]; then
+    echo no output filter and quiet switch on
+    exit 1
+fi
+
+[[ "$fromfile" == "yes" ]] && files="$(cat $fname)$fromfile" 
+if [[ "$save" == "yes" ]]; then
+    rm -f $sfname
+    touch $sfname
+fi
+
+# pattern pre-process
+if [[ "$rawpattern" =~ ^@@.* ]]; then
+    PATTERN=${rawpattern:2}
+else
+    IFS='|&' read -ra PATTERN <<< "${rawpattern//[()]/}"
+fi
+NPAT=${#PATTERN[@]}
+
+declare -a results
+c=0
+for f in $files; do
+    echo -e -n "\r$f                         "
+    if [[ ! -f "$f" ]] && [[ "$quiet" == "no" ]]; then
+	echo -e "\r$f does not exist, skipping                   "
+	continue
+    fi
+    f1=${f%.*}
+    ext=${f##*.}
+    ext=${ext,,}
+    if [[ ! "$ext" =~ pdf|PDF|txt|TXT ]] && [[ "$quiet" == "no" ]]; then
+	echo -e "\runknown extension in $f, skipping             "
+	continue				     
+    fi
+    if [[ ! -f "$f1.txt" ]] || [[ "$refresh" == "yes" ]]; then
+	if [[ ! -f "$f1.pdf" ]]; then
+	    echo -e "\r$f1.pdf does not exist, skipping                  "
+	    continue
+	fi
+	rm -f "$f1.txt"
+	$PDFTOTEXT $f1.pdf "$f1.txt"
+    fi
+
+    # pattern evaluation
+    testpattern=$(echo $rawpattern | \
+		      sed 's/(/ ( /g;s/)/ ) /g;s/|/ -o /g;s/&/ -a /g')
+    msg=""
+    for rpat in "${PATTERN[@]}"; do
+	if [[ "$rpat" =~ ^@.* ]]; then
+	    pattern=${pat:1}
+	    m=$(grep $grepopt "$pattern" "$f1.txt" | sed 's/:.*//')
+	    [[ -z "$m" ]] && mc=0 || mc=$(echo "$m" | wc -l)
+	    testpattern="$mc -gt 0"
+	else
+	    pattern=${rpat%%[<=>]*}
+	    noc=${rpat##*[<=>]}
+	    cmp=""
+	    [[ "$pattern" == "$noc" ]] && noc=0
+	    [[ "$noc" == "=" ]] && noc=0
+	    case "$rpat" in
+		*"<="*) cmp="-le" ;;
+		*">="*) cmp="-ge" ;;
+		*">"*) cmp="-gt" ;;
+		*"<"*) cmp="-lt" ;;
+		*"="*) cmp="-eq" ;;
+		*) cmp="-gt" ;;
+	    esac
+	    if [[ "$multiline" == "yes" ]]; then
+		# experimental
+		m=$(cat "$f1.txt" | sed -n '/./,$p' | \
+			sed '/^\s*$/N;/^\n$/D' | sed 's/^$/_x_/' | \
+			sed ':a;N;/_x_/!ba;s/\n/ /g' | sed 's/_x_/\n/' | \
+			grep $grepopt "$pattern" "$f1.txt" | sed 's/:.*//')
+	    else
+		m=$(grep $grepopt "$pattern" "$f1.txt" | sed 's/:.*//')
+	    fi
+	    [[ -z "$m" ]] && mc=0 || mc=$(echo "$m" | wc -l)
+	    rpat1=$(echo "$rpat" | sed 's/^[ ]*//;s/[ ]*$//')
+	    testpattern=$(echo $testpattern | sed "s/$rpat1/$mc $cmp $noc/")
+	    [ $mc $cmp $noc ] && msg="$msg($mc)" || msg="$msg(x)"
+	fi
+    done
+    
+    if ! [ $testpattern ] && [[ "$nomatch" == "no" ]]; then
+	continue
+    fi    
+    tmc=$(echo "$msg" | sed 's/x/0/g;s/)(/+/g')
+    [ $testpattern ] && let tmc=$tmc || tmc=0
+    if [[ "$addup" == "yes" ]]; then
+	(( $tmc $aucmp )) && msg="($tmc)" || msg="(x)"
+	[[ "$nomatch" == "no" ]] && [[ "$msg" == "(x)" ]] && continue
+    fi
+    let c=c+1
+    results[$c]="$msg $f"
+    if [[ "$quiet" == "no" ]]; then
+	echo -e "\r[$c]$msg $f                          "
+    fi
+    if [[ "$save" == "yes" ]]; then
+	echo $f >> $sfname
+    fi
+done
+if [[ "$save" == "yes" ]]; then
+    n=
+    echo -e "\rcreated file $sfname with $(cat $sfname | wc -l) records"
+elif [[ "$quiet" == "no" ]]; then
+    echo -e "\r                                                        "
+else
+    echo -n -e "\r                                                       \r"
+fi
+
+# filtering
+[[ "$filteropt" =~ ^\s*$ ]] && exit 0
+
+# sorting
+records=$(printf "%s\n" "${results[@]}")
+case "$filteropt" in
+    *RSC*|*RSORTBYCOUNT*)
+	records=$(echo "$records" | \
+		      sed "s/(x)/(0)/g;s/[()]/ /g" | sort -n | \
+    		      sed "s/\b\([0-9][0-9]*\)\b/(\1)/g;s/)[ ]*(/)(/g" | \
+		      sed 's/ (/(/;s/) /)/' | awk '{print "[" NR "]"$0}')
+	;;
+    *SC*|*SORTBYCOUNT*)
+	records=$(echo "$records" | \
+		      sed "s/(x)/(0)/g;s/[()]/ /g" | sort -nr | \
+    		      sed "s/\b\([0-9][0-9]*\)\b/(\1)/g;s/)[ ]*(/)(/g" | \
+		      sed 's/ (/(/;s/) /)/' | awk '{print "[" NR "]"$0}')
+	;;
+    *RSN*|*RSORTBYNAME*)
+	records=$(echo "$records" | \
+		      sed "s/(x)/(0)/g" | \
+		      awk -F'[ /]' '{print $NF ": " $0}' | \
+		      sort | sed 's/^.*: //' | awk '{print "[" NR "]" $0}')
+	;;
+    *SN*|*SORTBYNAME*)
+	records=$(echo "$records" | \
+		      sed "s/(x)/(0)/g" | \
+		      awk -F'[ /]' '{print $NF ": " $0}' | \
+		      sort -r | sed 's/^.*: //' | awk '{print "[" NR "]" $0}')
+	;;
+    *RSD*|*RSORTBYDATE*)
+	records=$(echo "$records" | sed "s/(x)/(0)/g" | \
+	     awk -F'[ /]' '{A=$NF;gsub(/[A-Za-z.]/,"",A);print A ": " $0}'|\
+	     sort | sed 's/^.*: //' | awk '{print "[" NR "]" $0}')
+	;;
+    *SD*|*SORTBYDATE*)
+	records=$(echo "$records" | sed "s/(x)/(0)/g" | \
+	     awk -F'[ /]' '{A=$NF;gsub(/[A-Za-z.]/,"",A);print A ": " $0}'|\
+	     sort -r | sed 's/^.*: //' | awk '{print "[" NR "]" $0}')
+	;;    
+esac
+
+# selecting
+case "$filteropt" in
+    *BN*|*BASENAME*)
+	filter="sed s|.*/||;s|\..*||"
+	;;
+    *FN*|*FULLNAME*)
+	filter="sed s|.*[[:space:]]||"
+	;;
+    *CSV*)
+	filter="sed s/)/,/g;s/(//g;s/[[:space:]]//g;s/\(.*\),\(.*\)/\2,\1/"
+	filter="${filter};s/\[[0-9]\+\]//"
+	;;
+    *)
+	filter="sed -n p;s/(x)/(0)/g"	
+esac
+records=$(echo "$records" | $filter)
+
+re='^[0-9]+$'
+case "$filteropt" in
+    *HD*|*HEAD*)
+	n=$(echo "$filteropt" | sed 's/.*H[EA]*D\s*\([0-9][0-9]*\).*/\1/')
+	[[ ! "$n" =~ $re ]] && n=1
+	filter1="head -$n"
+	;;
+    *TL*|*TAIL*)
+	n=$(echo "$filteropt" | sed 's/.*T[AI]*L\s*\([0-9][0-9]*\).*/\1/')
+	[[ ! "$n" =~ $re ]] && n=1
+	filter1="tail -$n"
+	;;
+    *)
+	filter1="sed -n p"
+	;;
+esac
+records=$(echo "$records" | $filter1)
+
+case "$filteropt" in
+    *GR*|*GREP*)
+	p=$(echo "$filteropt" | sed 's|.*GR[EP]*\s*/\(.*\)/.*|\1|')
+	filter2="grep $p"
+	;;
+    *)
+	filter2="sed -n p"
+	;;
+esac
+records=$(echo "$records" | $filter2)
+echo "$records"
+
+if [[ "$filteropt" =~ STAT ]]; then
+    tmp=$(printf "%s\n" "${results[@]}" | \
+          sed 's/(x)/(0)/g;s/)/,/g;s/(//g;s/[[:space:]]//g;s/\(.*\),\(.*\)/\1/')
+    [[ "$addup" == "yes" ]] && NPAT=1
+    for i in $(seq $NPAT); do
+	sq=$(echo "$tmp" | cut -d, -f$i)
+	vmin=$(echo "$sq" | awk 'NR==1 || $1<min {a=$1;min=$1}END{print a}')
+	vmax=$(echo "$sq" | awk 'NR==1 || $1>max {a=$1;max=$1}END{print a}')
+	avg=$(echo "$sq" | awk '{s+=$1}END{print s/NR}')
+	nz=$(echo "$sq" | awk '$1>0{s+=1}END{print s}')
+	echo "#$i: nonzeros=$nz, vmin=$vmin, vmax=$vmax, avg=$avg"
+    done
+fi
+
+case "$filteropt" in
+    *VF*|*VIEWFILES*)
+	tmp=$(echo "$records" | sed 's/^.* //')
+	c=0
+	for f in ${tmp[@]}; do
+	    let c=c+1
+	    echo [$c] $f
+	    if [[ "${f##*.}" =~ pdf|PDF ]]; then
+		$PDFVIEW "$f"
+	    else
+		$TXTVIEW "$f1.txt"
+	    fi
+	done
+	;;
+esac

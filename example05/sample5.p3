@@ -1,0 +1,195 @@
+Figure 1.
+Three models for stochastic gene expression.
+(A) Burst model in which transcription of the DNA is always active.
+(B) Two-state model in which the DNA switches with constant rates between active and repressed states.
+(C) Inducible genetic switch in which an inducer both controls the rate of switching between active and inactive transcription states and is also positively regulated by the protein product - a positive feedback loop (PFB).
+The gray dotted connection indicates a weak effect of the inducer in promoting the unbinding of repressor at high inducer concentrations.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g001 
+Figure 2.
+Overview of the lac genetic circuit in E.
+coli .
+(A) In the absence of inducer, the lac repressor (LacI) binds to the lac operator preventing transcription of genes in the lac operon.
+(B) Following an increase in the extracellular inducer concentration, inducer enters the cell via both diffusion across the membrane and active transport by lactose permease (LacY).
+Once inside, inducer binds free LacI molecules preventing them from binding to the operator.
+(C) After the intracellular inducer concentration reaches a threshold, any bound repressor is ''knocked-off'' the operator leading to expression of the lac genes.
+(D) At high intracellular inducer concentrations the genes for lactose metabolism are fully induced.
+(E) After inducer is removed, repressor rebinds to the operator preventing further expression of the lac operon and the enzymes for lactose metabolism are either degraded or diluted through cellular division.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g002 
+Figure 3.
+Fits of rate constants for IPTG binding to the lac repressor.
+(A) Pseudo first order rate constants observed during stochastic simulations of IPTG binding to (blue) repressor and (red) repressor-operator complex.
+At each inducer concentration 1000 simulations starting with 2 free (or operator-complexed) repressor dimers in a volume of 8 : 10 {16 L were performed.
+The mean fraction of free repressor monomers as a function of time was fit to a single exponential to obtain the observed rate constant for binding at the inducer concentration.
+x and o are data from Dunaway et al.
+[75].
+(B) Equilibrium binding of IPTG to (blue) repressor and (red) repressoroperator complexes.
+In a stochastic simulation at each inducer concentration, 20 free (or operator-complexed) repressor dimers in 8 : 10 {16 L were first equilibrated with inducer to reach the steady state.
+Following, 5 minutes of data were collected from which the equilibrium fraction of inducer bound repressor monomers was calculated.
+x and o are data from O'Gorman et al.
+[74].
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g003 
+Figure 4.
+Markov diagram for transcriptional bursting in the lac circuit.
+Under low-to-moderate inducer concentrations, a burst begins when the operator enters the O state and ends when it transitions to a repressor bound state.
+k tot ~k tr z 1/2 R 2  : k ron z 1/2 IR 2  : a : k ron .
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g004 
+Figure 5.
+Parameter space of repressor binding parameter a.
+(A) Mean burst size as a function of inducer concentration for various values of a, where k iron ~a : k ron .
+Parameters used were R 2T = 2:08 : 10 {8 M, C 50 = 1:76 : 10 {5 M, k tr = 1:26 : 10 {1 s {1 , and k ron = 2:43 : 10 6 M {1 s {1 .
+(B) The rate of change in the burst size with respective to the inducer concentration.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g005 
+Figure 6.
+Linear fit of burst size to inducer concentration.
+x are data from Choi et al.
+[22].
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g006 
+Figure 7.
+Burst analysis of stochastic simulations of a simple two-state process.
+The two-state process was described by: X &apos;Y ,Y ?Z,Z?1.
+Rate constants were chosen such that on average a sim bursts of Z with a constant burst size b sim were produced during Z's mean lifetime with the mean duration of each burst lasting for the indicated fraction of the lifetime.
+At each point, 250 stochastic simulations were run until the probability density was stationary and then the distributions of Z were fit to gamma distributions to obtain the a fit and b fit parameters.
+The ratios of (A) a fit /a sim and (B) b fit /b sim as a function of the burst duration show the range of burst durations for which a gamma distribution fit can reliably recover the original parameters.
+In this example a sim ~3 and b sim ~100.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g007 
+Figure 8.
+Parameter fitting for inducer-repressor-operator interactions.
+(A) Fraction of operator regions bound by a repressor as a function of time following an increase of IPTG to the indicated concentration.
+In these simulations, k i2roff ~500 : k roff .
+(B) Number of bursts over the mean protein lifetime as a function of inducer concentration for a variety of values of the C 50{op parameter.
+x are data from Choi et al.
+[22].
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g008 
+Figure 9.
+Steady state LacY distributions from the well-stirred NPF model.
+Distributions at inducer concentrations of (A) 0, (B) 100, and (C) 200 mM TMG.
+Shown are (gray bars) histograms from 10,000 Gillespie trajectories and (red dash) gamma distributions from Choi et al.
+[22].
+(D) Mean LacY as a function of inducer concentration along with 95% ranges.
+(E) The noise in the LacY distributions as quantified by the Fano factor (variance over the mean).
+(F) The fraction of time spent in the transcriptionally active state.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g009 
+Figure 10.
+Response of an uninduced PFB population to the addition of external inducer.
+(A) Probability density p(Y ,t) (arbitrary units, darker = higher) of the number of LacY in a cell over the course of 24 hours.
+Shown are representative responses for populations in the uninduced range (0-10 mM; left), the bimodal range (10-25 mM; center), and the concerted induction range (.
+25 mM; right).
+Lines show the mean value of the (green) uninduced and (red) induced subpopulations.
+(B) Fraction of the cells in each of the subpopulations.
+(C) The (solid) mean and (dotted) variance of LacY in the uninduced subpopulation.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g010 
+Figure 11.
+Effect of positive feedback on GRF noise.
+(A) Mapping of the mean internal inducer concentration for a given external concentration for the (green) uninduced and (red) induced subpopulations.
+(black dotted) The values for the lac circuit without positive feedback are shown for reference.
+(B) The mean number of LacY in the subpopulations as a function of internal inducer concentration.
+(C) The noise in the LacY distribution.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g011 
+Figure 12.
+The effect of in  vivo crowding on repressor rebinding.
+Each line represents the mean of 5000 trajectories.
+(A) The observed diffusion coefficient, D~Sr 2 T 6t, as a function of time scale for a repressor diffusing in a volume with the indicated fraction occupied by in vivo obstacles.
+(B) a-exponent arising from fitting Sr 2 T to a model of anomalous diffusion, Sr 2 T~6Dt a .
+(C) The probability for a repressor to rebind with the operator before diffusing into the bulk (64 nm from operator) following unbinding, as a function of the in vivo packing.
+(D) The distribution of escape times for repressors that diffuse to bulk rather than rebind, at three packing values.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g012 
+Figure 13.
+LacY PFB+IV in vivo distributions.
+(A) The distribution of LacY in (orange bars) 100 modeled E.
+coli cells at 13 mM TMG concentration compared with (green dotted) the PFB well-stirred distribution.
+(B) Mean number of LacY proteins in the (circles) PFB+IV and (green dotted) PFB models.
+(C) The noise in the distributions.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g013 
+Figure 14.
+Analysis of cryoelectron tomography based cell model.
+(A) Slow growth E.
+coli cell model based in part on data from a tomographic reconstruction.
+Shown are (orange) ribosomes, (light gray) membrane, (dark grey) condensed nucleoid, and (red) lac operator.
+(B+C) Distribution of repressor-operator complex lifetimes for the fast and slow growth models, respectively.
+Curves show fits to an exponential distribution with the given mean.
+(D) Position of mRNA-membrane contact after diffusion of mRNA produced at the lac operon in (blue x) fast growth and (red o) slow growth models.
+Dotted lines show the length of the respective cells.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g014 
+Figure 15.
+Maximum-likelihood fitting of two models for gene expression to stochastic simulations of an inducible genetic circuit.
+(A and B) Parameter fits from the burst model.
+(C-F) Parameter fits from the two-state model.
+Shown are fits for (black dotted) NPF simulations, (green dotted) PFB simulations, and (orange circles) PFB+IV simulations.
+Also shown are (blue solid) actual parameter values calculated from the simulation data.
+Shaded areas indicate the 95% confidence intervals for ML fits using distributions from 50 and 200 NPF cells.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g015 
+Figure 16.
+Probability landscape of protein-mRNA abundances in the inducible lac switch model.
+(A) Steady-state probability landscape (arbitrary units, darker = higher) for the NPF model at 500 mM TMG.
+The dotted line shows the trajectory of a representative cell during a ,3 hour interval starting at the open circle and ending at the closed circle.
+(B) Probability landscape of the PFB circuit over a period of 24 hours following the addition of external TMG to 16 mM.
+The line follows a single cell switching from the uninduced to the induced state over the course of ,13 hours.
+doi:10.
+1371/journal.
+pcbi.
+1002010.
+g016 
+Table 1.
+Reactions and rate constants used in the stochastic model of the lac circuit.
+Table 2.
+Obstacle abundance in in vivo spatial models.

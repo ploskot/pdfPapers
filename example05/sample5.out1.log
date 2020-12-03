@@ -1,0 +1,165 @@
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample5.out1.log
+++ Created output file sample5.out1
+++ Output file set to sample5.out1
+ < copyblocks sample5.txt sample5.out1 "1.1 1.4-5 2.2-3 1.14-15 1.13 2.4 2.7 3.2 3.5 3.7 3.8 3.4 3.6 3.22 4.176 4.178 4.183 5.12 5.19 5.30 5.48 5.10 5.38 5.27 5.51 6.2-4 6.7 7.3 7.2 7.105 7.106 8.2 8.10 8.16 8.5-8 9.21 9.25 9.29 9.2 9.10 9.14 9.15 9.20 9.23 10.5 10.13 10.3 11.5 11.4 11.7-8 12.4 12.3 12.6-7 13.3 13.2 14.3-5 14.2 16.3-4 16.2 17.3-6 17.2 18.4-6 18.3 19.5 19.2 19.3 20.3 20.8 20.10 20.12 20.2 20.5 20.4 2.6 3.3 6.6 9.16 10.4 10.2 11.3 11.2 12.2 13.4 14.6 15.2 15.3 16.5 18.2 19.4 4.2 7.4"
+ > copyblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample5.out1.log
+++ Changes to be made on input file sample5.out1
+ < mergeblocks sample5.out1 "3.4 3.6"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample5.out1.log
+++ Changes to be made on input file sample5.out1
+ < mergeblocks sample5.out1 "9.14-15"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample5.out1.log
+++ Changes to be made on input file sample5.out1
+ < mergeblocks sample5.out1 "20.10 20.12"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample5.out1.log
+++ Changes to be made on input file sample5.out1
+ < mergeblocks sample5.out1 "20.5 20.4"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample5.out1.log
+++ Changes to be made on input file sample5.out1
+ < autoblocks sample5.out1 merge
+ < mergeblocks sample5.out1 {1.15 1.13 2.4}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {2.7 3.2}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {4.183 5.12}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {5.19 5.30}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {5.48 5.10}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {6.4 6.7 7.3 7.2}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {7.106 8.2 8.10}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {9.2 9.10}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {9.23 10.5}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {12.4 12.3}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {14.5 14.2}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {16.2 17.3}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {17.6 17.2 18.4}
+ > mergeblocks ok
+ < mergeblocks sample5.out1 {18.6 18.3 19.5}
+ > mergeblocks ok
+ > autoblocks blocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample5.out1.log
+++ Changes to be made on input file sample5.out1
+ < autoblocks sample5.out1 renumber
+ < renumberblocks sample5.out1 from 1.1 to 7.4
+ > renumberblocks ok
+ > autoblocks blocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample5.out1.log
+++ Changes to be made on input file sample5.out1
+ < cleanblocks sample5.out1 sample5.out1  rs "\([a-z]\)- \+\([a-z]\):\1\2" sed /^\s*$/d as .:
+ sed s/^ *//g
+ + cleaning block 1.1
+ + cleaning block 1.2
+ + cleaning block 1.3
+ + cleaning block 1.4
+ + cleaning block 1.5
+ + cleaning block 1.6
+ + cleaning block 1.7
+ + cleaning block 1.8
+ + cleaning block 1.9
+ + cleaning block 1.10
+ + cleaning block 1.11
+ + cleaning block 1.12
+ + cleaning block 1.13
+ + cleaning block 1.14
+ + cleaning block 1.15
+ + cleaning block 1.16
+ + cleaning block 1.17
+ + cleaning block 1.18
+ + cleaning block 1.19
+ + cleaning block 1.20
+ + cleaning block 1.21
+ + cleaning block 1.22
+ + cleaning block 1.23
+ + cleaning block 1.24
+ + cleaning block 1.25
+ + cleaning block 1.26
+ + cleaning block 1.27
+ + cleaning block 1.28
+ + cleaning block 1.29
+ + cleaning block 1.30
+ + cleaning block 1.31
+ + cleaning block 1.32
+ + cleaning block 1.33
+ + cleaning block 1.34
+ + cleaning block 1.35
+ + cleaning block 1.36
+ + cleaning block 1.37
+ + cleaning block 1.38
+ + cleaning block 1.39
+ + cleaning block 1.40
+ + cleaning block 1.41
+ + cleaning block 1.42
+ + cleaning block 1.43
+ + cleaning block 1.44
+ + cleaning block 1.45
+ + cleaning block 1.46
+ + cleaning block 1.47
+ + cleaning block 1.48
+ + cleaning block 1.49
+ + cleaning block 1.50
+ + cleaning block 1.51
+ + cleaning block 1.52
+ + cleaning block 1.53
+ + cleaning block 1.54
+ + cleaning block 1.55
+ + cleaning block 1.56
+ + cleaning block 1.57
+ + cleaning block 1.58
+ + cleaning block 1.59
+ + cleaning block 1.60
+ + cleaning block 1.61
+ + cleaning block 1.62
+ + cleaning block 1.63
+ + cleaning block 1.64
+ + cleaning block 1.65
+ + cleaning block 1.66
+ + cleaning block 1.67
+ + cleaning block 1.68
+ + cleaning block 1.69
+ + cleaning block 1.70
+ + cleaning block 1.71
+ + cleaning block 1.72
+ + cleaning block 1.73
+ + cleaning block 1.74
+ + cleaning block 1.75
+ + cleaning block 1.76
+ + cleaning block 1.77
+ + cleaning block 1.78
+ + cleaning block 1.79
+ + cleaning block 1.80
+ + cleaning block 1.81
+ + cleaning block 1.82
+ + cleaning block 1.83
+ + cleaning block 1.84
+ + cleaning block 1.85
+ > cleanblocks ok

@@ -1,0 +1,8 @@
+Molecular circuits for dynamic noise filtering 
+The invention of the Kalman filter is a crowning achievement of filtering theory--one that has revolutionized technology in countless ways.
+By dealing effectively with noise, the Kalman filter has enabled various applications in positioning, navigation, control, and telecommunications.
+In the emerging field of synthetic biology, noise and context dependency are among the key challenges facing the successful implementation of reliable, complex, and scalable synthetic circuits.
+Although substantial further advancement in the field may very well rely on effectively addressing these issues, a principled protocol to deal with noise--as provided by the Kalman filter--remains completely missing.
+Here we develop an optimal filtering theory that is suitable for noisy biochemical networks.
+We show how the resulting filters can be implemented at the molecular level and provide various simulations related to estimation, system identification, and noise cancellation problems.
+We demonstrate our approach in vitro using DNA strand displacement cascades as well as in vivo using flow cytometry measurements of a light-inducible circuit in Escherichia coli.

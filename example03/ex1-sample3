@@ -1,0 +1,61 @@
+#!/bin/bash
+# convert pdf to text file
+# $infile.out1: clean file retaining block structure
+# $infile.out2: clean file with blocks removed
+
+# directory of executables
+DIR=".."
+
+# file to process
+infile=sample3
+
+[[ -f "$infile.pdf" ]] || { echo "Input file does not exist."; exit 0; }
+
+# delete $infile.* files except $infile.pdf
+find . -maxdepth 1 -type f -name "$infile.*" -not -name "$infile.pdf" \
+     -not -name "$infile.txt.1" -exec rm {} \;
+
+# with page layouts
+#pdfastext -c1 -t1 -m3 -gjpgpdf -i $infile.pdf
+# or without
+#pdfastext -c1 -t1 -m2 -i $infile.pdf
+
+# requires manual editing
+rm -f $infile.txt
+cp $infile.txt.1 $infile.txt
+
+# copy selected blocks to output file
+$DIR/textblocks $infile.txt -append $infile.out1 -log 3 -copy \
+		"{1.1-2 1.4-13 3.1-3 4.2-4 4.6-7 5.1-5 6.1 6.8-11 7.1-3 \
+		  8.1 8.3-4 9.1-3 2.1-2 3.4 4.1-5 5.10-11 6.7 7.4 8.5 9.6-7}"
+
+# merge some blocks
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {1.4-5}
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {1.7-12}
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {2.1-2}
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {4.1 4.5}
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {4.3-4}
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {5.3-4}
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {5.10-11}
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {6.9-10}
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {8.3-4}
+$DIR/textblocks $infile.out1 -inplace -log 3 -merge {9.6-7}
+
+# automerge other blocks (i.e. those across split sentences)
+$DIR/textblocks $infile.out1 -inplace -log 3 -automerge
+
+# renumber blocks
+$DIR/textblocks $infile.out1 -inplace -log 3 -autorenumber
+
+# clean up: join wo- rds and remove empty lines and then break text into
+# sentences after every '.' character
+$DIR/textblocks $infile.out1 -inplace -log 3 -clean \
+		rs \"\\\([a-z]\\\)- \\+\\\([a-z]\\\):\\1\\2\" \
+		sed "/^\s*$/d" as ".:\\n" sed "s/^ *//g"
+
+# add meta information into a new output file
+$DIR/textblocks $infile.out1 -overwrite $infile.meta -log 3 \
+		-clean addmeta before
+
+# produce clean output with block labels removed
+$DIR/textblocks $infile.out1 -overwrite $infile.out2 -log 3 -clean 

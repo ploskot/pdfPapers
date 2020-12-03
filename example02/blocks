@@ -1,0 +1,36 @@
+file: sample2.pdf
+title: 1.3
+authors: 1.4
+abstract: 1.5
+keywords: 1.6
+p1: 7 8 10
+p2: 2-4 6-8
+p3: 2-4 6 8 10 12 14
+p4: 3 6-11
+p5: 4-7 
+p6: 2 4
+p7: 4-7
+p8: 2 4
+p9: 2 4
+p10: 2-5 7
+abbreviations: 10.8
+acknowledgment: 10.10
+figures: 5.3, 7.3, 8.5
+references: 10.12 11.2 11.4
+
+file: sample2.pdf
+keywords: 1.6
+title: 1.3
+abstract: 1.5
+p1: 7 8 10
+p2: 2-4 6-8
+p3: 2-4 6 8 10 12 14
+p4: 3 6-11
+p5: 4-7 
+p6: 2 4
+p7: 4-7
+p8: 2 4
+p9: 2 4
+p10: 2-5 7
+captions: 5.3, 7.3, 8.5
+abbreviations: 10.8

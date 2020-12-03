@@ -1,0 +1,80 @@
+#!/bin/bash
+# keywords locator, use separate parts
+
+# directory of executables
+DIR=".."
+
+# file to process
+infile=sample4
+
+K=10 # number of top words in each part
+S=3  # words with this or less characters to discard
+
+files=$(find . -type f -regex "\./$infile.p[0-9]*" | sort)
+nf=$(echo "$files" | wc -l)
+
+# find most frequent words
+# word, list-num, part-num, position-num, total positions, occurrences,
+#  total occurrences
+for f in $files; do
+    p=${f##*.}
+    p=${p:1}
+    # remove stopwords
+    w1=$($DIR/texttoinfo -bow -nomsg -ef $DIR/en-stopwords -w $S -$K $f)    
+    s1=$(echo "$w1" | awk '{sum+=$1}END{print sum}')
+    wl1="$(echo "$w1" | awk -v s=$s1 -vp=$p -vk=$K \
+    		    		 '{print $2,1,p,NR,k,$1,s}' OFS=",")"
+    [[ -z "$WL1" ]] && WL1=$(echo "$wl1") \
+	    || WL1="$(cat <(echo "$WL1") <(echo "$wl1"))"
+    # remove dictionary words
+    w2=$($DIR/texttoinfo -bow -nomsg -ef $DIR/en-dat -w $S -$K $f)
+    s2=$(echo "$w2" | awk '{sum+=$1}END{print sum}')
+    wl2="$(echo "$w2" | awk -v s=$s1 -vp=$p -vk=$K \
+    		    		 '{print $2,2,p,NR,k,$1,s}' OFS=",")"
+    [[ -z "$WL2" ]] && WL2=$(echo "$wl2") \
+	    || WL2="$(cat <(echo "$WL2") <(echo "$wl2"))"
+done
+
+WL=$(cat <(echo "$WL1") <(echo "$WL2"))
+words=$(echo "${WL}" | cut -d, -f1)
+nw=$(echo "$words" | wc -l)
+
+# find similar words (i.e. having the minimum length prefix)
+#swords=$(for(( i=1;i<=$nw;i++ )); do
+#	     w=$(echo "$words" | sed -n "${i}p")
+#	     ww=$($DIR/texttoinfo -nomsg -nstrdist -noeq -3 -o2 "$w" "$words")
+#	     [[ -z "$ww" ]] || echo "$ww"    
+#	 done | sed 's/,/\n/')
+#swords="$(echo "$swords" | sort | uniq)"
+# this takes some time to finish, the output:
+
+# calculate scores for both lists separately
+# 1:word, 2:list, 3:part, 4:position-num, 5:tot-positions,
+# 6:occurrences, 7:tot-occurrences
+# corresponding weights: w3, w4, w6
+# sort -nrk2 -t,
+WL11=$(echo "$WL1" | awk -F, 'BEGIN{split("2.0 1.5 1.0 1.0 0.0",w3) 
+    w4=1.0; w6=2.0} { $5=1;$7=1;s=w3[$3]+w4*$4/$5+w6*$6/$7; print $1 "," s}')
+WL21=$(echo "$WL2" | awk -F, 'BEGIN{split("2.0 1.5 1.5 1.0 1.0 0.0",w3) 
+    w4=1.0; w6=2.0} { $5=1;$7=1;s=w3[$3]+w4*$4/$5+w6*$6/$7; print $1 "," s}')
+
+# use WL11 or WL21
+for w in $WL21; do
+    w="${w%,*}"
+    #echo ">>>> " $w
+    lst1=$(while IFS= read -r p; do
+	       np="$(grep -o -iE "\b\w*$p\w*\b" \
+	       		  $infile.p[0-9]* 2> /dev/null | wc -l)"
+	       (( np > 1)) && echo "$np,$p"
+	   done <<< "$($DIR/texttoinfo -nomsg -nwords -p "$w" -o0 -n +1 \
+	 		   	   -ef $DIR/en-stopwords $infile.txt)")   
+    lst2=$(while IFS= read -r p; do
+	       np="$(grep -o -iE "\b\w*$p\w*\b" \
+	       		  $infile.p[0-9]* 2> /dev/null | wc -l)"
+	       (( np > 1)) && echo "$np,$p"
+	   done <<< "$($DIR/texttoinfo -nomsg -nwords -p "$w" -o0 -n -1 \
+       	    	    		   -ef $DIR/en-stopwords $infile.txt)")
+    [[ -z "$lst1" && -z "$lst2" ]] \
+	|| cat <(echo "$lst1") <(echo "$lst2") 
+done | sed '/^\s*$/d' | grep " " | sort -nrk1 | uniq
+

@@ -1,0 +1,24 @@
+Noise Contributions in an Inducible Genetic Switch: A Whole-Cell Simulation Study 
+Abstract 
+Stochastic expression of genes produces heterogeneity in clonal populations of bacteria under identical conditions.
+We analyze and compare the behavior of the inducible lac genetic switch using well-stirred and spatially resolved simulations for Escherichia coli cells modeled under fast and slow-growth conditions.
+Our new kinetic model describing the switching of the lac operon from one phenotype to the other incorporates parameters obtained from recently published in vivo singlemolecule fluorescence experiments along with in vitro rate constants.
+For the well-stirred system, investigation of the intrinsic noise in the circuit as a function of the inducer concentration and in the presence/absence of the feedback mechanism reveals that the noise peaks near the switching threshold.
+Applying maximum likelihood estimation, we show that the analytic two-state model of gene expression can be used to extract stochastic rates from the simulation data.
+The simulations also provide mRNA-protein probability landscapes, which demonstrate that switching is the result of crossing both mRNA and protein thresholds.
+Using cryoelectron tomography of an E.
+coli cell and data from proteomics studies, we construct spatial in vivo models of cells and quantify the noise contributions and effects on repressor rebinding due to cell structure and crowding in the cytoplasm.
+Compared to systems without spatial heterogeneity, the model for the fastgrowth cells predicts a slight decrease in the overall noise and an increase in the repressors rebinding rate due to anomalous subdiffusion.
+The tomograms for E.
+coli grown under slow-growth conditions identify the positions of the ribosomes and the condensed nucleoid.
+The smaller slow-growth cells have increased mRNA localization and a larger internal inducer concentration, leading to a significant decrease in the lifetime of the repressor-operator complex and an increase in the frequency of transcriptional bursts.
+Author Summary 
+Expressing genes in a bacterial cell is noisy and random.
+A colony of bacteria grown from a single cell can show remarkable differences in the copy number per cell of a given protein after only a few generations.
+In this work we use computer simulations to study the variation in how individual cells in a population express a set of genes in response to an environmental signal.
+The modeled system is the lac genetic switch that Escherichia coli uses to find, collect, and process lactose sugar from the environment.
+The noise inherent in the genetic circuit controlling the cell's response determines how similar the cells are to each other and we study how the different components of the circuit affect this noise.
+Furthermore, an estimated 30-50% of the cell volume is taken up by a wide variety of large biomolecules.
+To study the response of the circuit caused by crowding, we simulate the circuit inside a threedimensional model of an E.
+coli cell built using data from cryoelectron tomography reconstructions of a single cell and proteomics data.
+Correctly including random effects of molecular crowding will be critical to developing fully dynamic models of living cells.

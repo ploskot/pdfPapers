@@ -1,0 +1,5 @@
+Significance 
+Signaling modules in living cells function and respond in a surprisingly robust way, in spite of their very noisy environment.
+In contrast, this is not the case for most synthetic circuits in living cells, which are usually designed and tuned in silico under specific assumptions that do not hold in the real environment of the cell.
+To recover the robust behavior, synthetic circuits need a means to make inference about their dynamic environment, which in turn can be used to effectively counteract it.
+Here we show how such inference can be implemented as biochemical modules and illustrate how this can guide the design of adaptive synthetic circuits.

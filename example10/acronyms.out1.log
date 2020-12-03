@@ -1,0 +1,7 @@
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to acronyms.out1.log
+++ Created output file acronyms.out1
+++ Output file set to acronyms.out1
+ < copyblocks acronyms.txt acronyms.out1 "1.4 1.6 2.2 2.4"
+ > copyblocks ok

@@ -1,0 +1,1121 @@
+#!/bin/bash
+version=0.1.0
+############################################################################
+##                                                                        ##
+##  textblocks: A shell-script to manipulate text blocks extracted        ##
+##              with pdfastext utility                                    ##
+##                                                                        ##
+##  Author: Pavel Loskot, loskot@gmail.com                                ##
+##                                                                        ##
+##  Usage: "textblocks -help"                                             ##
+##                                                                        ##
+##  License: GNU/GPL version 2 or later. No other warranty.               ##
+##                                                                        ##
+##  Configuration file may appear in future versions.                     ##
+##                                                                        ## 
+##  Developed and tested with GNU bash version 5.0.17                     ##
+##                                                                        ##
+############################################################################
+
+trap "echo :exiting;exit 1" SIGINT SIGTERM
+
+set -e
+
+export LC_CTYPE="en_US.utf8"
+
+help_file="$0.1"
+
+this="${0/#*\/}"
+
+req_commands="iconv aspell" # external dependencies
+
+iconv_cmd="iconv -f utf-8 -t us-ascii//TRANSLIT -c"
+
+aspell_dict="en_US" # aspell dictionary to use
+
+aspell_cmd="aspell --master=$aspell_dict list \
+--ignore 3 --ignore-case --ignore-accents --sug-mode normal"
+
+
+############################################################################
+#                                                                          #
+#  Initial checks                                                          #
+#                                                                          #
+############################################################################
+
+# exit with error
+err_exit() { echo "ee Error: $1" >&2; exit 1; }
+
+# exit ok
+ok_exit() { echo "$1" >&1 ; exit 0; }
+
+# message to stdout (for debuggin)
+DM() { echo -e "$@" >&1; }
+
+# display help
+[[ "$1" == "-help" ]] && { cat "$help_file" | sed '1,/^#/d'; exit 0; }
+
+# show version number
+[[ "$1" == "-version" ]] &&
+    err_exit "Text block processor $this version $version"
+
+# initial checks
+[[ "$#" == "0" ]] && err_exit "Use $this -help for instructions."
+[[ "$#" == "1" ]] && err_exit "Nothing to do. Try $this -help"
+
+# check dependencies on external commands
+for c in $req_commands; do
+    hash "$c" 2>/dev/null || err_exit "$c required but not found"
+done
+
+# check aspell English dictionary is available
+$aspell_cmd <<< "" 2> /dev/null ||
+    err_exit "English dictionary for aspell not found."
+
+# check BASH version used is at least 5.0
+printf "5.0\n${BASH_VERSION%.*}" | sort -C || echo "ww Warning use BASH >= 5.0"
+
+# inputfile checks
+[[ "${1::1}" == "-" ]] && err_exit "No input file given."
+[[ -f "$1" ]] || err_exit "$1 does not exists."
+[[ "$1" =~ \. ]] || err_exit "$1 does not have any extension."
+fin="$1";shift
+
+############################################################################
+#                                                                          #
+#  Function definitions                                                    #
+#                                                                          #
+############################################################################
+
+# logging and messages to stdout/file
+msg0() { echo -n ""; } # quiet
+msg1() { echo -e "$@" >&1; }  # stdout
+msg2() { [[ "$2" == "-n" ]] && # file
+	 { local f="$1";shift 2;echo -en "${@//|}" >> "$f"; } \
+	     ||  echo -e "${@:2}" >> "$1"; }
+msg3() { [[ "$2" == "-n" ]] &&  # stdout and file
+	     { local f="$1";shift 2;echo -en "${@//|}" >&1;
+	       echo -en "${@//|}" >> "$f"; } ||
+		 { echo -e "${@:2}" >&1; echo -e "${@:2}" >> "$1"; } }
+msg4() { echo -e "$1"; }  # stdout
+
+# present consecutive numbers in string as ranges
+numstoranges() {
+    echo "$@ 9999999" | sed 's/ /\n/g' | \
+	sort -n | uniq | sed 's/9999999/ /' | while read num; do
+	if [[ -z $first ]]; then first=$num; last=$num; continue; fi
+	if [[ num -ne $((last + 1)) ]]; then
+	    if [[ first -eq last ]]; then
+		echo $first; else echo $first-$last;
+	    fi
+	    first=$num; last=$num
+	else : $((last++))
+	fi
+    done | paste -sd" "
+}
+
+# human readable file size 
+fsize() { stat -c %s "$1" | numfmt --to=iec; }
+
+# get first word from a string
+strfirst() { echo "${1%%[[:space:]]*}"; }
+
+# get last word from a string
+strlast() { echo "${1##*[[:space:]]}"; }
+
+
+# extract block labels from multiple ranges in a string
+# Usage: getblocks filename {blocks}|info|all|pages|inpage {P}
+getblocks() {
+    local fin="$1"
+    [[ -f "$fin" ]] || err_exit "File $fin not found."
+    local allblocks=$(grep "<block" "$fin" | sed 's/<block//;s/[:> ]*//g')
+    local pages=$(echo "$allblocks" | sed 's/\..*//' | sort | uniq)
+    local -a blocks
+    local -A LIM
+    for p in $pages; do
+	blocks[$p]=$(echo "$allblocks" | grep "^$p" | sed 's/^.*\.//')
+	LIM[$p.first]=$p.$(strfirst "${blocks[$p]}")
+	LIM[$p.last]=$p.$(strlast "${blocks[$p]}")
+	[[ "$2" == "info" ]] && echo "$p:$(wc -w <<< ${blocks[$p]})"
+    done
+    LIM[first]=$(strfirst "$pages")
+    LIM[last]=$(strlast "$pages")
+    [[ "$2" == "all" ]] && { echo "$allblocks"; return; }
+    [[ "$2" == "pages" ]] && { echo "$pages"; return; }
+    [[ "$2" == "inpage" ]] && { echo "blocks on page $3:"; \
+				echo "${blocks[$3]}"; return; }
+    for i in $2; do
+	i=$(sed 's/  */ /g' <<< "$i");
+	# keyword substitutions
+	for k in $(grep -o "[0-9]\{1,\}\.first" <<< $i); do
+	    i=$(sed "s/$k/${LIM[$k]}/" <<< "$i")
+	done
+	for k in $(grep -o "[0-9]\{1,\}\.last" <<< $i); do
+	    i=$(sed "s/$k/${LIM[$k]}/" <<< "$i")
+	done
+	i=$(sed "s/first/${LIM[first]}/g" <<< $i)
+	i=$(sed "s/last/${LIM[last]}/g" <<< $i)
+	# records selection
+	i0=$(sed 's/(\(.*\))\[[0-9]*-[0-9]*\]/\1/' <<< "$i");
+	l1=;l2=
+	if [[ "$i" != "$i0" ]]; then
+	    read l1 l2 <<< \
+		 $(sed 's/(.*)\[\([0-9]*\)-\([0-9]*\)\]/\1 \2/' <<< "$i")
+	    i="$i0"
+	    [[ -z "$l1" ]] && l1=1
+	    [[ -z "$l2" ]] && l2="$"
+	fi	
+	# range expansions
+	if [[ "$i" =~ ^[0-9]{1,}.[0-9]{1,}-[0-9]{1,}.[0-9]{1,}$ ]]; then
+	    read p1 b1 p2 b2 <<< $(echo "$i" | sed 's/[\.-]/ /g')
+	    f="$p1.$b1"
+	    t="$p2.$b2"
+	elif [[ "$i" =~ ^[0-9]{1,}.[0-9]{1,}-[0-9]{1,}$ ]]; then
+	    read p1 b1 b2 <<< $(echo "$i" | sed 's/[\.-]/ /g')
+	    f="$p1.$b1"
+	    t="$p1.$b2"
+	elif [[ "$i" =~ ^[0-9]{1,}-[0-9]{1,}$ ]]; then
+	    read p1 p2 <<< $(echo "$i" | sed 's/-/ /g') # p1-p2
+	    f=$p1.${blocks[$p1]%%[[:space:]]*}
+	    t=$p2.${blocks[$p2]##*[[:space:]]}
+	elif [[ "$i" =~ ^[0-9]{1,}$ ]]; then # p1.1-last
+	    read p1 <<< $(echo "$i")
+	    f=$p1.${blocks[$p1]%%[[:space:]]*}
+	    t=$p1.${blocks[$p1]##*[[:space:]]}
+	elif [[ "$i" =~ ^[0-9]{1,}.[0-9]{1,}$ ]]; then # p1.b1
+	    read p1 b1 <<< $(echo "$i" | sed 's/[\.-]/ /g')
+	    f=$p1.$b1
+	    t=$f
+	else
+	    err_exit "$i: unknown range format"
+	fi
+	local m1=$(grep -n "^$f\$" <<< "$allblocks" | sed 's/:.*//')
+	local m2=$(grep -n "^$t\$" <<< "$allblocks" | sed 's/:.*//')	
+	if [[ $(wc -w <<< "$m1") -gt 1 || $(wc -w <<< "$m2") -gt 1 ]]; then
+	    # duplicates
+	    echo "duplicated blocks detected"
+	    echo "$allblocks" | sort | uniq -c | awk '$1>1{print $2}'
+	    return
+	fi
+	if [[ -z "$m1" || -z "$m2" ]] || (( m1 > m2 )); then
+	    err_exit "Block $f-$t does not exist."
+	else
+	    if [[ -z "$l1" && -z "$l2" ]]; then
+		bb="${bb}\n$(sed -n "$m1,$m2 p" <<< "$allblocks")"
+	    else	    
+		bb="${bb}\n$(sed -n "$m1,$m2 p" <<< "$allblocks" | \
+				 sed -n "$l1,$l2 p")"
+	    fi
+	fi
+    done
+    echo -e "$bb" | sed '1d'
+}
+
+
+############################################################################
+#                                                                          #
+#  Basic commands with immediate exit                                      #
+#                                                                          #
+############################################################################
+
+# show info and quit
+# Usage: -info
+#        -info listblocks {blocks}
+#        -info onblocks {blocks}
+if [[ "$@" =~ -info ]]; then
+    shift;local w="$@" blocks
+    if [[ "$w" =~ listblocks ]]; then
+	if [[ -z "${w/listblocks}" ]]; then
+	    echo "$(getblocks "$fin" "all")"
+	else
+	    echo "$(getblocks "$fin" ${w/listblocks})"
+	fi
+    elif [[ "$w" =~ onblocks ]]; then
+	if [[ -z "${w/onblocks}" ]]; then
+	    err_exit "List pages or blocks after -info onblock or use 'all'"
+	else
+	    blocks=$(getblocks "$fin" ${w/onblocks})
+	    printf "%s %s   %s   %s     %s\n" \
+		   block lines words chars "<?>"
+	    for b in $blocks; do
+		l=$(sed -n "/<block:$b>/,/<\/block:$b>/p" "$fin" | \
+			sed "/block:$b>/d")
+		l0=$(tr -dc '[[:print:]]' <<< "$l")
+		nl=$(wc -m <<< "$l")
+		nl0=$(wc -m <<< "$l0")
+		printf "%5s %5s %7s %7d   %4d\n" "$b" $(wc -l <<< "$c") \
+		       $(wc -w <<< "$l") $nl $(( nl-nl0 ))
+	    done
+	fi
+    else # -info
+	blocks=$(grep "<block" "$fin" | sed 's/[<> ]*//g')
+	blocks=$(echo "$blocks" | sed 's/block://' | sort | uniq)
+	pages=$(echo "$blocks" | sed 's/\.[0-9]*//' | uniq)
+	echo "Blocks in $fin"
+	for p in $pages; do
+	    bb=$( echo "$blocks" | \
+		      sed -n "/^$p\./s/^[0-9]*\.//p" | \
+		      sort -n | uniq -c | \
+		      awk '{if($1>1) print $1 "x" $2; else print $2}')
+	    set -- $bb;n="$#"
+	    printf " page $p, $n blocks: "
+	    printf "%s " $(numstoranges $bb)
+	    printf "\n"
+	done
+    fi
+    ok_exit " > Processing terminated normally."
+fi
+
+
+# check duplicates, and blocks have both opening/closing tags, and if sorted
+# Usage: -check 
+#        -check ifsorted
+if [[ "$@" =~ -check\ *ifsorted ]]; then
+    local pages=$(getblocks "$fin" "pages")
+    for p in $pages; do
+	blocks=$(getblocks "$fin" $p | sed "s/^$p\.//")
+	echo -n "blocks on page $p: "
+	if sort -nC <<< "$blocks"; then
+	    echo sorted
+	else
+	    echo not sorted
+	fi
+    done
+elif [[ "$1" =~ -check ]]; then
+    local blocks=$(getblocks "$fin" "all")
+    local l="$(echo "$blocks" | sort | uniq -c | awk '$1>1{print $2}')"
+    [[ -z "$l" ]] && echo "No duplicates found in $fin." || 
+	    echo -e "Duplicates found in $fin:\n$l"
+    o=$(grep "<block:" "$fin" | sed 's/<block:\(.*\)>/\1/')
+    c=$(grep "</block:" "$fin" | sed 's/<\/block:\(.*\)>/\1/')
+    l="$(echo -e "$o\n$c" | sort | uniq -c | awk '$1!=2{print $2}')"
+    [[ -z "$l" ]] && echo "All blocks in $fin ok." || 
+	    echo -e "These blocks are missing opening or closing tag:\n$l"
+    ok_exit " > Processing terminated normally."
+fi
+
+# convert utf-8 to transliterated ASCII and quit
+# Usage: -translit
+if [[ "$@" =~ -translit ]]; then
+    n=$(cat sample1.txt | wc -m)
+    $iconv_cmd -o "$fin.iconv" "$fin" && 
+	mv -f "$fin.iconv" "$fin"
+    n0=$(cat sample1.txt | wc -m)    
+    echo "Convertd encoding of $fin to transliterated ASCII (diff $(( n0-n )) chars)."
+    ok_exit " > Processing terminated normally."
+fi
+
+
+############################################################################
+#                                                                          #
+#  Finalize initialization                                                 #
+#                                                                          #
+############################################################################
+
+# get remaining commands
+cmds=$(echo "$@" | sed 's/\(-[a-z][a-z]\+\)/\n\1/g;s/ \+/ /g' | \
+	   while IFS= read -r c; do
+	       [[ "$c" =~ ^-quit ]] \
+		   &&  ok_exit ">> Processing terminated normally."
+	       if [[ "$c" =~ ^-commands ]]; then
+		   cf="${c/-commands}";cf=${cf// }
+		   [[ -f "$cf" ]] && cat "$cf" \
+			   || err_exit "Command file \"$cf\" not found."
+	       else
+		   echo "$c"
+	       fi
+	   done | sed 's/#.*//;/^\s*$/d')
+
+# set output filename as well as output level OL
+# 0: do not overwrite output file if it exists
+# 1: allow overwriting output file if it exists
+# 2: append to output file or create it if it does not exist
+# 9: output file is not used, changes directly on input file
+# check help how to specify output filename
+OL=0 
+if [[ "$cmds" =~ -overwrite ]]; then
+    cmds=$(echo "$cmds" | sed '/-overwrite/s/-overwrite/-output/')
+    OL=1 
+elif [[ "$cmds" =~ -append ]]; then
+    cmds=$(echo "$cmds" | sed '/-append/s/-append/-output/')
+    OL=2 
+fi    
+if [[ "$cmds" =~ -output ]]; then
+    o=$(echo "$cmds" | sed -n '/-output/s/-output//p' | sed 's/ //g')
+    [[ -z "$o" ]] && err_exit "No output file given."
+    cmds=$(echo "$cmds" | sed '/-output/d')
+    fout=${fin/.*}
+    c=${fin##*.}
+    c=${c::1}
+    # set output filename
+    case "$o" in
+	.)
+	    n=$(ls -1 $fout.${c}[0-9][0-9] | sort | sed -n "$ s/^.*\.$c//p")
+	    n=${n#0*}
+	    (( n++ ))
+	    fout="$fout.$(printf "${c}%02d" $n)"
+	    ;;
+	[0-9][0-9])
+	    fout="$fout.${c}$o"
+	    ;;	
+	*)
+	    if [[ ! "$o" =~ \. ]]; then
+		n=$(ls -1 $o.${c}[0-9][0-9] 2> /dev/null | sort | \
+			sed -n "$ s/^.*\.$c//p")
+		n=${n#0*}
+		(( n++ ))
+		fout="$o.$(printf "${c}%02d" $n)"
+	    else
+	    	fout="$o"
+	    fi
+	    ;;
+    esac
+elif [[ "$cmds" =~ -inplace ]]; then
+    OL=9
+    fout=$fin
+    o9=$(echo "$cmds" | sed -n '/-inplace/s/-inplace//p' | sed 's/ //g')    
+    cmds=$(echo "$cmds" | sed '/-inplace/d')
+else
+    err_exit "No output or inplace option given."
+fi
+
+# set log file and log level
+if [[ "$cmds" =~ -log ]]; then
+    LL=$(echo "$cmds" | sed -n '/-log/s/-log//p' | sed 's/ //g')
+    cmds=$(echo "$cmds" | sed '/-log/d')
+    [[ -z "$LL" ]] && LL=1 # default value
+    [[ ! "$LL" =~ [0-3] ]] &&
+	err_exit "Log file name is determined automatically."
+else
+    LL=1 # default
+fi
+flog=$fout.log
+
+# set MSG function for displaying messages to stdout and/or file
+[[ "$LL" =~ [23] ]] && MSG="msg$LL $flog" || MSG=msg$LL
+
+# announcement of using textblocks
+$MSG -n "xx\n<< Calling $this version $version\n"
+
+# set log file
+[[ ! -f "$flog" ]] && { touch "$flog"; $MSG "++ Created log file $flog"; }
+$MSG "++ Log file set to $flog"
+
+# finalize setting output file
+if [[ -f "$fout" && "$OL" != "9" ]]; then
+    $MSG "ww Output file $fout already exists."
+    case "$OL" in
+	0)  err_exit "Cannot overwrite existing file."
+	    ;;
+	1)  rm -f "$fout"
+	    touch "$fout"
+	    $MSG "++ Erased output file $fout"
+	    ;;
+	2)  $MSG "++ Append outputs to $fout"
+	    ;;
+	*)
+	    err_exit "Unknown output level $OL"
+    esac
+else
+    if [[ "$OL" != "9" ]]; then
+	touch "$fout"
+	$MSG "++ Created output file $fout"
+	$MSG "++ Output file set to $fout"
+    else
+	[[ -z "$o9" ]] || $MSG "Warning, ignoring $o9 after -inplace"
+	$MSG "++ Changes to be made on input file $fin"
+    fi
+fi
+
+# set OUT function to write into output file
+OUT() { printf "$@" >> "$fout"; }
+
+#
+# at this point, everything should be set:
+#
+#  input file: $fin
+# output file: $fout
+#    log file: $flog
+#
+#        output messages: $MSG
+# write into output file: $OUT
+
+
+############################################################################
+#                                                                          #
+#  Functions implementing commands                                         #
+#                                                                          #
+############################################################################
+
+# remove block labels and extra white spaces and empty lines, break blocks 
+# into sentences or words, and add comma-separated meta information
+# Usage:   cleanblocks inputfile outputfile [OPTIONS]
+#          cleanblocks inputfile inputfile [OPTIONS] (for -inplace)
+# OPTIONS: sep {char]     use {char} as separator instead of default ":"
+#          as {chars:str} append string {str} to every character in {chars}
+#          rc {chars:str} replace every character in {chars} with {str}
+#          rs {str1:str2} replace all occurrences of {str1} with {str2}
+#          sed {str}      sed command {str}
+#          tr {tropts}    filter text with tr {tropts} command
+#          addmeta above|below|before|after append metainfo
+#          every { and } in OPTIONS is replaced with single "
+cleanblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    [[ ! -f "$2" ]] && err_exit "File $2 not found."
+    local fin="$1" fout="$2"
+    shift 2;local ww="$(sed 's/[{}]/"/g' <<< "$@")"
+    ww="$(sed '{ s/sep /\n&/g;s/as /\n&/g;s/rc /\n&/g;s/rs /\n&/g
+      	  	        s/tr /\n&/g;s/sed /\n&/g;s/addmeta /\n&/g }' <<< "$ww")"
+    if [[ "$ww" =~ -clean ]]; then
+	# erase or create output file
+	if [[ "$fin" != "$fout" ]]; then
+	    [[ -f "$fout" ]] && rm -f "$fout"
+	    cp "$fin" "$fout"
+	fi
+	# remove labels, extra spaces, empty lines and quit
+	sed -i '/<[\/]*block:[0-9]*/d' "$fout"
+	sed -i 's/  */ /g' "$fout"
+	sed -i '/^\s*$/d' "$fout"
+	return
+    fi
+    local wm="$(grep "addmeta" <<< "$ww")"
+    local meta_str="#page,#block,#counter,#words,#chars,#np-chars,np-chars"
+    meta_str="$meta_str,#spell-errs,text"
+    [[ -z "$wm" ]] || echo "$meta_str"  >> "$fout"
+    
+    # process blocks one by one
+    local bbb=$(getblocks "$fin" "all")
+    [[ -z "$bbb" ]] && err_exit "No blocks $blocks found in $fin"
+    for b in $bbb; do
+	$MSG " + cleaning block $b"
+	sep=":" # default sep-char
+	ll="$(sed -n "/<block:$b>/,/<\/block:$b>/{//!p}" "$fin")"
+	while IFS= read -r w; do
+	    read -r c s <<< "$w"
+	    [[ -z "$c" ]] && continue
+	    if  [[ "$c" == "sep" ]]; then
+		sep="$s"
+	    elif [[ "$c" == "as" ]]; then
+		ll="$(sed "s|[${s%${sep}*}]|&${s#*${sep}}|g" <<< "$ll")"
+	    elif [[ "$c" == "rc" ]]; then
+		ll="$(sed "s|[${s%${sep}*}]|${s#*${sep}}|g" <<< "$ll")"		
+	    elif [[ "$c" == "rs" ]]; then
+		s=${s//\"}
+		ll="$(echo "$ll" | sed "s|${s%${sep}*}|${s#*${sep}}|g")"
+	    elif [[ "$c" == "tr" ]]; then
+		ll="$(tr "${s% *}" "${s#* }" <<< "$ll")"
+	    elif [[ "$c" == "sed" ]]; then
+		ll="$(echo "$ll" | sed "$s")"
+	    fi
+	done  <<< "$ww"
+
+	# add metainfo
+	if [[ "$wm" =~ addmeta ]]; then
+	    [[ "$fin" == "$fout" ]] && err_exit "Please use output file to add metainfo."
+	    n=0
+	    while IFS= read -r l; do
+		l="${l//,}" # remove all commas
+		l0=$(tr -d '[[:print:]]' <<< "$l")
+		meta="${b%.*},${b#*.},$(( ++n )),$(wc -w <<< "$l"), \
+$(wc -m <<< "$l"),$(wc -m <<< "$l0"),\"$l0\",$($aspell_cmd <<< "$l" | wc -l)"
+		meta="${meta// }"
+		case "$wm" in
+		    addmeta*above)
+			echo "$meta" >> "$fout";echo "$l" >> "$fout";;
+		    addmeta*below)
+			echo "$l" >> "$fout";echo "$meta" >> "$fout";;
+		    addmeta*before)
+			echo "$meta,$l" >> "$fout";;
+		    addmeta*after)
+			echo "$l,$meta" >> "$fout";;
+		    addmeta)
+			err_exit "Unknown 'addmeta' specifier in cleanblocks.";;
+		esac
+	    done <<< "$ll"
+	else
+	    # update block, no meta added
+	    sed  -i "/<block:$b\>/,/<\/block:$b\>/{//!d}" "$fout"
+	    l=$(grep -n "<block:$b\>" "$fout" | sed 's/:.*//')
+	    echo -e "$ll" | sed -i "${l}r /dev/stdin" "$fout"
+	fi
+    done
+}
+
+
+# insert new empty blocks or blocks initialized with a given string
+# Usage: newblocks filename {blocks} after|before {block} [with {string}]
+newblocks(){
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    local fout="$1" bbb="$2" lines sep
+    while [[ "$bbb" =~ ^\".*[^\"]$ ]]; do
+	shift;bbb="$bbb $2"
+    done    
+    bbb=${bbb//\"}
+    [[ -z "$bbb" ]] && err_exit "No blocks defined for newblocks."
+    [[ "$3" =~ ^(before|after)$ ]] \
+	|| err_exit "Missing position parameter in newblocks."
+    local w="$3" b0=$(getblocks "$fout" "$4")
+    [[ -z "$b0" ]] && err_exit "No block $b0 found in $fout"
+    if (( $# > 4 )); then
+	[[ "$5" == "with" ]] || err_exit "Expected 'with' in newblocks."
+	str="$6"
+	while [[ "$str" =~ ^\".*[^\"]$ ]]; do
+	    shift;str="$str $6"
+	done    
+	str=${str//\"}
+    else
+	str=""
+    fi
+    for b in $bbb; do
+	[[ -z "$str" ]] && lines="$lines${sep}<block:$b>\n</block:$b>" \
+		|| lines="$lines${sep}<block:$b>\n${str}\n</block:$b>"
+	sep="\n"
+    done
+    if [[ "$w" == "before" ]]; then
+	sed -i "/<block:$b0>/i $lines" "$fout"
+    else
+	sed -i "/<\/block:$b0>/a $lines" "$fout"
+    fi
+}
+
+# copy blocks from one file to specific location in another file
+# if source and destination are same, copied blocks are labeled as Cblocks
+# Usage: copyblocks sourcefile destinationfile {blocks}
+#        after {label}|before {label}|start|end
+copyblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    [[ ! -f "$2" ]] && err_exit "File $2 not found."
+    local fin="$1" fout="$2"
+    local blocks="$3"
+    while [[ "$blocks" =~ ^\".*[^\"]$ ]]; do
+	shift;blocks="$blocks $3"
+    done    
+    blocks=${blocks//\"}
+    shift 3;local w="$@"
+    if [[ "$w" =~ ^after ]]; then
+	b0="${w/[a-z]* }"
+	l=$(grep -n "</block:$b0\>" "$fout" | sed 's/:.*//')
+	[[ -z "$l" ]] && err_exit "Block $b0 not found in $fout"
+    elif [[ "$w" =~ ^before ]]; then
+	b0="${w/[a-z]* }"
+	l=$(grep -n "<block:$b0\>" "$fout" | sed 's/:.*//')
+	[[ -z "$l" ]] && err_exit "Block $b0 not found in $fout"
+    elif [[ "$w" == "start" ]]; then
+	l=1
+    elif [[ "$w" == "end" ]]; then
+	l=$(grep -n "</block:" "$fout" | sed '$!d;s/:.*//')
+    elif [[ -z "$w" ]]; then # default
+	w=end
+	l=$(grep -n "</block:" "$fout" | sed '$!d;s/:.*//')
+    else
+	err_exit "Unknown option \"$@\" to command copyblocks"
+    fi
+
+    local bbb=$(getblocks "$fin" "$blocks")
+    [[ -z "$bbb" ]] && err_exit "No blocks $blocks found in $fin"
+    for b in $bbb; do
+	lines="$lines$s$(sed -n "/<block:$b>/,/<\/block:$b>/p" "$fin")"
+	s="\n"
+    done
+    # if copying within same file
+    [[ "$fin" == "$fout" ]] && lines="$(sed 's/block:/Cblock:/g' <<< "$lines")"
+    if [[ ! -s "$fout" ]]; then
+	echo -e "$lines" >> "$fout"
+    elif [[ "$w" =~ ^after ]]; then
+	echo -e "$lines" | sed -i "${l}r /dev/stdin" "$fout"
+    elif [[ "$w" =~ ^before ]]; then
+	sed -i "${l}s/^/\n/" "$fout"
+	echo -e "$lines" | sed -i "${l}r /dev/stdin" "$fout"
+	sed -i "${l}d" "$fout"
+    elif [[ "$w" == "start" ]]; then
+	sed -i '1s/^/\n/' "$fout"
+	echo -e "$lines" | sed -i 'r /dev/stdin' "$fout"
+	sed -i '1d' "$fout"
+    elif [[ "$w" == "end" ]]; then
+	echo -e "$lines" >> "$fout"
+    fi
+}
+
+
+# delete blocks in given file
+# Usage: deleteblocks filename {blocks}
+deleteblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    local fout="$1"
+    local blocks="$2"
+    while [[ "$blocks" =~ ^\".*[^\"]$ ]]; do
+	shift;blocks="$blocks $2"
+    done
+    blocks=${blocks//\"}
+    local bbb=$(getblocks "$fout" "$blocks")
+    [[ -z "$bbb" ]] && err_exit "No blocks $blocks found in $fout"
+    for b in $bbb; do
+	l1=$(grep -n "<block:$b\>" "$fout" | sed 's/:.*//')
+	[[ -z "$l1" ]] && err_exit "Block $b not found in $fout"
+	l2=$(grep -n "</block:$b\>" "$fout" | sed 's/:.*//')
+	[[ -z "$l2" ]] && err_exit "Block $b not found in $fout"
+	sed -i "${l1},${l2}d" "$fout"
+    done
+}
+
+
+# sort blocks in file from starting block to ending block in ascending or
+# descending order
+# Usage: sortblocks filename from {block1} to {block2} [ascend(default)|descend]
+#    or: sortblocks filename all [ascend(default)|descend]
+sortblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    local fout="$1" 
+    if [[ "$2" == "all" ]]; then
+	[[ -z "$3" ]] && local w=ascend || local w="$3"
+	local l1=1;local l2=$(cat "$fout" | wc -l)
+    else
+	[[ "$2" == "from" ]] || err_exit "Missing 'from' in sortblocks."
+	shift;local b1="$2"
+	[[ "$3" == "to" ]] || err_exit "Missing 'to' in sortblocks."
+	shift;local b2="$3"
+	[[ "$b1" == "$b2" ]] && 
+	    { echo "Warning $b1==$b, nothing to do."; return; }
+	[[ -z "$4" ]] && w=ascend || w="$4"
+	l1=$(grep -n "<block:$b1\>" "$fout" | sed 's/:.*//')
+	[[ -z "$l1" ]] && err_exit "Block $b1 not found in $fout"
+	l2=$(grep -n "</block:$b2\>" "$fout" | sed 's/:.*//')
+	[[ -z "$l2" ]] && err_exit "Block $b2 not found in $fout"
+	(( l1>l2 )) && err_exit "Block $b1 located behind $b2"
+    fi
+    [[ "$w" =~ ^ascend$|^descend$ ]] || 
+	err_exit "Unknown option "$w" to sortblocks"
+    [[ "$w" == "descend" ]] && r="-r" || r= # default
+    local bsorted=$(cat "$fout" | sed -n "${l1},${l2}p" | \
+		  sed -n '/<block:/p' | sed 's/<block:\(.*\)>/\1/' | sort $r)
+    for b in $bsorted; do
+	lines="$lines$s$(sed -n "/<block:$b>/,/<\/block:$b\>/p" "$fout")"
+	s="\n"
+    done
+    # replace sorted blocks
+    sed -i "${l1},${l2}d" "$fout"
+    if [[ "$2" == "all" ]]; then
+	echo -e "$lines" >> "$fout"
+    else
+	sed -i "${l1}s/^/\n/" "$fout"
+	echo -e "$lines" | sed -i "${l1}r /dev/stdin" "$fout"
+	sed -i "${l1}d" "$fout"
+    fi
+}
+
+
+# move multiple blocks within one file to specific location
+# Usage: moveblocks filename  [ascopy] {blocks}
+#        after {label}|before {label}|start|end
+moveblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    local fin="$1"
+    [[ "$2" == "ascopy" ]] && { ascopy=yes; shift; } || ascopy=
+    local blocks="$2"
+    while [[ "$blocks" =~ ^\".*[^\"]$ ]]; do
+	shift;blocks="$blocks $2"
+    done
+    blocks=${blocks//\"}
+    shift 2;w="$@"
+    local bbb=$(getblocks "$fin" "$blocks")
+    copyblocks "$fin" "$fin" "$blocks" "$w"
+    if [[ -z "$ascopy" ]]; then
+	for b in $bbb; do
+	    sed -i "/<block:$b>/,/<\/block:$b>/d" "$fin"
+	    sed -i "/Cblock:$b/s/Cblock:$b/block:$b/" "$fin"
+	done
+    fi
+}
+
+
+# merge multiple blocks into one block with existing (to) label, and then
+# possibly change this label to (as) label; attempt to overwrite existing
+# block not in {blocks} causes error
+# Usage: mergeblocks filename {blocks} [to {label}] [as {label}]
+mergeblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    local fin="$1"
+    local blocks="$2"
+    while [[ "$blocks" =~ ^\".*[^\"]$ ]]; do
+	shift;blocks="$blocks $2"
+    done
+    blocks=${blocks//\"}
+    [[ "$3" == "to" ]] && local to="$4" || local to=auto
+    local bbb=$(getblocks "$fin" "$blocks")
+    [[ -z "$bbb" ]] && err_exit "No blocks $blocks found in $fin"
+    [[ "$to" == "auto" ]] && to="${bbb%%[[:space:]]*}"
+    [[ "$bbb" =~ $to ]] || err_exit "Cannot overwrite other block $to"
+    [[ "$5" == "as" ]] && as="$6" || as="$to"
+    [[ -z "$as" ]] && err_exit "Missing as label in mergeblocks."
+    local lines
+    for b in $bbb; do
+	lines="$lines$s$(sed -n "/<block:$b>/,/<\/block:$b>/p" "$fin")"
+	s="\n"
+    done
+    lines="$(echo -e "$lines" | sed '/<block:/d;/<\/block:/d')"
+    sed  -i "/<block:$to\>/,/<\/block:$to\>/{//!d}" "$fin"
+    l=$(grep -n "<block:$to\>" "$fin" | sed 's/:.*//')
+    echo -e "$lines" | sed -i "${l}r /dev/stdin" "$fin"
+    sed -i "s/block:$to>/block:$as>/" "$fin"
+    bbb=$(sed "s/$to//" <<< "$bbb")
+    for b in $bbb; do
+	sed -i "/<block:$b>/,/<\/block:$b>/d" "$fin"
+    done
+}
+
+
+# renumber selected blocks
+# Usage: renumberblocks filename change {blocks1} to {blocks2}
+#        renumberblocks filename from {block} [as {block}] to {block} [by {val}]
+#        renumberblocks filename setpage {page} from {block} to {block}
+renumberblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    local fin="$1"
+    case "$2" in
+	change)
+	    local blocks="$3"
+	    while [[ "$blocks" =~ ^\".*[^\"]$ ]]; do
+		shift;blocks="$blocks $3"
+	    done
+	    blocks=${blocks//\"}
+	    local bbb1=$(getblocks "$fin" "$blocks")
+	    [[ -z "$bbb1" ]] && err_exit "No blocks $3 found in $fin"
+	    [[ "$4" == "to" ]] || err_exit "Expected 'to' in renumberblocks."
+	    local bbb2=$(eval "echo $5")
+	    set -- $bbb1;n1=$#
+	    set -- $bbb2;n2=$#
+	    [[ "$n1" == "$n2" ]] || 
+		err_exit "The number of block labels to change must agree."
+	    read -r -a b2 <<< "$bbb2"
+	    i=0
+	    for b in $bbb1; do
+		sed -i "/block:$b/s/block:$b/Cblock:$b/" "$fin"
+	    done
+	    for b in $bbb1; do
+		sed -i "/Cblock:$b/s/Cblock:$b/block:${b2[i++]}/" "$fin"
+	    done
+	    ;;
+	from)
+	    local bf="$3"
+	    [[ "$4" == "as" ]] && { as="$5"; shift2; } || as="$3"
+	    [[ "$4" == "to" ]] || err_exit  "Expected 'to' in renumberblocks."
+	    local bt="$5"
+	    [[ "$6" == "by" ]] && by="$7" || by=1
+	    local bbb=$(getblocks "$fin" "$bf-$bt")
+	    [[ -z "$bbb" ]] && err_exit "No blocks $bf-$bt found in $fin"
+	    for b in $bbb; do
+		sed -i "/block:$b>/s/block:$b>/Cblock:$b>/" "$fin"
+	    done
+	    p0=${as%.*};b0=${as#*.}
+	    for b in $bbb; do
+		sed -i "/Cblock:$b>/s/Cblock:$b>/block:$p0\.$b0>/" "$fin"
+		(( b0+=by ))
+	    done
+	    ;;
+	setpage)
+	    local p0="$3"
+	    [[ "$p0" =~ ^[0-9]+$ ]] || 
+		err_exit "Check page label in renumberblocks." 
+	    [[ "$4" == "from" ]] || 
+		err_exit  "Expected 'from' in renumberblocks."
+	    bf="$5"
+	    [[ "$6" == "to" ]] || 
+		err_exit  "Expected 'to' in renumberblocks."
+	    bt="$7"
+	    local bbb=$(getblocks "$fin" "$bf-$bt")
+	    [[ -z "$bbb" ]] && err_exit "No blocks $bf-$bt found in $fin"
+	    for b in $bbb; do
+		sed -i "/block:$b>/s/block:$b>/Cblock:$b>/" "$fin"
+	    done
+	    for b in $bbb; do
+		sed -i "/Cblock:$b>/s/Cblock:$b>/block:$p0\.${b#*.}>/" "$fin"
+	    done
+	    ;;
+	*)
+	    err_exit "Unknown renumber instructions." 
+	    ;;
+    esac
+}
+
+# add a string to selected blocks before or after the text
+# Usage: addtexttoblocks filename {string} above|below|before|after {blocks}
+addtexttoblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    local fout="$1" str="$2"
+    while [[ "$str" =~ ^\".*[^\"]$ ]]; do
+	shift;str="$str $2"
+    done
+    str=${str//\"}
+    [[ "$3" =~ ^(above|below|before|after)$ ]] \
+	|| err_exit "Check text position parameter to addtexttoblocks."
+    local w="$3" blocks="$4"
+    while [[ "$blocks" =~ ^\".*[^\"]$ ]]; do
+	shift;blocks="$blocks $4"
+    done
+    blocks=${blocks//\"}
+    local bbb=$(getblocks "$fout" "$blocks")
+    [[ -z "$bbb" ]] && err_exit "No blocks $blocks found in $fout"
+    for b in $bbb; do
+	case "$w" in
+	    above)
+		sed -i "/<block:$b>/s/<block:$b>/&\n${str}/" "$fout";;
+	    below)
+		sed -i "/<\/block:$b>/s/<\/block:$b>/${str}\n&/" "$fout";;
+	    before)
+		sed -i "/<block:$b>/{n;s/^/${str}/}" "$fout";;
+	    after)
+		local lines l
+		lines=$(sed -n "/<block:$b>/,/<\/block:$b>/{//!p}" "$fout" | \
+			    sed "$ s/$/${str}/" )
+		sed -i "/<block:$b>/,/<\/block:$b>/{//!d}" "$fout"
+		sed -i "/<block:$b>/s/<block:$b>/&\n${lines}/" "$fout"
+		;;
+	esac
+    done
+}
+
+
+# filter contents of selected blocks with given function
+# Usage: filterblocks filename {blocks} with {function} as arg|pipe to
+#        stdout|inplace
+#    define function for pipe: echo "block-contents" | func
+#                     for arg: func $(echo "block-contents")
+filterblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    local fin="$1"
+    local blocks="$2"
+    while [[ "$blocks" =~ ^\".*[^\"]$ ]]; do
+	shift;blocks="$blocks $2"
+    done
+    blocks=${blocks//\"}
+    local bbb=$(getblocks "$fin" "$blocks")
+    [[ -z "$bbb" ]] && err_exit "No blocks $bf-$bt found in $fin"
+    [[ "$3" == "with" ]] || err_exit "Missing 'with' in filterblocks."
+    shift
+    [[ "$(type -t "$3")" == "function" ]] && local fun="$3" \
+	    || err_exit "Filter function \"$3\" not defined."
+    [[ "$4" == "as" ]] || err_exit "Missing 'as' in filterblocks."
+    shift;local how="$4"
+    [[ "$5" == "to" ]] || err_exit "Missing 'to' in filterblocks."
+    shift;local to="$5"
+    local lines
+    for b in $bbb; do
+	lines="$(sed -n "/<block:$b>/,/<\/block:$b>/p" "$fin")"
+	lines="$(sed "/block:$b>/d" <<< "$lines")"
+	case "$how" in
+	    arg)
+		out="$($fun "$(echo -e "$lines")")"
+		;;		
+	    pipe)		
+		out="$(echo -e "$lines" | $fun)"
+		;;
+	    *)
+		err_exit "Expectd arg|pipe in filterblocks."
+		;;
+	esac
+	case "$to" in
+	    inplace)
+		sed  -i "/<block:$b>/,/<\/block:$b>/{//!d}" "$fin"
+		l=$(grep -n "<block:$b>" "$fin" | sed 's/:.*//')
+		echo -e "$out" | sed -i "${l}r /dev/stdin" "$fin"
+		;;
+	    stdout)
+		echo "<block:$b>"
+		echo -e "$out"
+		echo "</block:$b>"
+		;;
+	    *)
+		err_exit "Expected stdout|inplace in filterblocks."
+		;;
+	esac
+    done
+}
+
+# perform automated arrangements of blocks calling other functions above
+# Usage: autoblocks filename merge|renumber
+autoblocks() {
+    [[ ! -f "$1" ]] && err_exit "File $1 not found."
+    local fin="$1"
+    local bbb=$(getblocks "$fin" "all")
+    [[ -z "$bbb" ]] && err_exit "No blocks found in $fin"
+    if [[ "$2" == "merge" ]]; then
+	for b in $bbb; do
+	    l="$(sed -n "/<block:$b>/,/<\/block:$b>/{
+	    	   /<block:$b>/!{/<\/block:$b>/!p}}" "$fin")";
+	    [[ "$l" =~ ^[[:blank:]]*[a-z,:\;-] ]] && jj="$jj+$b" || jj="$jj-$b"
+	    [[ "$l" =~ [a-z,:-\;][[:blank:]]*$ ]] && jj="$jj+" || jj="$jj-"
+	done
+	jj=${jj::-1}
+	jj=$(sed 's/--\|-+\|+-/\\n/g;s/++/+/g' <<< "$jj")
+	jj=$(echo -e "$jj" | sed '/+/!d')
+	for j in $jj; do
+	    $MSG " < mergeblocks "$fin" {${j//+/ }}"
+	    mergeblocks "$fin" "${j//+/ }"
+	    [[ "$?" == "0" ]] && $MSG " > mergeblocks ok" \
+		    || $MSG " -- mergeblocks??"
+	done
+    elif [[ "$2" == "renumber" ]]; then
+	bf=${bbb%%[[:space:]]*}
+	bt=${bbb##*[[:space:]]}
+	$MSG " < renumberblocks "$fin" from "$bf" to "$bt""
+	renumberblocks "$fin" from "$bf" to "$bt"
+	[[ "$?" == "0" ]] && $MSG " > renumberblocks ok" \
+		|| $MSG " -- renumberblocks??"
+    else
+	err_exit "Unknown command $2 in autoblocks."
+    fi
+}
+
+
+############################################################################
+#                                                                          #
+#  Commands to be run alone                                                #
+#                                                                          #
+############################################################################
+
+if [[ "$cmds" =~ -automerge ]]; then
+    # perform automated merging of blocks calling mergeblocks
+    # Usage: autoblocks filename merge
+    [[ "$OL" == "9" ]] \
+	|| err_exit "Autoblocks command should be run with -inplace"
+    $MSG " < autoblocks "$fin" merge"
+    autoblocks "$fin" merge
+    [[ "$?" == "0" ]] && $MSG " > autoblocks blocks ok" \
+	    || $MSG " -- autoblocks??"
+    [[ "$LL" -gt "0" ]] && ok_exit ">> Processing terminated normally." || exit 0
+elif [[ "$cmds" =~ -autorenumber ]]; then
+    # perform complete renumbering of blocks calling renumberblocks
+    # Usage: autoblocks filename renumber
+    [[ "$OL" == "9" ]] \
+	|| err_exit "Autoblocks command should be run with -inplace"
+    $MSG " < autoblocks "$fin" renumber"
+    autoblocks "$fin" renumber
+    [[ "$?" == "0" ]] && $MSG " > autoblocks blocks ok" \
+	    || $MSG " -- autoblocks??"
+    [[ "$LL" -gt "0" ]] && ok_exit ">> Processing terminated normally." || exit 0
+fi
+
+
+############################################################################
+#                                                                          #
+#  Main loop of command processor                                          #
+#                                                                          #
+############################################################################
+
+while read -r c; do
+    # {.} expansion
+    while [[ "$c" =~ expand\( ]]; do
+	e=`echo $(sed 's/.*expand(\(.*\))\s*.*/\1/' <<< "$c")`
+	c=$(sed "s/expand($e)/$(eval echo $e)/" <<< "$c")
+	c=$(sed 's/\s\s*/ /g' <<< "$c")
+    done
+    c="$( sed 's/[{}]/\"/g' <<< "$c")" # replace {} with "
+    case "${c%% *}" in
+	-clean)
+	    # Command: -clean {functions} [addmeta above|below|before|after]
+	    #    Call:  cleanblocks inputfile outputfile {functions}
+	    #           [addmeta above|below|before|after]
+	    $MSG " < cleanblocks "$fin" "$fout" ${c/-clean}"
+	    cleanblocks "$fin" "$fout" ${c/-clean }
+	    [[ "$?" == "0" ]] && $MSG " > cleanblocks ok" \
+		    || $MSG " -- cleanblocks??"
+	    ;;
+	-new)
+	    # Command: -new {blocks} after|before {block} [with {string}]
+	    #    Call: newblocks filename {blocks} after|before {block}
+	    #          [with {string}]
+	    $MSG " < newblocks "$fout" ${c/-new }"
+	    newblocks "$fout" ${c/-new }
+	    [[ "$?" == "0" ]] && $MSG " > newblocks ok" \
+		    || $MSG " -- newblocks??"
+	    ;;	
+	-copy)
+	    # Command:  -copy {blocks} after {label}|before {label}|start|end
+	    #    Call:  copyblocks inputfile outputfile
+	    #                 {blocks} after {label}|before {label}|start|end
+	    $MSG " < copyblocks $fin $fout ${c/-copy }"
+	    copyblocks "$fin" "$fout" ${c/-copy }
+	    [[ "$?" == "0" ]] && $MSG " > copyblocks ok" \
+		    || $MSG " -- copyblocks??"
+	    ;;
+	-move)
+	    # Command: -move  [ascopy] {blocks}
+	    #                     after {label}|before {label}|start|end
+	    #    Call: moveblocks filename  [ascopy] {blocks}
+	    #                     after {label}|before {label}|start|end
+	    $MSG " < moveblocks "$fout" ${c/-move }"
+	    moveblocks "$fout" ${c/-move }
+	    [[ "$?" == "0" ]] && $MSG " > moveblocks ok" \
+		    || $MSG " -- moveblocks??"
+	    ;;
+	-renumber)
+	    # Command: -renumber change {blocks1} to {blocks2}
+	    #    Call: renumberblocks filename change {blocks1} to {blocks2}
+	    # Command: -renumber from {block1} [as {block}] to {block2}
+	    #                    [by {val}]
+	    #    Call: renumberblocks filename from {block1} [as {block}] to
+	    #                         {block2} [by {val}]	    
+	    # Command: -renumber setpage {page} from {block1} to {block2}
+	    #    Call: renumberblocks filename setpage {page} from {block1}
+	    #                         to {block2}
+	    $MSG " < renumberblocks "$fout" ${c/-renumber }"
+	    renumberblocks "$fout" ${c/-renumber }
+	    [[ "$?" == "0" ]] && $MSG " > renumberblocks ok" \
+		    || $MSG " -- renumberblocks??"
+	    ;;
+	-delete)
+	    # Command: -delete {blocks}
+	    #    Call: deleteblocks filename {blocks}
+	    $MSG " < deleteblocks "$fout" ${c/-delete }"
+	    deleteblocks "$fout" ${c/-delete }
+	    [[ "$?" == "0" ]] && $MSG " > deleteblocks ok" \
+		    || $MSG " -- deleteblocks??"
+	    ;;
+	-sort)
+	    # Command: -sort from {block1} to {block2}
+	    #                [ascend(default)|descend]
+	    #    Call: sortblocks filename from {block1} to {block2}
+	    #                     [ascend|descend]
+	    # Command: -sort  all [ascend(default)|descend]
+	    #    Call: sortblocks filename all [ascend|descend]
+	    $MSG " < sortblocks "$fout" ${c/-sort }"
+	    sortblocks "$fout" ${c/-sort }
+	    [[ "$?" == "0" ]] && $MSG " > sortblocks ok" \
+		    || $MSG " -- sortblocks??"
+	    ;;
+	-merge)
+	    # Command: -merge {blocks} to {label} [as {label}]
+	    #    Call: mergeblocks filename {blocks} [to {label}] [as {label}]
+	    $MSG " < mergeblocks "$fout" ${c/-merge }"
+	    mergeblocks "$fout" ${c/-merge }
+	    [[ "$?" == "0" ]] && $MSG " > mergeblocks ok" \
+		    || $MSG " -- mergeblocks??"
+	    ;;
+	-addtext)
+	    # Command: -addtext {string} before|after {blocks}
+	    #    Call: addtexttoblocks filename {string}
+	    #          above|below|before|after {blocks}
+	    $MSG " < addtexttoblocks "$fout" ${c/-addtext }"
+	    addtexttoblocks "$fout" ${c/-addtext }
+	    [[ "$?" == "0" ]] && $MSG " > addtexttoblocks ok" \
+				      || $MSG " -- addtexttoblocks??"
+	    ;;
+	-filter)
+	    # Command: -filter {blocks} with {function} as arg|pipe to
+	    #                  stdout|infile
+	    #    Call: filterblocks filename {blocks} with {function} as
+	    #                       arg|pipe to stdout|inplace
+	    #    define function for pipe: echo "block-contents" | func
+	    #                     for arg: func $(echo "block-contents")
+	    $MSG " < filterblocks "$fout" ${c/-filter }"
+	    filterblocks "$fout" ${c/-filter }
+	    [[ "$?" == "0" ]] && $MSG " > filterblocks ok" \
+		    || $MSG " -- filterblocks??"
+	    ;;	
+	*)
+	    err_exit "Unknown command: ${c% *}"
+	    ;;
+    esac
+done <<< "$cmds"
+[[ "$LL" -gt "0" ]] && ok_exit ">> Processing terminated normally."

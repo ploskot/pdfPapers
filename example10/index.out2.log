@@ -1,0 +1,7 @@
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to index.out2.log
+++ Created output file index.out2
+++ Output file set to index.out2
+ < cleanblocks index.out1 index.out2 
+ > cleanblocks ok

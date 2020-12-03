@@ -1,0 +1,215 @@
+References 1.
+Gunawardena J: Some lessons about models from Michaelis and Menten.
+Mol Biol Cell 2012, 23:517-519.
+2.
+Gunawardena J: Biology is more theoretical than physics.
+Mol Biol Cell 2013, 24:1827-1829.
+3.
+Ferrell JE, Machleder EM: The biochemical basis of an all-or-none cell fate switch in Xenopus oocytes.
+Science 1998, 280:895-898.
+4.
+Altschuler SJ, Wu LF: Cellular heterogeneity: do differences make a difference? Cell 2010, 3:559-563.
+5.
+Krebs H: Otto Warburg: Cell Physiologist, Biochemist and Eccentric.
+Oxford, UK: Clarendon Press; 1981.
+6.
+Watson JD: Genes, Girls and Gamow.
+Oxford, UK: Oxford University Press; 2001.
+7.
+Kay LE: Who Wrote the Book of Life.
+A History of the Genetic Code.
+Stanford, CA, USA: Stanford University Press; 2000.
+8.
+Chargaff E: Essays on Nucleic Acids.
+Amsterdam, Holland: Elsevier Publishing Company; 1963.
+9.
+Nirenberg M: The genetic code.
+In Nobel Lectures, Physiology or Medicine 1963-1970.
+Amsterdam, Holland: Elsevier Publishing Co; 1972.
+10.
+Brenner S: Sequences and consequences.
+Phil Trans Roy Soc 2010, 365:207-212.
+11.
+Pearl J: Causality: Models, Reasoning and Inference.
+Cambridge, UK: Cambridge University Press; 2000.
+12.
+Feynman RP, Leighton RB, Sands M: The Feynman Lectures on Physics.
+Volume 1.
+Mainly Mechanics, Radiation and Heat.
+Reading, MA, USA: Addison-Wesley; 1963.
+13.
+Levitt M: The birth of computational structural biology.
+Nat Struct Biol 2001, 8:392-393.
+14.
+Karplus M, Kuriyan J: Molecular dynamics and protein function.
+Proc Natl Acad Sci USA 2005, 102:6679-6685.
+15.
+Dror RO, Dirks RM, Grossman JP, Xu H, Shaw DE: Biomolecular simulation: a computational microscope for molecular biology.
+Annu Rev Biophys 2012, 41:429-452.
+16.
+Atkins P, de Paula J: Elements of Physical Chemistry.
+5th edition.
+Oxford, UK: Oxford University Press; 2009.
+17.
+Mysels KJ: Textbook errors VII: the laws of reaction rates and of equilibria.
+J Chem Educ 1956, 33:178-179.
+18.
+Cornish-Bowden A: Fundamentals of Enzyme Kinetics.
+2nd edition.
+London, UK: Portland Press; 1995.
+19.
+Weiss JN: The Hill equation revisited: uses and misuses.
+FASEB J 1997, 11:835-841.
+20.
+Black J: A personal view of pharmacology.
+Annu Rev Pharmacol Toxicol 1996, 36:1-33.
+21.
+Colquhoun D: The quantitative analysis of drug-receptor interactions: a short history.
+Trends Pharmacol Sci 2006, 27:149-157.
+22.
+Black J: Drugs from emasculated hormones: the principles of syntopic antagonism.
+In Nobel Lectures, Physiology or Medicine 1981-1990.
+Edited by Fr?ngsmyr T.
+Singapore: World Scientific; 1993.
+23.
+Heinrich R, Rapoport TA: Generation of nonidentical compartments in vesicular transport systems.
+J Cell Biol 2005, 162:271-280.
+24.
+Varma A, Morbidelli M, Wu H: Parametric Sensitivity in Chemical Systems.
+Cambridge, UK: Cambridge University Press; 2005.
+25.
+Davis TH: Profile of Tom A Rapoport.
+Proc Natl Acad Sci USA 2005, 102:14129-14131.
+26.
+Kirschner M: Reinhart Heinrich (1946-2006).
+Pioneer in systems biology.
+Nature 2006, 444:700.
+27.
+Heinrich R, Rapoport SM, Rapoport TA: Metabolic regulation and mathematical models.
+Prog Biophys Molec Biol 1977, 32:1-82.
+28.
+Ptashne M: On the use of the word 'epigenetic'.
+Curr Biol 2007, 17:233-236.
+29.
+Altan-Bonnet G, Germain RN: Modeling T cell antigen discrimination based on feedback control of digital ERK responses.
+PLoS Biol 2005, 3:1925-1938.
+30.
+Hopfield JJ: Kinetic proofreading: a new mechanism for reducing errors in biosynthetic processes requiring high specificity.
+Proc Natl Acad Sci USA 1974, 71:4135-39.
+31.
+McKeithan TW: Kinetic proofreading in T-cell receptor signal transduction.
+Proc Natl Acad Sci USA 1995, 92:5042-5046.
+32.
+Murugan A, Huse DA, Leibler S: Speed, dissipation, and error in kinetic proofreading.
+Proc Natl Acad Sci USA 2012, 109:12034-12039.
+33.
+?tefanov? I, Hemmer B, Vergelli M, Martin R, Biddison WE, Germain RN: TCR ligand discrimination is enforced by competing ERK positive and SHP-1 negative feedback pathways.
+Nat Immunol 2003, 4:248-254.
+34.
+Brandman O, Ferrell JE, Li R, Meyer T: Interlinked fast and slow positive feedback loops drive reliable cell decisions.
+Science 2005, 310:496-498.
+35.
+Tsai TY, Choi YS, Ma W, Pomerening JR, Tang C, Ferrell JE: Robust, tunable biological oscillations from interlinked positive and negative feedback loops.
+Science 2008, 321:126-129.
+36.
+Fran?ois P, Voisinne G, Siggia ED, Altan-Bonnet G, Vergassola M: Phenotypic model for early t-cell activation displaying sensitivity, specificity, and antagonism.
+Proc Natl Acad Sci USA 2013, 110:888-897.
+37.
+Sauro HM, Hucka M, Finney A, Wellock C, Bolouri H, Doyle J, Kitano H: Next generation simulation tools: the Systems Biology Workbench and BioSPICE integration.
+Omics 2003, 7:355-372.
+38.
+Gutenkunst RN, Waterfall JJ, Casey FP, Brown KS, Myers CR, Sethna JP: Universally sloppy parameter sensitivities in systems biology models.
+PLoS Comput Biol 2007, 3:1871-1878.
+39.
+Dyson F: A meeting with Enrico Fermi.
+Nature 2004, 427:297.
+40.
+Br?nger A: Free R value: a novel statistical quantity for assessing the accuracy of crystal structures.
+Nature 1992, 355:472-475.
+41.
+Cooke J, Zeeman EC: A clock and wavefront model for control of the number of repeated structures during animal morphogenesis.
+J Theor Biol 1976, 58:455-476.
+42.
+Cooke J: The problem of periodic patterns in embryos.
+Phil Trans R Soc Lond B Biol Sci 1981, 295:509-524.
+43.
+Palmeirim I, Henrique D, Ish-Horowicz D, Pourqui? O: Avian hairy gene expression identifies a molecular clock linked to vertebrate segmentation and somitogenesis.
+Cell 1997, 91:639-648.
+44.
+Pourqui? O: The segmentation clock: converting embryonic time into spatial pattern.
+Science 2003, 301:328-330.
+45.
+Sassone-Corsi P: Rhythmic transcription with autoregulatory loops: winding up the biological clock.
+Cell 1994, 78:361-364.
+46.
+?str?m KJ, Murray RM: Feedback Systems.
+An Introduction for Scientists and Engineers.
+Princeton, NJ, USA: Princeton University Press; 2008.
+47.
+Lewis J: Autoinhibition with transcriptional delay: a simple mechanism for the Zebrafish somitogenesis oscillator.
+Curr Biol 2003, 13:1398-1408.
+48.
+Tyson JJ, Othmer HG: The dynamics of feedback control circuits in biochemical pathways.
+In Progress in Theoretical Biology, Volume 5.
+Edited by Rosen R, Snell F.
+New York, NY, USA: Academic Press; 1978.
+49.
+Monk NAM: Oscillatory expression of Hes1, p53, and NF-kB driven by transcriptional time delays.
+Curr Biol 2003, 13:1409-1413.
+50.
+Jensen MH, Sneppen K, Tiana G: Sustained oscillations and time delays in gene expression of protein Hes1.
+FEBS Lett 2003, 541:176-177.
+51.
+Lewis J: From signals to patterns: space, time and mathematics in developmental biology.
+Science 2008, 322:399-403.
+52.
+Hirata H, Bessho Y, Kokubu H, Masamizu Y, Yamada S, Lewis J, Kageyama R: Instability of Hes7 protein is crucial for the somite segmentation clock.
+Nat Genet 2004, 36:750-754.
+53.
+Swinburne IA, Miguez DG, Landgraf D, Silver PA: Intron length increases oscillatory periods of gene expression in animal cells.
+Genes Dev 2008, 22:2342-2346.
+54.
+Takashima Y, Ohtsuka T, Gonz?lez A, Miyachi H, Kageyama R: Intronic delay is essential for oscillatory expression in the segmentation clock.
+Proc Natl Acad Sci USA 2011, 108:3300-3305.
+55.
+Harima Y, Takashima Y, Ueda Y, Ohtsuka T, Kageyama R: Accelerating the tempo of the segmentation clock by reducing the number of introns in the Hes7 gene.
+Cell Rep 2013, 3:1-7.
+56.
+Oswald A, Oates AC: Control of endogenous gene expression timing by introns.
+Genome Biol 2011, 12:107.
+57.
+Masamizu Y, Ohtsuka T, Takashima Y, Nagahara H, Takenaka Y, Yoshikawa K, Okamura H, Kageyama R: Real-time imaging of the somite segmentation clock: revelation of unstable oscillators in the individual presomitic mesoderm cells.
+Proc Natl Acad Sci USA 2006, 103:1313-1318.
+58.
+Giudicelli F, ?zbudak EM, Wright GJ, Lewis J: Setting the tempo in development: an investigation of the zebrafish somite clock mechanism.
+PLoS Biol 2007, 5:150.
+59.
+Schr?ter C, Ares S, Morelli LG, Isakova A, Hens K, Soroldoni D, Gajewski M, J?licher F, Maerkl SJ, Deplancke B, Oates AC: Topology and dynamics of the zebrafish segmentation clock core circuit.
+PLoS Biol 2012, 10:1001364.
+60.
+Hanisch A, Holder MV, Choorapoikayil S, Gajewski M, ?zbudak EM, Lewis J: The elongation rate of RNA polymerase II in zebrafish and its significance in the somite segmentation clock.
+Development 2013, 140:444-453.
+61.
+Morelli LG, Ares S, Herrgen L, Schr?ter C, J?licher F, Oates AC: Delayed coupling theory of vertebrate segmentation.
+HFSP J 2009, 3:55-66.
+62.
+Herrgen L, Ares S, Morelli LG, Schr?ter C, J?licher F, Oates AC: Intercellular coupling regulates the period of the segmentation clock.
+Curr Biol 2010, 20:1244-1253.
+63.
+Oates AC, Morelli LG, Ares S: Patterning embryos with oscillations: structure, function and dynamics of the vertebrate segmentation clock.
+Development 2012, 139:625-639.
+64.
+Khinchin AI: Mathematical Foundations of Statistical Mechanics.
+New York, NY, USA: Dover Publications Inc; 1949.
+65.
+Wilson EO: Letters to a Young Scientist.
+New York, NY, USA: Liveright Publishing Corporation; 2013.
+66.
+Barlow N (Ed): The Autobiography of Charles Darwin.
+1809-1882, New York, NY, USA: W.
+W.
+Norton and Co, Inc; 1958.
+67.
+Mawer S: Gregor Mendel.
+Planting the Seeds of Genetics.
+New York, NY, USA: Abrams; 2006.

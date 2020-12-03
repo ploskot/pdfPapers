@@ -1,0 +1,545 @@
+#page,#block,#counter,#words,#chars,#np-chars,np-chars,#spell-errs,text
+1,1,1,19,89,1,"",0,fact we can expend as little energy as  we wish simply by taking a long time  to carry .
+1,1,2,5,21,1,"",0,o u t the operation.
+1,1,3,19,109,1,"",0,There is  thus no minimum amount of energy  that must be expended in order to perform any given computation.
+1,1,4,0,1,1,"",0,
+1,1,5,19,89,1,"",0,fact we can expend as little energy as  we wish simply by taking a long time  to carry .
+1,1,6,5,21,1,"",0,o u t the operation.
+1,1,7,19,109,1,"",0,There is  thus no minimum amount of energy  that must be expended in order to perform any given computation.
+1,1,8,0,1,1,"",0,
+1,1,9,17,77,1,"",0,energy lost t o friction in this  T he model  will be very small if the ma- 
+1,1,10,17,77,1,"",0,energy lost t o friction in this  T he model  will be very small if the ma- 
+1,1,11,5,31,1,"",0,chine is operated very slowly.
+1,1,12,32,201,1,"",3,Is it possible to design a more idealized machine that could compute without any  friction? Or is friction essential to the  computing process? Fredkin together  with Tommaso Toffoli and others at  M.
+1,1,13,1,3,1,"",0,I.
+1,1,14,1,3,1,"",0,T.
+1,1,15,6,27,1,"",0, has shown that it is not.
+1,1,16,19,118,1,"",1,They demonstrated that it is possible  to do computation by firing ideal frictionless billiard balls a t one another.
+1,1,17,43,289,1,"",1,In  the billiard-ball model perfect reflecting &quot;mirrors&quot; surfaces that redirect  the balls&apos; motion are arranged in such  a way that the movement of the balls  across a table emulates the movement  of bits of information through logic  gates [see illustration on next page].
+1,1,18,26,131,1,"",0,As  before the presence of a ball in a particular part of the computer signifies a  1 whereas the absence of a ball signifies a 0.
+1,1,19,26,150,1,"",0,If two balls arrive simultaneously at a logic gate they will collide  and their paths will change; their new  paths represent the output of the gate.
+1,1,20,6,37,1,"",2,Fredkin Toffoli and others have de- 
+1,1,21,5,31,1,"",0,chine is operated very slowly.
+1,1,22,32,201,1,"",3,Is it possible to design a more idealized machine that could compute without any  friction? Or is friction essential to the  computing process? Fredkin together  with Tommaso Toffoli and others at  M.
+1,1,23,1,3,1,"",0,I.
+1,1,24,1,3,1,"",0,T.
+1,1,25,6,27,1,"",0, has shown that it is not.
+1,1,26,19,118,1,"",1,They demonstrated that it is possible  to do computation by firing ideal frictionless billiard balls a t one another.
+1,1,27,43,289,1,"",1,In  the billiard-ball model perfect reflecting &quot;mirrors&quot; surfaces that redirect  the balls&apos; motion are arranged in such  a way that the movement of the balls  across a table emulates the movement  of bits of information through logic  gates [see illustration on next page].
+1,1,28,26,131,1,"",0,As  before the presence of a ball in a particular part of the computer signifies a  1 whereas the absence of a ball signifies a 0.
+1,1,29,26,150,1,"",0,If two balls arrive simultaneously at a logic gate they will collide  and their paths will change; their new  paths represent the output of the gate.
+1,1,30,6,37,1,"",2,Fredkin Toffoli and others have de- 
+1,1,31,6,49,1,"",0,The Fundamental Physical  Limits of Computation 
+1,2,1,34,194,1,"",0,What constraints govern the physical process o f computing? Is a  minim um amount of energy required for example per logic step?  There seems to be no minimum but some other questions are open 
+1,3,1,1,3,1,"",0,A 
+1,3,2,24,140,1,"",0,computation whether it is performed by electronic machinery on an abacus or in a biological system such as the brain is a physical process.
+1,3,3,63,361,1,"",0,It is subject to the same  questions that apply to other physical  processes: How much energy must be  expended to perform a particular computation? How long must it take? How  large must the computing device be? In  other words what are the physical limits of the process of computation?  So far it has been easier to ask these  questions than to answer them.
+1,3,4,21,113,1,"",0,T o the  extent that we have found limits they  are terribly far away from the real limits of modern technology.
+1,3,5,12,78,1,"",0,We cannot  profess therefore to be guiding the  technologist or the engineer.
+1,3,6,8,47,1,"",0,What we  are doing is really more fundamental.
+1,3,7,19,112,1,"",0,We are looking for general laws that  must govern all information processing n o matter how it is accomplished.
+1,3,8,21,131,1,"",0,Any limits we find must be based solely on fundamental physical principles  not on whatever technology we may  currently be using.
+1,3,9,9,64,1,"",0,There are precedents for this kind  of fundamental examination.
+1,3,10,5,30,1,"",1,In the  1940&apos;s Claude E.
+1,3,11,36,220,1,"",0,Shannon of the Bell  Telephone Laboratories found there  are limits on the amount of information that can be transmitted through a  noisy channel; these limits apply no  matter how the message is encoded  into a signal.
+1,3,12,9,73,1,"",1,Shannon&apos;s work represents the birth of modern information  science.
+1,3,13,26,179,1,"",1,Earlier in the midand late  19th century physicists attempting to  determine the fundamental limits on  the efficiency of steam engines had created the science of thermodynamics.
+1,3,14,26,142,1,"",1,In about 1960 one of us (Landauer)  and John Swanson at IBM began attempting to apply the same type of  analysis to the process of computing.
+1,3,15,6,42,1,"",1,Since the mid-1970&apos;s a growing num- 
+1,4,1,11,68,1,"",0,ber of other workers at other institutions have entered this field.
+1,4,2,21,141,1,"",0,In our analysis of the physical limits of computation we use the term &quot;information&quot; in the technical sense of  information theory.
+1,4,3,13,109,1,"",0,In this sense information is destroyed whenever two previously distinct situations become indistinguishable.
+1,4,4,24,174,1,"",0,In physical systems  without friction information can never be destroyed; whenever information  is destroyed some amount of energy must be dissipated (converted into  heat).
+1,4,5,24,145,1,"",0,As an example imagine two easily distinguishable physical situations  such as a rubber ball held either one  meter or two meters off the ground.
+1,4,6,8,40,1,"",0,If  the ball is dropped it will bounce.
+1,4,7,51,271,1,"",0,If  there is no friction and the ball is perfectly elastic a n observer will always  be able to tell what state the ball started out in (that is what its initial height  was) because a ball dropped from two  meters will bounce higher than a ball  dropped from one meter.
+1,4,8,29,165,1,"",0,If there is friction however the ball  will dissipate a small amount of energy with each bounce until it eventually stops bouncing and comes to rest  on the ground.
+1,4,9,29,167,1,"",1,It will then be impossible to determine what the ball&apos;s initial state was; a ball dropped from  two meters will be identical with a ball  dropped from one meter.
+1,4,10,11,68,1,"",0,Information  will have been lost as a result of energy dissipation.
+1,5,1,11,73,1,"",2,example of informa-  H ere tion is another  destruction: the expression 
+1,5,2,1,3,1,"",0,+ 
+1,5,3,9,55,1,"",0,2 2 contains more information than  the expression =4.
+1,5,4,35,149,1,"",0,If all we know is  that we have added two numbers to  yield 4 then we do not know whether  we have added 1 3 2 2 0 4 or  some other pair of numbers.
+1,5,5,13,86,1,"",0,Since the  output is implicit in the input no computation ever generates information.
+1,5,6,0,1,1,"",0,
+1,5,7,1,3,1,"",0,+ 
+1,5,8,1,3,1,"",0,+ 
+1,5,9,1,3,1,"",0,+ 
+1,6,1,16,104,1,"",0,In fact computation as it is currently carried out depends on many operations that destroy information.
+1,6,2,33,156,1,"",1,The socalled and gate is a device with two  input lines each of which may be set at  1 or 0 and one output whose value  depends on the value of the inputs.
+1,6,3,10,44,1,"",0,If  both inputs are 1 the output will be 1.
+1,6,4,18,71,1,"",0,If one of the inputs is 0 or if both are 0  the output will also be 0.
+1,6,5,37,171,1,"",1,Any time the  gate&apos;s output is a 0 we lose information because we d o not know which  of three possible states the input lines  were in (0 and 1 1 and 0 or 0 and 0).
+1,6,6,24,146,1,"",0,In fact any logic gate that has more input than output lines inevitably discards information because we cannot  deduce the input from the output.
+1,6,7,14,106,1,"",0,Whenever we use such a &quot;logically irreversible&quot; gate we dissipate energy  into the environment.
+1,6,8,31,199,1,"",2,Erasing a bit of  memory another operation that is frequently used in computing is also fundamentally dissipative; when we erase  a bit we lose all information about  that bit&apos;s previous state.
+1,6,9,25,159,1,"",0,Are irreversible logic gates and erasures essential t o computation? If they  are any computation we perform has  to dissipate some minimum amount  of energy.
+1,6,10,13,71,1,"",0,As one of us (Bennett) showed in  1973 however they are not essential.
+1,6,11,37,245,1,"",2,This conclusion has since been demonstrated in several models; the easiest of  these to describe are based on so-called  reversible logic elements such as the  Fredkin gate named for Edward Fredkin of the Massachusetts Institute  of Technology.
+1,6,12,10,59,1,"",1,The Fredkin gate has  three input lines and three outputs.
+1,6,13,17,95,1,"",0,The input on one line which is called  the control channel is fed unchanged  through the gate.
+1,6,14,20,102,1,"",0,If the control channel  is set a t 0 the input on the other two  lines also passes through unchanged.
+1,6,15,9,41,1,"",0,If  the control line is a 1 however the 
+1,6,16,7,35,1,"",0,outputs of the other two lines are
+1,6,17,7,36,1,"",0,switched: the input of one line be-
+1,6,18,8,39,1,"",0,comes the output of the other and vice
+1,6,19,1,7,1,"",0,versa.
+1,6,20,6,31,1,"",1,The Fredkin gate does not dis-
+1,6,21,7,40,1,"",0,card any information; the input can al-
+1,6,22,6,33,1,"",0,ways be deduced from the output.
+1,6,23,0,1,1,"",0,
+1,6,24,7,37,1,"",1,Fredkin has shown that any logic de-
+1,6,25,8,39,1,"",0,vice required in a computer can be im-
+1,6,26,5,37,1,"",1,plemented by an appropriate arrange-
+1,6,27,4,23,1,"",2,ment of Fredkin gates.
+1,6,28,3,12,1,"",0,To make the
+1,6,29,5,37,1,"",0,computation work certain input lines
+1,6,30,8,37,1,"",1,of some of the Fredkin gates must be
+1,6,31,7,43,1,"",0,preset at particular values [see lower il-
+1,6,32,2,19,1,"",1,lustration below].
+1,6,33,0,1,1,"",0,
+1,6,34,5,31,1,"",1,Fredkin gates have more output
+1,6,35,8,38,1,"",0,lines than the gates they are made to
+1,6,36,1,10,1,"",0,simulate.
+1,6,37,5,28,1,"",0,In the process of computing
+1,6,38,8,39,1,"",0,what seem to be "garbage bits" bits of
+1,6,39,6,38,1,"",0,information that have no apparent use
+1,6,40,3,25,1,"",0,are therefore generated.
+1,6,41,2,11,1,"",0,These bits
+1,6,42,7,35,1,"",0,must somehow be cleared out of the
+1,6,43,9,39,1,"",0,computer if we are to use it again but
+1,6,44,16,88,1,"",2,if we erase them it will cost us allthe energy dissipation we have beentrying to avoid.
+1,6,45,0,1,1,"",0,
+1,6,46,7,36,1,"",0,Actually these bits have a most im-
+1,6,47,2,13,1,"",1,portant use.
+1,6,48,4,20,1,"",0,Once we have copied
+1,6,49,18,115,1,"",3,down the result of our computationwhich will reside in the normal outputbits we simply run the computer inreverse.
+1,6,50,24,152,1,"",4,That is we enter the "gar-bage bits" and output bits that wereproduced by the computer's normaloperation as "input" into the "backend" of the computer.
+1,6,51,13,85,1,"",2,This is possiblebecause each of the logic gates in thecomputer is itself reversible.
+1,6,52,1,8,1,"",0,Running
+1,6,53,14,89,1,"",1,the computer in reverse discards no in-formation and so it need not dissipateany energy.
+1,6,54,12,83,1,"",2,Eventually the computerwill be left exactly as it was before thecomputation began.
+1,6,55,16,91,1,"",2,Hence it is possi-ble to complete a "computing cyclew-to run a computer and then to return
+1,6,56,6,41,1,"",1,it to its original state--without dissi-
+1,6,57,3,19,1,"",1,pating any energy.
+1,6,58,0,1,1,"",0,
+1,6,59,15,71,1,"",0,So far we we have discussed a set of logic operations not a physical a
+1,6,60,1,8,1,"",0,device.
+1,6,61,7,34,1,"",0,It is not hard however to imagine
+1,6,62,7,37,1,"",0,a physical device that operates as a
+1,6,63,2,14,1,"",1,Fredkin gate.
+1,6,64,5,26,1,"",1,In this device the infor-
+1,6,65,5,35,1,"",1,mation channels are represented by
+1,6,66,1,7,1,"",0,pipes.
+1,6,67,6,31,1,"",1,A bit of information is repre-
+1,6,68,8,39,1,"",1,sented by the presence or absence of a
+1,6,69,8,42,1,"",0,ball in a particular section of pipe; the
+1,6,70,9,41,1,"",0,presence of a ball signifies a 1 and the
+1,6,71,7,33,1,"",0,absence of a ball signifies a 0.
+1,6,72,0,1,1,"",0,
+1,6,73,7,37,1,"",0,The control line is represented by a
+1,6,74,7,37,1,"",0,narrow segment of pipe that is split
+1,6,75,4,28,1,"",0,lengthwise down the middle.
+1,6,76,2,7,1,"",0,When a
+1,6,77,8,41,1,"",0,ball enters the split segment of pipe it
+1,6,78,7,34,1,"",0,pushes the two halves of the pipe
+1,6,79,5,36,1,"",0,apart actuating a switching device.
+1,6,80,0,1,1,"",0,
+1,6,81,6,38,1,"",0,The switching device channels any in-
+1,6,82,9,39,1,"",0,put balls that may be in the other two
+1,6,83,9,42,1,"",0,pipes: when a ball is present in the con-
+1,6,84,8,40,1,"",1,trol line any ball that enters an input
+1,6,85,6,40,1,"",0,pipe is automatically redirected to the
+1,6,86,2,12,1,"",0,other pipe.
+1,6,87,6,29,1,"",0,To ensure that the switch is
+1,6,88,7,39,1,"",0,closed when no control ball is present
+1,6,89,7,36,1,"",0,there are springs that hold the two
+1,6,90,6,35,1,"",0,halves of the split pipe together.
+1,6,91,2,7,1,"",0,A ball
+1,6,92,7,40,1,"",0,entering the split pipe must expend en-
+1,6,93,6,36,1,"",1,ergy when it compresses the springs
+1,6,94,9,39,1,"",0,but this energy is not lost; it can be
+1,6,95,6,39,1,"",0,recovered when the control ball leaves
+1,6,96,7,39,1,"",0,the split pipe and the springs expand.
+1,6,97,0,1,1,"",0,
+1,6,98,7,38,1,"",0,All the balls are linked together and
+1,6,99,6,35,1,"",0,pushed forward by one mechanism so
+1,6,100,6,36,1,"",0,that they move in synchrony; other-
+1,6,101,8,40,1,"",1,wise we could not ensure that the vari-
+1,6,102,6,38,1,"",0,ous input and controlling balls would
+1,6,103,6,33,1,"",0,arrive at a logic gate together.
+1,6,104,2,5,1,"",0,In a
+1,6,105,7,39,1,"",0,sense the forward progress of the com-
+1,6,106,7,40,1,"",2,putation is really nhotion along a sin-
+1,6,107,7,38,1,"",0,gle degree of freedom like the motion
+1,6,108,7,38,1,"",0,of two wheels rigidly attached to one
+1,6,109,1,6,1,"",0,axle.
+1,6,110,6,32,1,"",0,Once the computation is done we
+1,6,111,6,36,1,"",0,push all the balls backward undoing
+1,6,112,6,37,1,"",0,all the operations and returning the
+1,6,113,5,31,1,"",0,computer to its initial state.
+1,6,114,0,1,1,"",0,
+1,6,115,7,38,1,"",0,If the entire assembly is immersed in
+1,6,116,7,42,1,"",0,an ideal viscous fluid then the friction-
+1,6,117,9,40,1,"",0,al forces that act on the balls will be
+1,6,118,5,38,1,"",0,proportional to their velocity; there
+1,6,119,5,28,1,"",0,will be no static friction.
+1,6,120,2,15,1,"",0,The frictional
+1,6,121,8,40,1,"",0,force will therefore be very weak if we
+1,6,122,7,38,1,"",0,are content to move the balls slowly.
+1,6,123,1,3,1,"",0,In
+1,6,124,6,38,1,"",0,any mechanical system the energy that
+1,6,125,7,39,1,"",1,must be expended to work against fric-
+1,6,126,9,42,1,"",2,tion is equal to the product of the fric-
+1,6,127,6,38,1,"",1,tional force and the distance through
+1,6,128,4,26,1,"",0,which the system travels.
+1,6,129,2,11,1,"",0,(Hence the
+1,6,130,6,37,1,"",0,faster a swimmer travels between two
+1,6,131,8,38,1,"",0,points the more energy he or she will
+1,6,132,5,38,1,"",0,expend although the distance traveled
+1,6,133,7,35,1,"",0,is the same whether the swimmer is
+1,6,134,3,14,1,"",0,fast or slow.
+1,6,135,6,23,1,"",0,) If we move the balls
+1,6,136,7,35,1,"",1,through the Fredkin gates at a low
+1,6,137,6,36,1,"",0,speed then the energy expended (the
+1,6,138,7,39,1,"",0,product of force and distance) will be
+1,6,139,6,40,1,"",0,very small because the frictional force
+1,6,140,6,38,1,"",0,depends directly on the balls' speed.
+1,6,141,1,3,1,"",0,In
+1,6,142,32,206,1,"",2,scribed arrangements of mirrors that  correspond to different types of logic  gate and they have shown that billiardball models can be built to simulate  any logic element that is necessary for  computing.
+1,6,143,20,100,1,"",0,T o start the computation we fire a  billiard ball into the computer wherever we wish to input a 1.
+1,6,144,7,50,1,"",0,The balls must  enter the machine simultaneously.
+1,6,145,33,185,1,"",0,Since they are perfectly elastic they  d o not lose energy when they collide;  they will emerge from the computer  with the same amount of kinetic energy we gave them at the beginning.
+1,6,146,17,121,1,"",1,In operation a billiard-ball computer produces &quot;garbage bits&quot; just as a  computer built of Fredkin gates does.
+1,6,147,18,110,1,"",0,After the computer has reached an answer we reflect the billiard balls back  into it undoing the computation.
+1,6,148,18,90,1,"",0,They  will come out of the machine exactly  where we sent them in and at the same  speed.
+1,6,149,17,102,1,"",0,The mechanism that launched  them into the computer can then be  used to absorb their kinetic energy.
+1,6,150,19,124,1,"",0,Once again we will have performed a  computation and returned the computer to its initial state without dissipating energy.
+1,6,151,14,93,1,"",0,The billiard-ball computer has one  major flaw: it is extremely sensitive to  slight errors.
+1,6,152,15,72,1,"",0,If a ball is aimed slightly  incorrectly or if a mirror is tilted at a 
+1,6,153,9,66,1,"",1,slightly wrong angle the balls&apos; trajectories will go astray.
+1,6,154,22,136,1,"",0,One or more balls  will deviate from their intended paths  and in due course errors will combine  to invalidate the entire computation.
+1,6,155,36,222,1,"",2,Even if perfectly elastic and frictionless billiard balls could be manufactured the small amount of random  thermal motion in the molecules they  are niade of would be enough to cause  errors after a few dozen collisions.
+1,6,156,33,209,1,"",1,Of course we could install some kind  of corrective device that would return  any errant billiard ball to its desired  path but then we would be obliterating information about the ball&apos;s earlier history.
+1,6,157,17,107,1,"",0,For example we might  be discarding information about the  extent to which a mirror is tilted incorrectly.
+1,6,158,23,127,1,"",0,Discarding information even  to correct an error can be done only in  a system in which there is friction and  loss of energy.
+1,6,159,8,63,1,"",0,Any correctional device  must therefore dissipate some energy.
+1,6,160,29,190,1,"",0,Many of the difficulties inherent in  the billiard-ball computer can be made  less extreme if microscopic or submicroscopic particles such as electrons  are used in place of billiard balls.
+1,6,161,3,16,1,"",1,As  Wojciech H.
+1,6,162,29,175,1,"",2,Zurek who is now at the  Los Alamos National Laboratory has  pointed out quantum laws which can  restrict particles to a few states of motion could eliminate the possibility 
+1,6,163,10,52,1,"",0,that a particle might go astray by a  small amount.
+1,6,164,25,193,1,"",0,Although the discussion so far has  been based primarily on classical dynamics several investigators have proposed other reversible computers that  are based on quantum-mechanical  principles.
+1,6,165,19,124,1,"",1,Such computers first proposed by Paul Benioff of the Argonne  National Laboratory and refined by  others notably Richard P.
+1,6,166,18,112,1,"",0,Feynman  of the California Institute of Technology have so far been described only in  the most abstract terms.
+1,6,167,33,241,1,"",0,Essentially  the particles in these computers would  be arranged so that the quantum-mechanical rules governing their interaction would be precisely analogous to  the rules describing the predicted outputs of various reversible logic gates.
+1,6,168,13,83,1,"",1,For example suppose a particle&apos;s spin  can have only two possible values: up 
+1,7,1,11,64,1,"",0,(corresponding to a binary 1) and down  (corresponding to a 0).
+1,7,2,43,251,1,"",1,The interactions between particle spins can be prescribed in such a way that the value of  one particle&apos;s spin changes depending  on the spin of nearby particles; the spin  of the particle would correspond to  one of the outputs of a logic gate.
+1,8,1,11,72,1,"",1,discussion has concentrat-  S o ed far on this information  processing.
+1,8,2,1,3,1,"",0,A 
+1,8,3,9,56,1,"",0,computer must store information as  well as process it.
+1,8,4,21,124,1,"",0,The interaction between storage and processing is best  described in terms of a device called a  Turing machine for Alan M.
+1,8,5,9,52,1,"",0,Turing  who first proposed such a machine  in 1936.
+1,8,6,15,89,1,"",0,A Turing machine can perform any computation that can be performed by a modern computer.
+1,8,7,16,85,1,"",0,One of  us (Bennett) has shown that it is possible to build a reversible Turing ma- 
+1,9,1,25,145,1,"",0,chine: a Turing machine that does not  discard information and can therefore  be run with as small an expenditure of  energy as the user wishes.
+1,9,2,6,41,1,"",0,A Turing machine has several components.
+1,9,3,26,133,1,"",0,There is a tape divided into  discrete frames or segments each of  which is marked with a 0 or a 1; these  bits represent the input.
+1,9,4,7,53,1,"",0,A &quot;read/write  head&quot; moves along the tape.
+1,9,5,5,33,1,"",0,The head  has several functions.
+1,9,6,33,148,1,"",0,It can read one  bit of the tape at a time it can print one  bit onto the tape and it can shift its  position by one segment to the left or  right.
+1,9,7,34,226,1,"",2,In order to remember from one  cycle to the next what it is doing the  head mechanism has a number ofedistinct &quot;states&quot;; each state constitutes a  slightly different configuration of the  head&apos;s internal parts.
+1,9,8,14,77,1,"",0,In each cycle the head reads the bit  on the segment it currently occupies; 
+1,9,9,22,112,1,"",0,then it prints a new bit onto the tape  changes its internal state and moves  one segment to the left or right.
+1,9,10,25,134,1,"",0,The bit  it prints the state it changes into and  the direction in which it moves are determined by a fixed set of transition  rules.
+1,9,11,8,50,1,"",0,Each rule specifies a particular  set of actions.
+1,9,12,25,127,1,"",0,Which rule the machine  follows is determined by the state of  the head and the value of the bit that it  reads from the tape.
+1,9,13,48,225,1,"",0,For example one  rule might be: &quot;If the head is in state A  and is sitting on a segment of tape that  is printed with a 0 it should change  that bit to a 1 change its state to state B  and move one segment to the right.
+1,9,14,31,167,1,"",0,&quot; It  may happen that the transition rule instructs the machine not to change its  internal state not to print a new bit  onto the tape or to halt its operation.
+1,9,15,19,123,1,"",0,Not all Turing machines are reversible but a reversible Turing machine  can be built to perform any possible  computation.
+1,9,16,15,119,1,"",2,The reversible Turing-machine  models have an advantage over such  machines as the frictionless billiardball computer.
+1,9,17,10,81,1,"",0,In the billiard-ball  computer random thermal motion  causes unavoidable errors.
+1,9,18,37,235,1,"",0,Reversible  Turing-machine models actually exploit random thermal motion: they  are constructed in such a way that thermal motion itself with the assistance  of a very weak driving force moves  the machine from one state to the  next.
+1,9,19,26,148,1,"",0,The progress of the computation resembles the motion of an ion (a  charged particle) suspended in a solution that is held in a weak electric field.
+1,9,20,28,146,1,"",1,The ion&apos;s motion as seen over a short  period of time appears to be random;  it is nearly as likely to move in one  direction as in another.
+1,9,21,30,168,1,"",0,The applied  force of the electric field however  gives the net motion a preferred direction: the ion is a little likelier to move  in one direction than in the other.
+1,9,22,34,195,1,"",0,It may a t first seem inconceivable  that a purposeful sequence of operations such as a computation could be  achieved in an apparatus whose direction of motion at any one time is nearly random.
+1,9,23,15,97,1,"",0,This style of operation is  quite common however in the microscopic world of chemical reactions.
+1,9,24,41,271,1,"",0,There the trial-and-error action of  Brownian motion or random thermal  motion suffices to bring reactant molecules into contact to orient and bend  them into the specific conformation required for them to react and to separate the product molecules after the  reaction.
+1,9,25,28,211,1,"",0,All chemical reactions are in  principle reversible: the same Brownian motion that accomplishes the forward reaction sometimes brings product molecules together and pushes  them backward through the transition.
+1,10,1,18,93,1,"",0,In a state of equilibrium a backward  reaction is just as likely to occur as a  forward one.
+1,10,2,29,175,1,"",0,In order to keep a reaction moving in  the forward direction we must supply  reactant molecules and remove product molecules; in effect we must provide a small driving force.
+1,10,3,27,150,1,"",0,When the  driving force is very small the reaction  will take nearly as many backward  steps as forward ones but on the average it will move forward.
+1,10,4,56,295,1,"",2,In order to  provide the driving force we must expend energy but as in our ball-andpipe realization of the Fredkin gate  the total amount of energy can be as  small as we wish; if we are willing to  allow a long time for an operation  there is no minimum amount of energy that must be expended.
+1,10,5,22,130,1,"",0,The reason  is that the total energy dissipated depends on the number of forward steps  divided by the number of backward  steps.
+1,10,6,21,125,1,"",0,(It is actually proportional to the  logarithm of this ratio but as the ratio  increases or decreases so does its logarithm.
+1,10,7,13,72,1,"",0,) The slower the reaction moves  forward the smaller the ratio will be.
+1,10,8,29,161,1,"",1,(The apalogy of the faster and slower  swimmers is valid once again: it requires less total energy to go the same  net number of reaction steps forward  if the.
+1,10,9,3,23,1,"",0,reaction moves slowly.
+1,10,10,1,3,1,"",0,) 
+1,11,1,13,67,1,"",1,can see how a Brownian Turing  W e machine  might work by examin- 
+1,11,2,27,147,1,"",1,ing a Brownian tape-copying machine  that already exists in nature: R N A  polymerase the enzyme that helps to  construct RNA copies of the D N A 
+1,12,1,3,21,1,"",0,constituting a gene.
+1,12,2,16,70,1,"",0,A single strand of  D N A is much like the tape of a Turing  machine.
+1,12,3,23,140,1,"",0,At each position along the  strand there is one of four &quot;bases&quot;:  adenine guanine cytosine or thymine  (abbreviated A G C and T).
+1,12,4,26,154,1,"",1,RNA is  a similar chainlike molecule whose  four bases adenine guanine cytosine  and uracil (A G C and U) bind to  &quot;complementary&quot; D N A bases.
+1,12,5,7,53,1,"",1,The RNA polymerase catalyzes this  pairing reaction.
+1,12,6,36,207,1,"",1,The D N A helix is  normally surrounded by a solution  containing a large number of nucleoside triphosphate molecules each consisting of an RNA base linked to a  sugar and a tail of three phosphate  groups.
+1,12,7,27,147,1,"",1,The RNA-polymerase enzyme  selects from the solution a single R N A  base that is complementary to the base  about to be copied on the DNA strand.
+1,12,8,29,162,1,"",1,It then attaches the new base to the end  of the growing RNA strand and releases two of the phosphates into the surrounding solution as a free pyrophosphate ion.
+1,12,9,22,117,1,"",0,Then the enzyme shifts forward one notch along the strand of  D N A in preparation for attaching the  next RNA base.
+1,12,10,18,87,1,"",0,The result is a strand  of R N A that is complementary to the  template strand of DNA.
+1,12,11,30,168,1,"",1,Without  R N A polymerase this set of reactions  would occur very slowly and there  would be little guarantee that the RNA  and D N A molecules would be complementary.
+1,12,12,25,144,1,"",1,The reactions are reversible: sometimes the enzyme takes up a free pyrophosphate ion combines it with the  last base on the RNA strand and re- 
+1,13,1,5,41,1,"",1,leases the resulting nucleoside triphos-
+1,13,2,5,36,1,"",1,phate molecule into the surrounding
+1,13,3,5,34,1,"",0,solution meanwhile backing up one
+1,13,4,7,30,1,"",0,notch along the D N A strand.
+1,13,5,2,9,1,"",1,At equi-
+1,13,6,5,35,1,"",0,librium forward and backward steps
+1,13,7,5,34,1,"",0,would occur with equal frequency;
+1,13,8,4,35,1,"",0,normally other metabolic processes
+1,13,9,6,37,1,"",1,drive the reaction forward by remov-
+1,13,10,5,36,1,"",1,ing pyrophosphate and supplying the
+1,13,11,5,39,1,"",1,four kinds of nucleoside triphosphate.
+1,13,12,0,1,1,"",0,
+1,13,13,7,39,1,"",0,In the laboratory the speed with which
+1,13,14,7,37,1,"",1,RNA polymerase acts can be varied by
+1,13,15,6,40,1,"",0,adjusting the concentrations of the re-
+1,13,16,6,37,1,"",2,actants (as Judith Levin and Michael
+1,13,17,1,3,1,"",0,J.
+1,13,18,5,32,1,"",1,Chamberlin of the University of
+1,13,19,5,36,1,"",0,California at Berkeley have shown).
+1,13,20,0,1,1,"",0,
+1,13,21,5,34,1,"",0,As the concentrations are brought
+1,13,22,5,33,1,"",0,closer to equilibrium the enzyme
+1,13,23,6,38,1,"",0,works more slowly and dissipates less
+1,13,24,7,34,1,"",0,energy to copy a given section of
+1,13,25,7,36,1,"",0,DNA because the ratio of forward to
+1,13,26,4,27,1,"",0,backward steps is smaller.
+1,13,27,0,1,1,"",0,
+1,13,28,8,65,1,"",2,Although RNA polymerase merely copies information  without proc-
+1,13,29,14,96,1,"",3,essing it it is relatively easy to imaginehow a hypothetical chemical Turingmachine might work.
+1,13,30,23,130,1,"",1,The tape is a sin-gle long backbone molecule to whichtwo types of base representing the bi-nary 0 and 1 attach at periodic sites.
+1,13,31,15,86,1,"",3,Asmall additional molecule is attachedto the 0 or 1 group at one site along thechain.
+1,13,32,9,67,1,"",1,The position of this additionalmolecule represents the position of
+1,13,33,4,27,1,"",0,the Turing machine's head.
+1,13,34,14,104,1,"",2,There areseveral different types of "head mole-cule" each type representing a differ-ent machine state.
+1,13,35,0,1,1,"",0,
+1,13,36,7,58,1,"",1,The machine's transition rules arerepresented by enzymes.
+1,13,37,7,60,1,"",2,Each enzymeis capable of catalyzing one particularreaction.
+1,13,38,10,62,1,"",1,The way these enzymes workis best demonstrated by an example.
+1,13,39,0,1,1,"",0,
+1,13,40,20,107,1,"",1,Suppose the head molecule is typeA (indicating that the machine is instate A) and is attached to a 0 base.
+1,13,41,29,152,1,"",3,Also suppose the following transitionrule applies: "When the head is in stateA and reads a 0 change the 0 to a 1change state to B and move to theright.
+1,13,42,21,110,1,"",1," A molecule of the enzyme rep-resenting this rule has a site that fits atype-A head molecule attached to a 1
+1,13,43,1,6,1,"",0,base.
+1,13,44,21,107,1,"",1,It also has one site that fits a 0base and one site that fits a B head [seeillustration on opposite page].
+1,13,45,0,1,1,"",0,
+1,13,46,26,153,1,"",4,T o achieve the transition the en-zyme molecule first approaches thetape molecule at a location just to theright of the base on which the A headresides.
+1,13,47,13,68,1,"",1,Then it detaches from the tapeboth the head molecule and the 0 base
+1,13,48,13,65,1,"",0,to which the head was attached put-ting in their place a 1 base.
+1,13,49,22,101,1,"",3,Next itattaches a B head to the base that is tothe right of the 1 base it has just addedto the tape.
+1,13,50,6,41,1,"",1,At this point the transitionis complete.
+1,13,51,14,66,1,"",1,The head's original site ischanged from a 0 to a 1 the head mole-
+1,14,1,10,40,1,"",1,cule is now a type B and it is attached
+1,14,2,10,43,1,"",0,to the base that is one notch to the right
+1,14,3,5,31,1,"",0,of the previous head position.
+1,14,4,0,1,1,"",0,
+1,14,5,6,35,1,"",0,During the operation of a Brownian
+1,14,6,6,35,1,"",0,Turing machine the tape would have
+1,14,7,7,38,1,"",0,to be immersed in a solution contain-
+1,14,8,6,34,1,"",0,ing many enzyme molecules as well
+1,14,9,7,30,1,"",0,as extra O's l's A's and B's.
+1,14,10,3,10,1,"",0,T o drive
+1,14,11,6,38,1,"",0,the reaction forward there would have
+1,14,12,7,39,1,"",0,to be some other reaction that cleaned
+1,14,13,5,33,1,"",0,the enzyme molecules of detached
+1,14,14,3,17,1,"",0,heads and bases.
+1,14,15,2,19,1,"",0,The concentrations
+1,14,16,7,39,1,"",0,of the reactants that clean the enzyme
+1,14,17,5,35,1,"",0,molecules represent the force that
+1,14,18,5,35,1,"",0,drives the Turing machine forward.
+1,14,19,0,1,1,"",0,
+1,14,20,7,37,1,"",0,Again we can expend as little energy
+1,14,21,8,37,1,"",0,as we wish simply by driving the ma-
+1,14,22,4,27,1,"",0,chine forward very slowly.
+1,14,23,0,1,1,"",0,
+1,14,24,4,29,1,"",0,The enzymatic Turing machine
+1,14,25,4,25,1,"",0,would not be error-free.
+1,14,26,1,13,1,"",0,Occasionally
+1,14,27,8,40,1,"",0,a reaction that is not catalyzed by any
+1,14,28,7,36,1,"",0,enzyme might occur; for example a 0
+1,14,29,5,39,1,"",0,base could spontaneously detach itself
+1,14,30,7,35,1,"",0,from the backbone molecule and a 1
+1,14,31,7,37,1,"",0,base could be attached in its place.
+1,14,32,0,1,1,"",0,
+1,14,33,6,38,1,"",0,Similar errors do indeed occur during
+1,14,34,2,15,1,"",0,RNA synthesis.
+1,14,35,0,1,1,"",0,
+1,14,36,7,37,1,"",0,In principle it would be possible to
+1,14,37,6,38,1,"",0,eliminate errors by building a Brown-
+1,14,38,7,38,1,"",1,ian Turing machine out of rigid fric-
+1,14,39,2,20,1,"",1,tionless clockwork.
+1,14,40,2,14,1,"",0,The clockwork
+1,14,41,5,39,1,"",1,Turing machine involves less idealiza-
+1,14,42,5,37,1,"",1,tion than the billiard-ball computer
+1,14,43,6,35,1,"",0,but more than the enzymatic Turing
+1,14,44,1,9,1,"",0,machine.
+1,14,45,6,26,1,"",0,On the one hand its parts
+1,14,46,6,36,1,"",0,need not be manufactured to perfect
+1,14,47,6,39,1,"",0,tolerances as the billiard balls would
+1,14,48,8,42,1,"",1,have to be; the parts fit loosely togeth-
+1,14,49,7,36,1,"",0,er and the machine can operate even
+1,14,50,8,37,1,"",0,in the presence of a large amount of
+1,14,51,2,15,1,"",0,thermal noise.
+1,14,52,5,24,1,"",0,Still its parts must be
+1,14,53,7,41,1,"",1,perfectly rigid and free of static fric-
+1,14,54,7,38,1,"",1,tion properties not found in any mac-
+1,14,55,2,15,1,"",1,roscopic body.
+1,14,56,0,1,1,"",0,
+1,14,57,6,36,1,"",0,Because the machine's parts fit to-
+1,14,58,7,38,1,"",1,gether loosely they are held in place
+1,14,59,7,34,1,"",0,not by friction but by grooves or
+1,14,60,6,41,1,"",0,notches in neighboring parts [see illus-
+1,14,61,4,21,1,"",1,tration on page 561.
+1,14,62,3,19,1,"",0,Although each part
+1,14,63,9,40,1,"",0,of the machine is free to jiggle a lit-
+1,14,64,7,35,1,"",0,tle like the pieces of a well-worn
+1,14,65,7,35,1,"",0,wood puzzle the machine as a whole
+1,14,66,5,35,1,"",0,can only follow one "computational
+1,14,67,1,6,1,"",0,path.
+1,14,68,7,34,1,"",0," That is the machine's parts in-
+1,14,69,9,39,1,"",1,terlock in such a way that at any time
+1,14,70,7,36,1,"",0,the machine can make only two kinds
+1,14,71,6,39,1,"",0,of large-scale motion: the motion cor-
+1,14,72,5,37,1,"",0,responding to a forward computation-
+1,14,73,7,36,1,"",0,al step and that corresponding to a
+1,14,74,2,15,1,"",0,backward step.
+1,14,75,0,1,1,"",0,
+1,14,76,5,32,1,"",1,The computer makes such transi-
+1,14,77,7,39,1,"",1,tions only as the accidental result of
+1,14,78,7,39,1,"",0,the random thermal motion of its parts
+1,14,79,6,35,1,"",0,biased by the weak external force.
+1,14,80,2,6,1,"",0,It is
+1,14,81,6,37,1,"",0,nearly as likely to proceed backward
+1,14,82,5,37,1,"",0,along the computational path undoing
+1,14,83,8,39,1,"",0,the most recent transition as it is to
+1,14,84,2,17,1,"",0,proceed forward.
+1,14,85,4,19,1,"",0,A small force pro-
+1,14,86,5,37,1,"",2,vided externally drives the computa-
+1,14,87,2,14,1,"",1,tion forward.
+1,14,88,5,24,1,"",0,This force can again be
+1,14,89,27,141,1,"",0,as small as we wish and so there is no  minimum amount of energy that must  be expended in order to run a Brownian clockwork Turing machine.
+1,15,1,18,108,1,"",2,ccording to classical thermodynam-  A  ics then there is no minimum  amount of energy required in order to 
+1,15,2,3,23,1,"",0,perform a computation.
+1,15,3,42,293,1,"",1,Is the classical thermodynamical analysis in conflict with quantum theory? After all  the quantum-mechanical uncertainty  principle states there must be an inverse relation between our uncertainty about how long a process takes and  our uncertainty about how much energy the process involves.
+1,15,4,21,144,1,"",0,Some investigators have suggested that any switching process occurring in a short period  of time must involve a minimum-expenditure of energy.
+1,15,5,17,112,1,"",0,In fact the uncertainty principle  does not require any minimum energy  expenditure for a fast switching event.
+1,15,6,21,127,1,"",0,The uncertainty principle would be applicable only if we attempted to measure the precise time at which the event  took place.
+1,15,7,15,92,1,"",0,Even in quantum mechanics extremely fast events can take  place without any loss of energy.
+1,15,8,38,277,1,"",1,Our  confidence that quantum mechanics  allows computing without any minimum expenditure is bolstered when  we remember that Benioff and others have developed models of reversible quantum-mechanical computers  which dissipate no energy and obey  the laws of quantum mechanics.
+1,15,9,21,152,1,"",2,Thus the uncertainty principle does  not seem to dace a fundamental limit  on the proce&apos;ss of computation; neither  does classical thermodynamics.
+1,15,10,13,77,1,"",0,Does  this mean there are no physical limitations to computing? Far from it.
+1,15,11,21,127,1,"",0,The  real limitations are associated with  questions that are much harder to answer than those we have asked in this  article.
+1,15,12,46,295,1,"",0,For example do elementary  logic operations require some minimum amount of time? What is the  smallest possible gadgetry that could  accomplish such operations? Because  scales of size and time are connected  by the velocity of light it is likely that  these two questions have related answers.
+1,15,13,29,167,1,"",1,We may not be able to find these  answers however until it is determined whether or not there issome  ultimate graininess in the universal  scales of time and length.
+1,15,14,43,248,1,"",0,At the other extreme how large can  we make a computer memory? How  many particles in the universe can we  bring and keep together for that purpose? The maximum possible size of a  computer memory limits the precision  with which we can calculate.
+1,15,15,16,87,1,"",0,It will  limit for example the number of decimal places to which we can calculate  pi.
+1,15,16,4,36,1,"",1,The inevitable deterioration proc- 
+1,16,1,47,268,1,"",1,esses that occur in real computers pose  another perhaps related question:  Can deterioration at least in principle  be reduced to any desired degree or  does it impose a limit on the maximum  length of time we shall be able to devote to any one calculation? That is 
+1,16,2,27,215,1,"",1,are there certain calculations that cannot be completed before the computer&apos;s hardware decays into uselessness?  Such questions really concern limitations on the physical execution of  mathematical operations.
+1,16,3,8,48,1,"",1,Physical  laws on which the answers must ulti- 
+1,17,1,12,84,1,"",1,mately be based are themselves expressed in terms of such mathematical  operations.
+1,17,2,29,171,1,"",0,Thus we are asking about  the ultimate form in which the laws of  physics can be applied given the constraints imposed by the universe that  the laws themselves describe.
+1,18,1,16,108,1,"",0,CONVENTIONAL COMPUTING DEVICES the abacus and the  logic chip both dissipate energy when they are operated.
+1,18,2,16,109,1,"",2,The &apos;Vogic gates&quot; central to the design of a chip expend energy because they  discard information.
+1,18,3,29,162,1,"",0,A chip consumes energy for a less fundamental reason as well: it employs circuits that draw power even when  they merely hold information and d o not process it.
+1,18,4,3,15,1,"",0,The abacus is 
+1,18,5,9,60,1,"",1,dissipative because of friction between its beads and rods.
+1,18,6,26,164,1,"",2,It could  not be built of frictionless components: if there were no static friction the beadsy positions would change under the influence of random thermal motion.
+1,18,7,31,185,1,"",2,Static friction exerts a certain minimum force  no matter what the beads&apos; velocity and so there is some minium energy that the abacus requires no matter how slowly it is operated.
+1,19,1,16,105,1,"",2,FREDKIN REVERSIBLE LOGIC GATE need not dissipate energy; the input can alwaysbe deduced from the output.
+1,19,2,15,76,1,"",2,The gate has a ucontrol" line the value of which is not changedby the gate.
+1,19,3,20,85,1,"",0,If the bit on the control line is a 0 the values of the other two lines are also un-
+1,19,4,21,95,1,"",0,touched; if it is a I however the input of line A becomes the output of line B and vice versa.
+1,19,5,13,93,1,"",1,Reversible gates can be arranged to implement any function performed by an irreversiblegate.
+1,19,6,22,133,1,"",2,To implement the and operation (right) one input is preset to equal 0 and two outputbits called garhge bits are temporarily ignored.
+1,19,7,21,129,1,"",1,When the computation is complete thesebits are used to operate the gate in reverse returning the computer to its original state.
+1,20,1,24,130,1,"",1,IDEALIZED PHYSICAL REALIZATION of a Fredkin gate substitutes pipes for wires and the presence or absence of a ball for a  1 or 0.
+1,20,2,10,63,1,"",1,A narrow split segment of pipe represents the control channei.
+1,20,3,31,172,1,"",0,When a ball passes through it the pipe spreads apart operating  a switching mechanism; the mechanism in turn switches any input  ball from line A to line B and vice versa.
+1,20,4,6,29,1,"",0,A pair of springs keeps the 
+1,20,5,9,46,1,"",0,control channel closed when no ball is in it.
+1,20,6,33,188,1,"",1,This gate does not need  static friction in order to operate; it could be immersed in a viscous  fluid and the frictional forces could be made to depend only on  the balls&apos; velocity.
+1,20,7,33,187,1,"",0,Then the energy dissipation could be as small as  the user wished: to lower the amount of energy dissipated it would  only be necessary to drive the balls through the device more slowly.
+1,21,1,20,128,1,"",1,BILLIARD-BALL COMPUTER employs the movement of biiliard balls on a table to simulate the movement of bits through logic  gates.
+1,21,2,19,139,1,"",1,In billiard-ball logic gates (left) the balls&apos; paths are redirected  by collisions with one another or with reflecting &quot;mirrors.
+1,21,3,39,228,1,"",5,&quot;In addition to their role in gates mirrors can deflect a ball&apos;s path (a) s h i i  the pathsideways (b)delay the ball&apos;smotion withoutchangingits final  direction or position (c) or allow two l i e s to crass (d).
+1,21,4,13,91,1,"",1,It is possible  to arrange mirrors so that the resulting Lbcomputer&quot;  implements the 
+1,21,5,5,28,1,"",0,function of any logic chip.
+1,21,6,15,87,1,"",0,For example a billiard-ball computer  could be made to test whether a number is prime.
+1,21,7,22,123,1,"",1,One such computer (right) accepts as input any fivebit number (in this case 01101  or 13) and the fixed input sequence 01.
+1,21,8,16,102,1,"",1,Like a Fredkin gate a billiard-ball computer typically returns more output bits than its user  needs.
+1,21,9,34,208,1,"",0,In the case shown the computer returns the original input  number itself (which is the &quot;extra&quot; output) and an &quot;answer&quot; sequence: 10 if the input number is prime and 01 if it is composite.
+1,22,1,18,100,1,"",0,TURING MACHINE can be constructed in such a way that it can perform any computation a computer can.
+1,22,2,19,98,1,"",0,An infinitely long tape is divided into discrete segments each of which  bears either a 0 or a 1.
+1,22,3,25,141,1,"",0,A &quot;read/write head&quot; which can be in any of several internal states  (here there are only two states A and B) moves along the tape.
+1,22,4,15,73,1,"",0,Each cycle begins as the  head reads one bit from a segment of the tape.
+1,22,5,30,164,1,"",1,Then in accordance with a fixed set of transition rules it writes a bit onto that segment changes its own internalstate and moves one segment to the left or right.
+1,22,6,35,227,1,"",0,This Turing machine because it has only two head states can do  only trivial computations; more complicated machines with more head states are capable  of simulating any computer even one much more complicated than themselves.
+1,22,7,32,185,1,"",1,To do s o  they store a representation of the larger machine&apos;s complete logical state on the unlimited  tape and break down each complex cycle into a large number of simple steps.
+1,22,8,16,119,1,"",1,The machine shown is logically reversible: it is always possible to deduce the machine&apos;s previous  configuration.
+1,22,9,10,74,1,"",0,Other Turing machines with different transition rules are not reversible 
+1,23,1,12,81,1,"",1,RNA POLYMERASE an enzyme acts as a reversible tape-copying machine; it catalyzes
+1,23,2,10,60,1,"",0,the reaction that constructs RNA copies of segments of DNA.
+1,23,3,5,26,1,"",0,As the enzyme moves along
+1,23,4,14,89,1,"",1,a strand of DNA it selects from the surrounding solution a nucleoside triphosphate mole-
+1,23,5,18,91,1,"",2,cule (an RNA base bound to a sugar and a "tail" of three phosphate groups) that is comple-
+1,23,6,9,44,1,"",1,mentary to the DNA base about to be copied.
+1,23,7,11,48,1,"",0,It then attaches the new base to the end of the
+1,23,8,12,79,1,"",1,RNA strand and releases a free pyrophosphaie ion consisting of two phosphates.
+1,23,9,2,10,1,"",1,The reac-
+1,23,10,17,93,1,"",2,tion is reversible:sometimes the enzyme takes up the last link of RNA attaches it to a pyro-
+1,23,11,16,91,1,"",0,phosphate ion and returns the resulting molecule to the solution backing up a notch on the
+1,23,12,2,12,1,"",0,DNA strand.
+1,23,13,12,75,1,"",0,When the reaction is close to chemical equilibrium the enzyme takes almost
+1,23,14,16,85,1,"",0,as many backward as forward steps and the total energy needed to copy any segment of
+1,23,15,4,19,1,"",0,DNA is very small.
+1,23,16,12,68,1,"",1,The reaction can be made less dissipative by being run more slowly;
+1,23,17,17,85,1,"",0,there is no minimum amount of energy that must be expended to copy a segment of DNA.
+1,24,1,14,106,1,"",0,HYPOTHETICAL ENZYMATIC TURING MACHINE could perform a computation  with no minimum expenditure of energy.
+1,24,2,15,96,1,"",0,Molecules representing 0 and 1 bits are attached  at periodic intervals to a backbone molecule.
+1,24,3,24,135,1,"",1,A small additional molecule representing the  Turing machine&apos;s head is attached to the 0 or 1 group at one site on the chain (I).
+1,24,4,14,101,1,"",1,There  are several types ofhead molecule each type representing a different internal machine  state.
+1,24,5,6,45,1,"",0,Transition rules are represented by enzymes.
+1,24,6,38,213,1,"",0,In each cycle an enzyme attaches itself  to the head molecule and the bit molecule to which the head is attached (2); then it detaches  them from the chain putting in their place the appropriate bit molecule (3).
+1,24,7,35,174,1,"",0,As it does so it  rotates so that it attaches the appropriate head molecule to the bit that occupies the site one  notch to the right or left of the hit it has just changed.
+1,24,8,24,125,1,"",0,Now the cycle is complete (4): the  value of a bit has been changed and the head has changed state and shifted its position.
+1,24,9,13,67,1,"",1,Esch kind of enzyme is able to catalyze one such set of reactions.
+1,24,10,20,113,1,"",0,As in the case of RNA  synthesis these reactions can be made to dissipate an arbitrarily small amount of energy.
+1,25,1,25,158,1,"",1,BROWNIAN CLOCKWORK TURING MACHINE made out  of rigid frictionless parts relies on random jiggling of its loosely  fitted parts to change from state to state.
+1,25,2,20,101,1,"",0,When a part is held in  place it is not by friction but by grooves or notches in neighboring  parts.
+1,25,3,36,235,1,"",1,Parts interlock in such a way that they can follow only one  &quot;computational patb&quot;; although they are free to jiggle a little the  only large-scale motions they can make correspond to forward or  backward computational steps.
+1,25,4,29,154,1,"",0,The operation of the machine is  driven slowly forward by a very weak force; a t any instant the machine is almost as likely to move backward as forward.
+1,25,5,15,95,1,"",0,On the average however the machine will move forward and the computation  will eventually end.
+1,25,6,27,141,1,"",0,The machine can be made to dissipate as small  a n amount of energy as the user wishes simply by employing a  force of the correct weakness.
+1,25,7,29,171,1,"",0,Segments of tape are represented by  grooved disks; bits are represented by E-shaped blocks which are  locked onto the disks in either the up (1)or the down (0) position.
+1,25,8,29,174,1,"",0,The head consists of a rigid framework and a complicated mechanism (most of which is not shown) from which are suspended a reader a manipulator and a screwdriver-shaped rod.
+1,25,9,27,203,1,"",1,The machine&apos;s  operation is controlled by a grooved &quot;master camshaft&quot; which resembles a phonograph record (top left and far right); different  grooves correspond to different head states.
+1,25,10,37,231,1,"",1,At the beginning of a  cycle the head is positioned above one of the disks and a &quot;stylus&quot; is  in the &quot;read&quot;segment of the groove in the master camshaft that corresponds to the machine&apos;s current head state.
+1,25,11,30,180,1,"",1,During the &quot;read&quot;  part of the cycle ( I ) the reader determines whether the disk&apos;s &quot;bit*  block is up or down by a process called an obstructive read (center 
+1,25,12,1,8,1,"",0,right).
+1,25,13,46,222,1,"",1,In an obstructive read the reader moves past the block following a high or a low path; one of the paths will be obstructed by  the knob on the end of the block and so there will be only one patb  for the reader to follow.
+1,25,14,35,219,1,"",1,At the point on the master camshaft that  corresponds to this &quot;decision&quot; the grooves branch; each groove  splits into two and the stylus is guided into the groove that corresponds to the bit&apos;s value (2).
+1,25,15,13,89,1,"",0,Then the master camshaft turns until  the stylus is in the &quot;write&quot;segment (3).
+1,25,16,34,215,1,"",1,In this segment each groove  contains a different set of &quot;instructions&quot; for the machine t o follow;  the instructions are transmitted by a complex linkage between the  stylus and the rest of the mechanim.
+1,25,17,52,295,1,"",1,If the instructions call for the  bit&apos;s value to change the manipulator moves over and grasps the  knob; then the screwdriver rotates the disk until the block is free to  move the manipulator moves the block up or down and the screwdriver rotates the disk again to hold the block in place.
+1,25,18,17,132,1,"",1,After the  stylus passes through the L&apos;write&quot; segment of the master camshaft it  enters the &quot;shift&quot;segment (4).
+1,25,19,19,103,1,"",0,Each groove in this segment contains  instructions to move the head one segment t o the left or right.
+1,25,20,31,188,1,"",0,Then  the stylus enters the &quot;change state&quot; segment of the camshaft (9  where grooves merge in such a way that the stylus falls into the  groove representing the next head state.
+1,25,21,6,32,1,"",0,The cycle is now complete  (6).
+1,25,22,15,86,1,"",1,Disks adjacent to the one being read are held in place by the  head&apos;s framework.
+1,25,23,10,61,1,"",0,Disks that are farther away are held by &quot;locking  tabs.
+1,25,24,22,104,1,"",0,&quot; The locking tab on each disk is coupled to a special bit called  the Q bit on a n adjacent disk.
+1,25,25,32,170,1,"",0,The linkages between Q bits and  locking tabs are constructed so that the disk currently being read  is free to move while disks far to the right or left are held still.

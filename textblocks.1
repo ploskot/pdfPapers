@@ -1,0 +1,237 @@
+# LQi 21.10.2020
+# help file for textblocks command
+
+General usage:
+>> textblocks textfile [settings] [commands]
+
+To get the version number and quit:
+>> textblocks -version
+
+To get show this help and quit:
+>> textblocks -help
+
+To obtain information on blocks in inputfile and quit:
+>> textblocks inputfile -info
+>> textblocks inputfile -info listblocks {blocks}
+>> textblocks inputfile -info onblocks {blocks}
+
+To check if there are duplicated blocks, if blocks have both opening and
+closing tag, and if blocks are sorted within pages:
+>> textblocks inputfile -check
+>> textblocks inputfile -check ifsorted
+
+To replace non-printable characters with transliterated ASCII characters
+using iconv utility:
+>> textblocks inputfile -translit
+
+Processing blocks
+
+The idea is to first copy selected or all blocks from input file to output
+file, and then to manipulate blocks in the output file by a sequence of
+commands. The output file can become the input file in the next round of
+processing, so the result is a history of processed files which can be
+checked or reverted back as needed.
+
+To process inputfile with commands into output filename or derived output
+filename given either a dot or two digits XX, and log level LL. The log
+filename is full output filename with extension '.log' appended. Note that
+errors causing program termination are only sent to screen.
+>> textblocks inputfile -output XX|filename|. [-log LL] COMMANDS
+
+As above, but allow overwriting the output file if it already exists:
+>> textblocks inputfile -overwrite XX|filename|. [-log LL] COMMANDS
+
+As above, but allow appending to the existing output file:
+>> textblocks inputfile -append XX|filename|. [-log LL] COMMANDS
+
+As above, but make changes directly into input file:
+>> textblocks inputfile -inplace [-log LL] COMMANDS
+
+Log levels:
+
+LL=0  very quiet
+LL=1  important messages to stdout (default)
+LL=2  important messages to log file
+LL=3  important messages to both stdout and log file
+LL=4  more messages to stdout (for debugging) / not implemented
+
+Output filename:
+
+Filename with extension can be given explicitly. If filename given does not
+have extension, the output file extension is copied from input filename.
+For two digit output filenames, the base name and the first letter of
+filename extension of nput and output files are the same. If output file
+with extension containing two digits already exists, the two digits are
+incremented until a new output filename can be created.
+
+Examples:
+
+-output output.txt   full filename give; use -overwrite or -append to avoid
+		     error if the output file already exists
+-output output       extension from input filename is appended to output file
+-output XX           output filename is the same as input filename, but the
+                     extension is changed to '.tXX'; if such file already
+		     exists, the error is raised
+-output .            like two digits, but the available extension is
+		     determined automatically
+
+Log filename		     
+
+-log X               log filename is set by appending extra extension '.log'
+     		     to the output filename
+
+Clean command
+
+The final step of processing text blocks is to remove labels, extra white
+spaces and empty lines, break blocks into sentences or words, and perform
+simple or more sophisticated character filtering and string replacement.
+Moreover, comma-separated meta information can be placed before, after,
+above or below every sentence or word records. Check also filter command
+below for simpler filtering of block contents.
+>> textblocks inputfile -output XX|filename|. [-log LL] -clean OPTIONS
+>> textblocks inputfile -inplace [-log LL] -clean OPTIONS
+
+Clean command options
+
+Without any options, all block labels, extra spaces and empty lines are
+removed throughout the file. 
+>> ... -clean
+
+The character and string filtering can be performed by combining any of
+these commands:
+
+sep {char]	    use {char} as separator instead of default ":"
+as {chars:str}      append string {str} to every character in {chars}
+rc {chars:str}      replace every character in {chars} with {str}
+rs {str1:str2}      replace all occurrences of {str1} with {str2}
+sed {str}           sed command {str}
+    		    being the first and only argument
+tr {tropts}         filter text with tr {tropts} command
+
+Examples:
+
+as ".?! \\t:\\n"    break text into words after every '.?! \t' character
+rc ".?!:\\n"        break text into sentences after every '!.?' character
+rs \"  \\+: \"      replace multiple spaces with single space
+rs \"^ \\+:\"       remove all leading spaces
+rs \"\\\([a-z]\\\)- \\+\\\([a-z]\\\):\\1\\2\" join words split over lines
+sed "/^\\s*$/d"     delete empty lines
+tr "[a-z]" "[A-Z]"  capitalize all letters
+
+Note that characters { and } in arguments are always replaced with ".
+
+Meta information can be added before, after, above or below each block,
+sentence or word. 
+>> ... -clean ... addmeta above|below|before|after 
+
+For now, meta information is fixed to these fields: #counter ,#page, #block,
+#words, #chars, #np-chars, np-chars, #spell-errs where np-chars denotes
+non-printable characters, and #spell-errs is the number of misspelled
+words.
+
+
+Addressing blocks:
+
+Before describing other commands, it is important to understand how to
+select i.e. address text blocks in file. To select all blocks, use all.
+Block labels are denoted as P.B i.e. page and block number. Block labels
+reflect ordering of blocks in file, i.e., no ascending ordering is
+guaranteed. To select a block range, use P.B1-B2 to select blocks B1 to B2
+inclusive within page P. Use P1-P2 to selected all blocks on pages P1 to P2
+inclusive. Use P1.B1 - P2.B2 to select blocks from P1.B1 to P2.B2
+inclusive. If P1.B1 occurs after P1.B2, or P1.B1 occurs after P2.B2, no
+blocks are selected. The keyword indexes are first and last e.g. P.first
+and P.last blocks on page P, and blocks first.B on the first page and
+last.B on the last page. Moreover, in order to further select blocks M to N
+inclusive from a range R, use selector (R){M,N}; if N is ommited, maximum
+possible value is assumed. All blocks in file are obtain with 'all'. Note
+that none of the block selectors require the block labels to be sorted. The
+{.} bash expansion can be used using keyword 'expand(.)'. Multiple blocks
+are grouped together using {.} or \".\". Extra spaces are ignored.
+
+Examples:
+
+3.1          select a single block labeled as 3.1
+3.1-8:       select blocks 3.1 to 3.8 on page 3
+3	     select all blocks on page 3
+1-3:         select all blocks on pages 1 till 3
+(3.1-8){2,2} select the 2nd element from blocks 3.1 to 3.8
+(1-3)[3-5]   select elements 3 to 5 from blocks on pages 1-3
+(1.2-20)[5-] select the 5th element to the end  for blocks 1.2-20
+{1.1 2.4-8}   expands to "1.1 2.4-8"
+\"1.1 2.4-8\" expands to "1.1 2.4-8"
+
+expand(1.{1,4-5} 2 3.{8,10})       expands to 1.1 1.4-5 2 3.8 3.10
+"expand(1.{1,4-5} 2 3.{8,10})"     expands to "1.1 1.4-5 2 3.8 3.10" since
+                                   outer " are removed by bash while outer {}
+				   are replaced with "
+"{expand(1.{1,2} expand(2.{1,2})}" expands to "1.1 1.2 2.1 2.2" 
+
+
+Other comamnds
+
+Commands can be given individually as arguments on a command line, or
+specified in one or more files where each command is on separate line.
+Commands are executed sequentially in the order they appear.
+>> ... -commands filename1 ... -commands filenema2 ...
+
+The sequence of commands can be terminated prematurely using:
+>> ... -quit ...
+
+Empty new blocks can be inserted by specifying labels for each and every
+such new block. Optionally, the text of these new blocks can be also given.
+>> ... -new {block labels} after|before {existing block} [with {string}]
+
+Unless inplace is used, blocks must be first copied from input file to
+output file before they can be processed with other commands. The copied
+blocks are appended to the end of output file (default), added to the
+beginning or appended before or after a given block using:
+>> ... -copy {blocks} after {label}|before {label}|start|end
+
+Blocks within output file can be moved after or before given block, or at
+beginning or end of output file. If ascopy is used, the original blocks are
+not deleted after they were copied to new location.
+>> ... -move [ascopy] {blocks} after {label}|before {label}|start|end
+
+Blocks can be renumbered using these commands. The first form maps labels
+{blocks1} to labels {blocks2}, so both sets must be of equal length. The
+second form renumbers blocks between {block1} and {block2} from (as
+{block}) with positive or negative increments (by {val}); the default
+values are to start from {block1} with increment equal to 1. This does not
+change the page part of block label. The last form only changes the page
+part of block lables to {page}.
+>> ... -renumber change {blocks1} to {blocks2}
+>> ... -renumber from {block1} [as {block}] to {block2} [by {val}]
+>> ... -renumber setpage {page} from {block1} to {block2}
+
+To delete blocks including their textual contents:
+>> ... -delete {blocks}
+
+To sort selected blocks based on their labels:
+>> ... -sort from {block} to {block} ascend(default)|descen
+
+To sort whole file:
+>> ... -sort all ascend|descend 
+
+Selected blocks can be merged into one block at place of existing (to)
+block, and its label can be changed (as). If no (to) block is specified,
+the first block lable is used. Attempt to overwrite existing block not in
+{blocks} causes error.
+>> ... -merge {blocks} [to {label}] [as {label}]   
+
+Text string can be added above, below, before or after given blocks. This
+is useful to label text in blocks.
+>> ... -addtext {string} above|below|before|after {blocks}
+
+Block by block filtering can be done using any bash function where block
+contents are either passed as an argument to the function or via a pipe.
+>> ... -filter {blocks} with {function} as arg|pipe to stdout|infile
+
+Filter function:
+
+Filter is any bash function which can process text either via a pipe such
+as: 'func <<< "block-contents"' or it is used with arguments as in case:
+'func $(echo "block-contents")'. Note that allowing this feature creates a
+slight security issue.
+
+EOF

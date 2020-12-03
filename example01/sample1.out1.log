@@ -1,0 +1,119 @@
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Created output file sample1.out1
+++ Output file set to sample1.out1
+ < copyblocks sample1.txt sample1.out1 "1.23 1.5 1.1 1.26 1.13-14 1.7 1.8 1.24 1.10-12 2.1 2.4 2.5 2.9 2.16 2.19 2.28 3.60 3.57 3.4 3.1 3.61 3.58 4.1 4.5 4.7-9 5.3 5.4 5.10 5.6 6.1 6.3 6.6-8 2.13 3.63 3.48 4.10 5.1"
+ > copyblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < mergeblocks sample1.out1 "1.23 1.5"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < mergeblocks sample1.out1 "1.7-8 1.24"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < mergeblocks sample1.out1 "1.11-12"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < mergeblocks sample1.out1 "2.5 2.9 2.16"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < mergeblocks sample1.out1 "3.57 3.4 3.1 3.61"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < mergeblocks sample1.out1 "4.1 4.5"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < mergeblocks sample1.out1 "5.4 5.10"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < mergeblocks sample1.out1 "6.3 6.6"
+ > mergeblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < addtexttoblocks sample1.out1 "keywords:" before 1.23
+ > addtexttoblocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < autoblocks sample1.out1 merge
+ < mergeblocks sample1.out1 { 1.23}
+ > mergeblocks ok
+ < mergeblocks sample1.out1 {1.11 2.1 2.4}
+ > mergeblocks ok
+ < mergeblocks sample1.out1 {2.28 3.60}
+ > mergeblocks ok
+ < mergeblocks sample1.out1 {3.58 4.1}
+ > mergeblocks ok
+ < mergeblocks sample1.out1 {4.9 5.3}
+ > mergeblocks ok
+ > autoblocks blocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < autoblocks sample1.out1 renumber
+ < renumberblocks sample1.out1 from 1.23 to 5.1
+ > renumberblocks ok
+ > autoblocks blocks ok
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out1.log
+++ Changes to be made on input file sample1.out1
+ < cleanblocks sample1.out1 sample1.out1  rs "\([a-z]\)- \+\([a-z]\):\1\2" sed /^\s*$/d as .:
+ sed s/^ *//g
+ + cleaning block 1.23
+ + cleaning block 1.24
+ + cleaning block 1.25
+ + cleaning block 1.26
+ + cleaning block 1.27
+ + cleaning block 1.28
+ + cleaning block 1.29
+ + cleaning block 1.30
+ + cleaning block 1.31
+ + cleaning block 1.32
+ + cleaning block 1.33
+ + cleaning block 1.34
+ + cleaning block 1.35
+ + cleaning block 1.36
+ + cleaning block 1.37
+ + cleaning block 1.38
+ + cleaning block 1.39
+ + cleaning block 1.40
+ + cleaning block 1.41
+ + cleaning block 1.42
+ + cleaning block 1.43
+ + cleaning block 1.44
+ + cleaning block 1.45
+ + cleaning block 1.46
+ + cleaning block 1.47
+ + cleaning block 1.48
+ + cleaning block 1.49
+ > cleanblocks ok

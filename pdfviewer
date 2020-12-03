@@ -1,0 +1,152 @@
+#!/bin/bash
+version=0.1.0
+############################################################################
+##                                                                        ##
+##  pdfviewer:  A shell-script to view a batch of pdf files               ##
+##              consecutively                                             ##  
+##                                                                        ##
+##  Author: Pavel Loskot, loskot@gmail.com                                ##
+##                                                                        ##
+##  Usage: "textblocks -help"                                             ##
+##                                                                        ##
+##  License: GNU/GPL version 2 or later. No other warranty.               ##
+##                                                                        ##
+##  Configuration file may appear in future versions.                     ##
+##                                                                        ## 
+##  Developed and tested with GNU bash version 4.0.X                      ##
+##                                                                        ##
+############################################################################
+
+trap "echo :exiting;exit 1" SIGINT SIGTERM
+
+set -e
+
+export LC_CTYPE="en_US.utf8"
+
+if [[ "$#" == "0" ]]; then
+    echo "Usage: pdfviewer [params] files|[-f|--file <filename>]
+    	 
+        Parameters:
+	 -q, --quiet    do not display any messages
+	 -i, --info     show output of pdfinfo
+	 -k, --keypress interactive mode with keys
+	 -f, --file <filename> read file names from this file
+
+	Keys: (interactive mode)
+          h:help t:target s:size c:copy m:move n:next o:nOte q:quit
+	 "
+    exit 0
+fi
+
+quiet=no
+pinfo=no
+keypress=no
+fromfile=no
+fname=
+files=
+
+while [[ $# > 0 ]]; do
+    case $1 in
+	-q|--quiet)
+	    quiet=yes
+	    keypress=no
+	    ;;
+	-i|--info)
+	    pinfo=yes
+	    quiet=yes
+	    keypress=yes
+	    ;;
+	-k|--keypress)
+	    keypress=yes
+	    quiet=no
+	    ;;
+	-f|--file)
+	    fromfile=yes
+	    shift
+	    fname=$1
+	    break
+	    ;;
+	-*)
+	    echo uknown parameter "$par"
+	    exit 1
+	    ;;
+	*)
+	    files=$(ls -1 "$@" | grep ".pdf\|.PDF\|.epub")
+	    break
+	    ;;
+    esac
+    shift
+done
+
+if [[ "$fromfile" == "yes" ]]; then
+    files=$(cat $fname)
+fi
+n=$(ls -1 $files 2</dev/null | wc -l)
+c=0
+target=$HOME
+for f in $files; do
+    if [[ ! -f "$f" ]]; then
+	echo "$f" does not exist, skipping
+	let n=n-1
+	continue
+    fi
+    let c=c+1
+    if [[ "$quiet" == "no" ]]; then
+	echo [$c/$n]:$f
+    fi
+    if [[ "$pinfo" == "yes" ]]; then
+	clear
+	pdfinfo $f
+	echo
+	echo [$c/$n]:$f
+    fi
+    if [[ "$keypress" == "yes" ]]; then
+	/usr/bin/okular $f 2> /dev/null &
+	p=$!
+	while : ; do
+	    read -n 1 -s a
+	    case "$a" in
+		h)
+		    echo "t:target s:size c:copy m:move n:next o:nOte q:quit"
+		    ;;
+		t) 
+		    read -e -p "t=" -i "$target" t
+		    target=${t}
+		    ;;
+		s)
+		    ls -lh $f
+		    ;;
+		m)
+		    read -e -p "mv % " -i "\$t" a
+		    cmd=$(echo "mv $f $a" | sed "s|\$t|$target|")
+		    $cmd
+		    break
+		    ;;
+		c)
+		    read -e -p "cp % " -i "\$t" a
+		    cmd=$(echo "cp $f $a" | sed "s|\$t|$target|")
+		    $cmd
+		    break
+		    ;;
+		o)
+		    f1=${f%.*}.note
+		    touch $f1
+		    vim $f1
+		    break
+		    ;;
+		q)
+		    exit 1
+		    ;;
+		n)
+		    break
+		    ;;
+		*)
+		    break
+		    ;;
+	    esac
+	done
+	kill -13 $p
+    else
+	/usr/bin/okular $f 2> /dev/null
+    fi
+done

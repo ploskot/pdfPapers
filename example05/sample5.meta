@@ -1,0 +1,803 @@
+#page,#block,#counter,#words,#chars,#np-chars,np-chars,#spell-errs,text
+1,1,1,11,84,1,"",1,Noise Contributions in an Inducible Genetic Switch: A  Whole-Cell Simulation Study 
+1,2,1,1,10,1,"",0,Abstract 
+1,3,1,14,116,1,"",0,Stochastic expression of genes produces heterogeneity in clonal populations of bacteria under identical conditions.
+1,3,2,28,202,1,"",2,We  analyze and compare the behavior of the inducible lac genetic switch using well-stirred and spatially resolved simulations  for Escherichia coli cells modeled under fast and slow-growth conditions.
+1,3,3,34,239,1,"",4,Our new kinetic model describing the switching of  the lac operon from one phenotype to the other incorporates parameters obtained from recently published in vivo singlemolecule fluorescence experiments along with in vitro rate constants.
+1,3,4,36,238,1,"",0,For the well-stirred system investigation of the  intrinsic noise in the circuit as a function of the inducer concentration and in the presence/absence of the feedback  mechanism reveals that the noise peaks near the switching threshold.
+1,3,5,25,167,1,"",0,Applying maximum likelihood estimation we show  that the analytic two-state model of gene expression can be used to extract stochastic rates from the simulation data.
+1,3,6,21,160,1,"",2,The  simulations also provide mRNA-protein probability landscapes which demonstrate that switching is the result of crossing  both mRNA and protein thresholds.
+1,3,7,6,39,1,"",1,Using cryoelectron tomography of an E.
+1,3,8,34,215,1,"",4,coli cell and data from proteomics studies we  construct spatial in vivo models of cells and quantify the noise contributions and effects on repressor rebinding due to cell  structure and crowding in the cytoplasm.
+1,3,9,32,214,1,"",3,Compared to systems without spatial heterogeneity the model for the fastgrowth cells predicts a slight decrease in the overall noise and an increase in the repressors rebinding rate due to  anomalous subdiffusion.
+1,3,10,4,21,1,"",1,The tomograms for E.
+1,3,11,15,109,1,"",3,coli grown under slow-growth conditions identify the positions of the  ribosomes and the condensed nucleoid.
+1,3,12,35,253,1,"",3,The smaller slow-growth cells have increased mRNA localization and a larger  internal inducer concentration leading to a significant decrease in the lifetime of the repressor-operator complex and an  increase in the frequency of transcriptional bursts.
+1,4,1,2,16,1,"",0,Author Summary 
+1,5,1,10,58,1,"",0,Expressing genes in a bacterial cell is noisy and random.
+1,5,2,28,158,1,"",0,A  colony of bacteria grown from a single cell can show  remarkable differences in the copy number per cell of a  given protein after only a few generations.
+1,5,3,29,170,1,"",0,In this work we  use computer simulations to study the variation in how  individual cells in a population express a set of genes in  response to an environmental signal.
+1,5,4,22,138,1,"",1,The modeled system  is the lac genetic switch that Escherichia coli uses to find  collect and process lactose sugar from the environment.
+1,5,5,33,204,1,"",0,The noise inherent in the genetic circuit controlling the  cell's response determines how similar the cells are to each  other and we study how the different components of the  circuit affect this noise.
+1,5,6,18,106,1,"",1,Furthermore an estimated 30-50%  of the cell volume is taken up by a wide variety of large  biomolecules.
+1,5,7,21,122,1,"",1,To study the response of the circuit caused  by crowding we simulate the circuit inside a threedimensional model of an E.
+1,5,8,16,112,1,"",3,coli cell built using data from  cryoelectron tomography reconstructions of a single cell  and proteomics data.
+1,5,9,18,128,1,"",0,Correctly including random effects of  molecular crowding will be critical to developing fully  dynamic models of living cells.
+1,6,1,1,14,1,"",0,Introduction 
+1,7,1,23,198,1,"",2,Transcriptional and translational regulatory networks control  the phenotype of modern cells regulating gene expression in  response to changing environmental conditions and/or biological  stimuli.
+1,7,2,21,136,1,"",0,It has been well established that intrinsic noise in gene  regulation results from the discrete biochemical nature of the  process [1].
+1,7,3,32,227,1,"",2,There is also an extrinsic component to the total noise  arising from cell-to-cell variation in the number of copies of the  transcription and translation machinery (transcription factors  RNA polymerases ribosomes etc) [2-4].
+1,7,4,37,262,1,"",1,Stochastic noise can lead  to different phenotypic outcomes for a cellular population and in  certain fluctuating environments the resulting heterogeneous  population can be more optimal for growth than would be a  population containing a single phenotype [56].
+1,7,5,38,243,1,"",1,Theoretical modeling of stochasticity in gene expression has  been a topic of intense study in the last decade and has greatly  increased our understanding of the effect that statistical noise has  on gene regulation (for reviews see [7-11]).
+1,7,6,21,155,1,"",0,Without detailed  information regarding spatial heterogeneity within a cell models  of stochastic gene expression are typically expressed in terms of the 
+1,7,7,23,138,1,"",0,chemical master equation (CME) which describes the time  evolution of the probability for a chemical system to be in a given  state [12].
+1,7,8,31,227,1,"",1,Various analytical methods including moment generating functions [1313] the Langevin and Fokker-Planck  equations [14] linear noise approximation [4] and many-body  theory [15] are used to study such models of gene expression.
+1,7,9,34,232,1,"",0,Computer simulations usually based on a variant of Gillespie's  stochastic simulation algorithm (SSA) [16] are also widely  employed to analyze gene network models that are too complex  to be amenable to analytical modeling [1718].
+1,7,10,27,200,1,"",0,Such theoretical studies have predicted and experimental  measurements have shown [219-23] that populations of cells  can be quite heterogeneous even when starting from an initially  identical state.
+1,7,11,18,121,1,"",0,The large variance in the population distribution is  usually ascribed to bursting in the process of gene transcription.
+1,7,12,24,170,1,"",0,Two models have been developed which can be used as a  framework for quantitatively analyzing population distributions to  infer the underlying gene expression kinetics.
+1,7,13,9,47,1,"",0,The burst model (Figure 1A) of Friedman et al.
+1,7,14,19,110,1,"",1,[24] is based on  the assumption that an mRNA's lifetime is short compared with  that of its protein product.
+1,7,15,7,40,1,"",0,In that case proteins will be produced 
+1,7,16,7,60,1,"",0,in independent bursts with exponentially distributed sizes.
+1,7,17,64,383,1,"",1,The  solution to the stationary probability distribution of protein x in  the continuous CME formulation of the model was shown to be  x a{1 e{ xb  where the a and b  the Gamma distribution p(x)~  C(a) : b a  parameters were interpreted to be the frequency of transcriptional  bursts relative to the protein lifetime and the mean number of  proteins produced per burst respectively.
+1,7,18,43,306,1,"",2,Shahrezaei and Swain [25] further developed the analytical  theory of gene expression by deriving not only the time-dependent  probability distribution for the burst model but also the steadystate distribution for a two-state model of gene expression  (Figure 1B; three-stage model in their nomenclature).
+1,7,19,16,117,1,"",1,In the  two-state model a gene alternates between transcriptionally active  and inactive states with constant rates.
+1,7,20,26,181,1,"",1,Their analytical distributions show that in addition to large variance within a population  bimodality can appear when transitions between the active and  inactive states are slow.
+1,7,21,29,168,1,"",0,A similar model has also been used to  analyze the switching behavior of a population due to rare large  events versus the cumulative effect of many small events [26].
+1,7,22,17,140,1,"",0,Computational modeling can greatly assist in understanding  genetic systems where complexity exceeds the capacity of  analytical solutions.
+1,7,23,44,291,1,"",2,In a model for an inducible genetic switch  incorporating more of the complexity present in real biological  systems (Figure 1C) the transitions between the active and inactive  transcriptional states are no longer constant but depend upon an  external inducer likely in a nonlinear manner.
+1,7,24,15,110,1,"",0,The positive  feedback (PFB) loop changes the network topology by introducing  an additional regulatory link.
+1,7,25,18,126,1,"",0,Both of these differences provide  additional sources of noise in the circuit that may affect the  probability distributions.
+1,7,26,28,183,1,"",0,Combining computer modeling of a  complete genetic circuit with analysis using simplified analytical  models can help to provide an overall picture of the dynamics of  such a system.
+1,7,27,23,159,1,"",1,Further complexity in modeling real biological systems comes  from the spatial heterogeneity within a cell and molecular  crowding in the in vivo environment.
+1,7,28,13,77,1,"",0,It is becoming apparent that  the cell is not a well-stirred system [27-29].
+1,7,29,16,144,1,"",3,Studies using  cryoelectron tomography techniques [30-34] have revealed that  individual macromolecules are not necessarily uniformly distrib- 
+1,8,1,13,76,1,"",1,uted inside the cell but may be clustered in a spatially dependent  manner.
+1,8,2,14,112,1,"",0,Spatial organization can affect reaction kinetics by  increasing local concentrations of reactants and enzymes.
+1,8,3,32,266,1,"",3,Additionally crowding and non-specific molecular interactions  in the in vivo environment can lead to anomalous subdiffusive  behavior for macromolecules as measured experimentally [3536]  and by computational modeling of bacterial cytoplasmic environments [37-39].
+1,8,4,24,171,1,"",0,Accounting for spatial heterogeneity is a challenge  to computational biology that must eventually be met and several  such modeling studies have been undertaken [37-44].
+1,8,5,20,160,1,"",1,Stochastic modeling of gene expression circuits in a threedimensional bacterial cell poses several difficulties both computational and informational in nature.
+1,8,6,37,282,1,"",3,Recently a ''lattice microbe''  method [37] was developed using GPU (graphics processing unit)  computational accelerators to simulate diffusion of macromolecules within a modeled Escherichia coli cell packed with a  distribution of obstacles according to reported proteomics data.
+1,8,7,16,139,1,"",1,It implemented a multiparticle reaction-diffusion algorithm on a  three-dimensional lattice to perform simulations of cell-scale  systems.
+1,8,8,29,201,1,"",2,With the lattice microbe method one can observe  anomalous diffusion of macromolecules and track diffusivereactive processes over the timescale of the cell cycle with spatial  resolution from 2-16 nm.
+1,8,9,5,39,1,"",0,On the informational side painstaking 
+1,8,10,10,64,1,"",0,efforts must be undertaken to obtain parameters for the models.
+1,8,11,20,146,1,"",1,Kinetic parameters which are often obtained under in vitro  conditions must be validated by comparing modeling results to  published experiments.
+1,8,12,25,196,1,"",2,Recent time-lapse fluorescence microscopy  experiments have been able to track dynamic behavior for  individual macromolecules in vivo [2145] providing an additional  source for model parameters.
+1,8,13,25,200,1,"",1,Parameters obtained from in vivo  single-molecule experiments are uniquely suited for stochastic  modeling as they provide population distributions not simply  mean values from ensemble measurements.
+1,8,14,18,133,1,"",1,Equally importantly  such parameters are measured under in vivo conditions and  incorporate the effects of the cellular environment.
+1,8,15,15,130,1,"",2,Also superresolution imaging studies [46-49] provide further spatial  information to complement the cryoelectron tomography data.
+1,8,16,26,171,1,"",1,We present here a computational study of gene expression noise  in the inducible genetic switch shown in Figure 1C using both  well-stirred and spatially resolved models.
+1,8,17,4,21,1,"",0,Spatial models of E.
+1,8,18,26,182,1,"",3,coli  cells were constructed to approximate cytoplasmic crowding under  both rapid and slow growth phenotypes with the latter being  based on data from cryoelectron tomography [50].
+1,8,19,11,75,1,"",0,Both spatial  models were simulated using the lattice microbe method [37].
+1,8,20,9,59,1,"",0,The  genetic switch was based on the well-characterized E.
+1,8,21,26,192,1,"",3,coli lactose  utilization system parameterized using measurements from a  recent series of in vivo single-molecule fluorescence studies  [212251] as well as published in vitro rate constants.
+1,8,22,27,168,1,"",2,We report  the contributions to intrinsic noise from the regulatory elements of  the inducible genetic circuit as well as the extrinsic noise due to in  vivo crowding.
+1,8,23,25,193,1,"",0,Using the slow-growth model we investigate the  effect of using experimentally determined cellular architecture in  reaction-diffusion models with implications for effects due to cell  growth.
+1,8,24,48,350,1,"",1,Comparing the noise from the inducible genetic switch to  the bursting and two-state models described above (Figure 1AB)  we consider what improvements in both modeling and experimental efforts are needed to develop stochastic models of gene  expression with predictive power regarding phenotype switching  and heterogeneity in cellular populations.
+1,9,1,1,9,1,"",0,Methods 
+1,10,1,4,27,1,"",0,Lac circuit kinetic model 
+1,11,1,5,36,1,"",1,Lactose uptake in Escherichia coli.
+1,11,2,6,38,1,"",0,The lactose utilization  system in E.
+1,11,3,11,73,1,"",2,coli is a model system for studying inducible genetic  circuits [52-58].
+1,11,4,9,54,1,"",0,The overall genetic system is described in  Figure 2.
+1,11,5,41,262,1,"",2,Briefly the lac repressor (LacI; R in model annotation)  [59-61] binds to the lac operator (O in model annotation)  upstream of the DNA encoding for the genes responsible for  lactose uptake and metabolism repressing their expression in the  absence of lactose.
+1,11,6,35,219,1,"",2,In the presence of lactose or another inducer (I  in model annotation) LacI binds the inducer preferentially and is  prevented from binding to the operator region allowing  expression of the proteins in the lac operon.
+1,11,7,42,282,1,"",3,One protein in the  operon lactose permease (LacY; Y in model annotation)  establishes positive feedback in the circuit by inserting into the  membrane and actively transporting lactose into the cell ensuring  that LacI remains sequestered; the cell switches to the induced  state.
+1,11,8,30,196,1,"",0,Theoretical and experimental studies have investigated the  behavior of lac system and shown it to be stochastic depending on  random fluctuations to switch between the off and on states  [6263].
+1,11,9,32,203,1,"",3,We assumed the same overall kinetic structure for our  model of the lac system as Stamatakis and Mantzaris [63]  but where possible derived the rate parameters from single  molecule in vivo experiments.
+1,11,10,16,111,1,"",0,The reactions and stochastic rate  constants derived using a well-stirred approximation are given in  Table 1.
+1,12,1,8,70,1,"",1,Lac operon regulation: Activation and inactivation of  transcription.
+1,12,2,8,52,1,"",0,The regulatory behavior of the lac circuit results 
+1,12,3,14,100,1,"",1,from the binding of the repressor to the lac operator thereby  inhibiting transcription initiation.
+1,12,4,19,130,1,"",1,There are three possible  inducer-repressor species and we modeled the binding and  unbinding reactions of each to the operator: 
+1,13,1,36,197,1,"",2,The stoichiometry of inducer-repressor binding is currently  subject to debate [64]; it is unclear whether the affinity of IR 2  for the operator is of the same order as that of R 2 or much lower.
+1,13,2,27,120,1,"",0,We therefore compared the effect on our model of both a high  k iron (comparable to k ron ) and a low k iron (%k ron ).
+1,13,3,31,136,1,"",2,In either case  the affinity of I 2 R 2 for the operator is thought to be low and we  assumed k i2ron %k ron and k i2roff &amp;k roff .
+1,13,4,22,147,1,"",0,Values for the rate  constants were obtained by fitting the model with experimental  LacY distributions from single cells as presented in Results.
+1,14,1,4,43,1,"",0,Transcription translation and degradation.
+1,14,2,13,107,1,"",1,In the cell  both transcription and translation are multistep processes  involving numerous intermediates.
+1,14,3,15,86,1,"",1,Knowledge of the rate  constants for each step of these processes in vivo is limited.
+1,14,4,29,197,1,"",0,We  therefore assumed that each process was controlled by a single  rate-limiting event and used pseudo first order rate equations with  effective transcription and translation rates in the model.
+1,14,5,40,260,1,"",2,Such an  approximation is reasonable as long as i) the concentration of the  transcription and translation machinery is high and constant and  ii) the non-Poissonian time delays missed by modeling such multistep processes as a single step are not significant.
+1,14,6,45,277,1,"",1,For our model  these conditions appear to be satisfied as the components of  transcription and translation are among the most abundant in the  cell and even though some such as ribosomes diffuse quite slowly  there should nevertheless be a ready supply available at all times.
+1,14,7,34,186,1,"",0,Also the times delays in these processes are on the order of  seconds [27] while the dynamics of the cell response (here  determined by the protein lifetime) is on the order of an hour.
+1,15,1,24,140,1,"",2,Transcription of a LacY messenger RNA (mRNA) (mY) from  the lac operon was modeled as a first order process dependent on a  free operator: 
+1,16,1,16,105,1,"",0,The effective transcription rate constant (k tr ) was a free  parameter determined during model fitting.
+1,16,2,25,150,1,"",4,Decay of and translation from mY were modeled as a  competition between RNase E enzymes [65] and ribosomes for  an mY's ribosomal binding site (RBS).
+1,16,3,29,124,1,"",1,The rate of degradation  of mY by RNase E was chosen to result in a mean lifetime (t mY )  of 90 s as reported by Yu et al.
+1,16,4,1,6,1,"",0,[21].
+1,16,5,27,157,1,"",0,The effective translation  rate was chosen to produce a mean of four LacY proteins over  the lifetime of an average mY messenger also as reported in  [21]: 
+1,16,6,16,68,1,"",1,with the effective rates given by k degm ~1=t mY and k tn ~4=t mY .
+1,16,7,7,36,1,"",0,The loss of membrane proteins in E.
+1,16,8,16,90,1,"",1,coli is primarily from  dilution as a result of cellular growth over the cell cycle [66].
+1,16,9,23,138,1,"",0,Therefore degradation of LacY was modeled as a first order  reaction with a half-life corresponding to the cell doubling time  (t cell ) 
+1,17,1,3,32,1,"",1,Lac repressor/inducer kinetics.
+1,17,2,24,140,1,"",5,LacI rapidly dimerizes  with very high affinity and the dimers further associate to form  tetramers with a K d in the nanomolar range [67].
+1,17,3,12,97,1,"",1,The tetrameric  form enhances repression by binding multiple lac operators  simultaneously [68].
+1,17,4,38,225,1,"",2,However modeling the DNA loops formed  by this process would require additional inactive kinetic states and  as the focus of the current study is a two-state switch we assumed a  mutant form of LacI that did not tetramerize.
+1,17,5,21,127,1,"",0,This assumption  allowed us to connect our model to single cell data from lac  operator mutants incapable of DNA looping [22].
+1,17,6,24,132,1,"",2,Furthermore  we assumed that the dimerization K d was sufficiently low that LacI  only existed in the dimer state the species R 2 .
+1,17,7,35,198,1,"",1,Ten molecules of  R 2 were placed in the cell and we assumed the cell regulated this  number to be constant so that the noise from the transcription/  translation of the repressor gene was ignored.
+1,17,8,35,195,1,"",1,Although noise from  expression of LacI has been shown to have an effect on the  induction rate [63] we chose to ignore this effect here to focus on  the noise originating in the circuit itself.
+1,17,9,35,286,1,"",7,The inducer molecules isopropyl b-D-1-thiogalactopyranoside  (IPTG) and thiomethyl-b-D-galactoside (TMG) are small sugarlike solutes that can either passively diffuse or be actively  transported by LacY across the cellular membrane using an  electrochemical proton gradient for energy.
+1,17,10,27,160,1,"",1,Inducer molecules in  the extracellular space (I ex ) and those in the intracellular space  (II in ) can diffuse across the membrane freely in both directions.
+1,17,11,16,103,1,"",0,The diffusive influx and efflux are modeled as first order reactions  with the same kinetic constants 
+1,17,12,11,39,1,"",0,where k id = 2:33 : 10 {3 s {1 [5869].
+1,17,13,20,144,1,"",2,The active transport of  inducer molecules into the cell from the extracellular space is  modeled as an irreversible Michaelis-Menten reaction 
+1,18,1,29,130,1,"",1,The value of k it has been reported to be 12 s [70] and the  Michaelis constant K M for the reaction with TMG to be 500  mM [71].
+1,18,2,21,154,1,"",1,Similarly the intracellular TMG concentration has been  reported to be 70-fold higher than the extracellular concentration in fully induced cells [6372].
+1,18,3,20,98,1,"",0,Under pseudo steady state  conditions the ratio of I to I ex is related to K M by the expression 
+1,18,4,6,19,2,"",0,k it :  1/2 Y   .
+1,18,5,32,137,2,"",0,In our model a maximal enrichment  k id 1/2 I ex zK M  ratio of 70 corresponded to a K M of 400 mM which is the value  we used for TMG.
+1,18,6,50,230,7,"",3,The active influx of inducer molecules through  the membrane is given by the standard Michaelis-Menten  1/2 I ex   expression v it ~k it : 1/2 Y  T :   with 1/2 Y  T ~ 1/2 Y z 1/2 YI and  z 1/2 I ex   K  M  k it zk yioff  .
+1,18,7,22,110,1,"",3,However for simulations of stochastic kinetics  K M ~  k yion  we need unique values for k yioff and k yion .
+1,18,8,30,167,1,"",2,As long as the  relationship between k yioff and k yion corresponds to the required  K M value the influx of inducer will be correct irrespective of the  values used.
+1,18,9,12,79,1,"",0,Only fluctuations in the external environment will be  affected by the choice.
+1,18,10,32,195,1,"",2,In particular a large value for k yioff relative  to k it would require a correspondingly large value for k yion  which  would produce many unproductive inducer binding events outside  the cell.
+1,18,11,32,203,1,"",0,These small fluctuations in the external inducer  environment are expected to have little to no effect on gene  expression dynamics inside the cell but can have a significant  impact on simulation cost.
+1,18,12,40,238,1,"",1,In the absence of any experimental data  regarding the actual kinetic rates we chose to make the k yioff rate  be 1% of the k it rate to improve simulation performance by  minimizing the calculation of such non-productive binding events.
+1,18,13,19,80,1,"",2,The value of k yion was then fixed by the relationship  k it zk yioff  K M ~  .
+1,18,14,23,143,1,"",3,k yion  Upon entering the cell inducer molecules can bind to free LacI  and the repressor-operator complex albeit with a much lower  affinity.
+1,18,15,32,185,1,"",3,As each LacI monomer binds a single inducer molecule  there are three possible repressor dimer species R 2  IR 2 and I 2 R 2   which interconvert according to the following reactions: 
+1,19,1,44,230,1,"",1,In vitro kinetic data suggests non-cooperative binding (Hill  coefficient of 1) of inducer to R 2 in the absence of lac operator  1  DNA [647374] corresponding to k i2on ~ k ion and k i2off ~  2  :  2 k  (see Supporting Text S1).
+1,20,1,20,124,1,"",0,Although there is some equilibrium data suggesting the binding  to the complex is cooperative with a Hill coefficient of 1.
+1,20,2,15,101,1,"",1,45 [74]  such cooperativity was not observed in kinetic measurements of  binding and unbinding [75].
+1,20,3,7,54,1,"",0,For simplicity a non-cooperative  model was assumed: 
+1,21,1,15,57,1,"",4,1  with k i2opon ~ k iopon and k i2opoff ~2 : k iopoff .
+1,21,2,17,112,1,"",1,2  Experimentally different aspects of the lac circuit have been  investigated using the inducers IPTG and TMG.
+1,21,3,18,85,1,"",0,To make use of  the data one has to take into account the differences in their C 50 
+1,22,1,18,106,1,"",1,value defined as the inducer concentration at which half of the  LacI monomers are bound with an inducer.
+1,22,2,19,146,1,"",3,Kinetic and  equilibrium binding measurements [7475] were available for  IPTG binding to both free repressor and the repressor-operator  complex.
+1,22,3,23,118,1,"",0,From the kinetic measurements the rate constants for  inducer binding and unbinding were 4:85 : 10 4 M {1 s {1 and 0.
+1,22,4,18,64,1,"",1,2  s {1 for the free repressor and 1:12 : 10 4 M {1 s {1 and 1.
+1,22,5,7,44,1,"",1,0 s {1 for  the repressor-operator complex.
+1,22,6,23,131,1,"",2,This yielded a C 50{op for binding  to the repressor-operator complex (89 mM) that is 20 times  higher than for free repressor (4.
+1,22,7,2,7,1,"",0,1 mM).
+1,22,8,30,214,1,"",0,Figure 3 shows the results  of using these rate constants in stochastic simulations of inducer  binding; good agreement between simulations and experiments  were seen for both kinetic and equilibrium measurements.
+1,22,9,25,120,1,"",2,TMG  has been reported to have a C 50 for binding to free repressor  greater than that for IPTG by a factor of 10 [76].
+1,22,10,47,307,1,"",3,However  since neither kinetic data nor detailed equilibrium studies were  available we assumed the same unbinding rate constants for TMG  as IPTG and left binding to both the free repressor and repressoroperator complex as free parameters in the model to be fitted from  single molecule experimental data.
+1,23,1,5,49,1,"",0,Well-stirred and spatially resolved simulations 
+1,24,1,31,211,1,"",0,Since the stochastic switch model is more complex than can be  solved using analytic methods we used computational Monte  Carlo methods to sample the master equation and estimate the  probability distributions.
+1,24,2,29,196,1,"",2,Two stochastic approaches were used to  simulate the lac kinetic model: a well-stirred method using the  CME and a spatially resolved method based on the reactiondiffusion master equation (RDME).
+1,24,3,57,331,1,"",3,The RDME model of the lac  circuit can be thought of as a superset of the CME model in that  all of the kinetic rates used for modeling reactions in the CME  based model are also used in the RDME model but with  additional parameters regarding the spatial localization of particles  and their diffusion in three-dimensional space.
+1,24,4,2,20,1,"",0,Well-stirred model.
+1,24,5,21,131,1,"",1,The well-stirred model was sampled using  a version of Gillespie's SSA algorithm [16] implemented in CUDA  and running on the GPU.
+1,24,6,11,82,1,"",2,The lac model includes independent  volumes for the extraand intracellular space.
+1,24,7,29,184,1,"",0,These were tracked  separately during the simulations and to balance the flux of inducer  across the membrane at equilibrium the internal and external  volumes were taken to be equal.
+1,24,8,24,159,1,"",0,Inducer in the extracellular space  was maintained at a constant concentration for the propensity  calculations by holding the number of I ex molecules fixed.
+1,24,9,18,132,1,"",0,Unless  otherwise noted we ran 10000 replicates of each simulation to obtain  sufficient sampling of the probability distributions.
+1,24,10,2,15,1,"",0,Spatial model.
+1,24,11,10,62,1,"",1,The RDME model was sampled using our  lattice microbe method.
+1,24,12,32,211,1,"",3,The multi-particle in vivo diffusion  operator for this method based on that of Karapiperis and  Blankleider [77] has been presented previously [37] and the  reaction operator is provided in Supporting Text S1.
+1,24,13,10,81,1,"",0,Complete  implementation details will be presented in a forthcoming publication.
+1,24,14,17,116,1,"",1,The method discretizes space onto a three-dimensional  lattice of uniform spacing and time into uniform time steps.
+1,24,15,19,141,1,"",0,Chemical species randomly diffuse and react on the lattice  according to rules defined using spatially dependent stochastic  rate constants.
+1,24,16,35,220,1,"",0,A virtual microbe is constructed on a lattice by  placing particles and obstacles on the lattice and specifying the  reaction and diffusion properties of the lattice sites to mimic the  spatial organization of the cell.
+1,24,17,50,277,1,"",1,The lattice microbe method uses  the GPU as a computational coprocessor and the whole-cell  simulations performed for this study were run for one hour of  simulation time (slightly longer than a cell cycle of 55 min) using a  time step of 50 ms and a lattice spacing of 16 nm.
+1,24,18,9,74,1,"",0,For each  external condition 100 independent cell-scale simulations were 
+1,24,19,1,5,1,"",0,run.
+1,24,20,20,129,1,"",1,Simulations were carried out on the NCSA Lincoln Intel 64  Tesla Cluster containing two NVIDIA Tesla GPU accelerators per  node.
+1,24,21,10,72,1,"",0,Approximately 200 GPU-hours were required per hour of  simulation time.
+1,24,22,21,116,1,"",0,Simulations of a smaller volume using 5 ns time  steps and 2 nm lattice spacing were also performed to examine the 
+1,24,23,14,89,1,"",1,variation in repressor rebinding as a function of packing density at  the operator site.
+1,24,24,7,41,1,"",0,Spatial models were developed for two E.
+1,24,25,4,38,1,"",3,coli phenotypes: fastand slow-growth.
+1,24,26,13,79,1,"",0,For the fast-growth cells the cellular volume was  constrained to a typical E.
+1,24,27,14,69,1,"",1,coli cell shape: a cylinder with spherical  end caps 2 mm long by 0.
+1,24,28,4,18,1,"",0,8 mm in diameter.
+1,24,29,16,128,1,"",0,The volume was  surrounded by an impermeable cytoplasmic membrane separating  the extracellular environment from the cytoplasm.
+1,24,30,22,130,1,"",0,We excluded the  outer membrane from the model as its permeability is not thought to  be a limiting factor for inducer transport.
+1,24,31,18,124,1,"",2,The intracellular space  was randomly filled with stationary in vivo obstacles to 50% volume  fraction approximating the E.
+1,24,32,6,47,1,"",2,coli intracellular environment (see  Table 2).
+1,24,33,17,103,1,"",0,The model was then coarse-grained onto a 16 nm  resolution lattice as described in Supporting Text S1.
+1,24,34,16,100,1,"",1,For the slow-growth phenotype we based the spatial model on  cryoelectron tomography (CET) of an E.
+1,24,35,5,35,1,"",1,coli cell undergoing slow  growth.
+1,24,36,10,48,1,"",0,The full cell was approximately 3 mm long by 0.
+1,24,37,12,82,1,"",1,4 mm wide  and tomograms encompassed approximately one-third of the cell  length.
+1,24,38,20,129,1,"",2,Ribosomes were matched and located in the tomograms as  described previously [50] as was a portion of the cytoplasmic  membrane.
+1,24,39,26,167,1,"",1,The position of the missing membrane was extrapolated to form a contiguous surface and ribosomes were placed at  their measured positions in lieu of random placement.
+1,24,40,14,90,1,"",0,The  completed one-third cell model was then mirrored to produce the  opposite cell pole.
+1,24,41,14,94,1,"",1,The middle third was randomly generated using  ribosome densities from the adjacent CET data.
+1,24,42,19,112,1,"",2,Ribosomes were  not observed in the central volume of the cell which we inferred to  be the condensed nucleoid.
+1,24,43,11,60,1,"",0,A random walk algorithm was used to  place a full-length E.
+1,24,44,6,40,1,"",2,coli chromosome in the nucleoid region.
+1,24,45,39,242,1,"",1,Starting from the center of the nucleoid region cylinders  representing DNA persistence lengths 50 nm in length and 2 nm  in diameter were randomly added end-to-end such that the angle  between successive cylinders was constrained to ?75 0 .
+1,24,46,22,116,1,"",1,If the  random walk left the nucleoid region the path was unwound a  number of steps and a new random path started.
+1,24,47,12,79,1,"",0,This process was  repeated until all 31000 persistence lengths had been added.
+1,24,48,1,7,1,"",0,Since 
+1,24,49,29,167,1,"",2,later coarse graining of the model onto a 16 nm resolution lattice  spread out the nucleoid density we did not constrain the  chromosome to be circular in this model.
+1,24,50,35,236,1,"",4,Following nucleoid  addition the non-ribosomal in vivo obstacles were proportionally  placed in the model at random locations (including within free  space in the nucleoid region) to reach an occupied volume fraction  of 50% (Table 2).
+1,24,51,15,86,1,"",1,The final slow growth model was then coarsegrained to a 16 nm lattice for simulation.
+1,24,52,2,6,1,"",0,In E.
+1,24,53,34,220,1,"",3,coli translation of an mRNA containing the sequence for  an integral membrane protein is thought to be coupled with  translocation of the resultant protein across the cytoplasmic  membrane by the Sec translocase [78] i.
+1,24,54,1,3,1,"",0,e.
+1,24,55,2,33,1,"",1, cotranslational  translocation.
+1,24,56,19,150,1,"",0,Specifically LacY has been observed to require  the bacterial signal recognition particle (SRP) pathway for  functional membrane integration [79-81].
+1,24,57,33,216,1,"",0,However it is not  presently clear whether or not transcription and translation of  membrane proteins are also coupled such that the gene being  transcribed is also physically located near the site of translocation.
+1,24,58,51,298,1,"",1,For this reason we modeled two variants of operator placement  for comparison: in the fast-growth phenotype the operator site was  located in the center of the cell and in the slow-growth phenotype  the operator site was placed on the nucleoid near the membrane  (32 nm away) close to a cell pole.
+1,24,59,17,130,1,"",2,These two different  configuration allowed us to compare the mRNA dispersions for  close versus far gene-translocation distances.
+1,24,60,27,171,1,"",0,Messenger mY molecules were created at the location of the  operator following transcription and then allowed to diffuse in the  cytoplasm with a diffusion constant of 0.
+1,24,61,18,101,1,"",1,1 mm 2 =s [8283]; in the  slow growth model mY molecules were precluded from entering  the nucleoid.
+1,24,62,24,145,1,"",0,In the spatial model then mY was required to  diffuse to the membrane before translation could occur; Equation  6 was limited to membrane sites.
+1,24,63,41,256,1,"",3,Since ribosomes likely attach to  an mRNA's RBS while transcription is still ongoing [84] the  model assumed that mY molecules were protected from  degradation by RNase E until after mY reached the membrane;  Equation 5 was also limited to membrane sites.
+1,24,64,16,93,1,"",1,Translation of mY  produced LacY proteins at the same location as the mRNA in the  membrane.
+1,24,65,15,95,1,"",0,LacY molecules were constrained to diffuse in the  membrane with a diffusion coefficient of 0.
+1,24,66,4,11,1,"",0,1 mm 2 =s.
+1,24,67,20,107,1,"",1,R 2 molecules were randomly placed in the cell and diffused at 1  mm 2 =s within the intracellular volume.
+1,24,68,20,113,1,"",1,Small inducer molecules  diffuse at 1000 mm 2 =s in extracellular space and 100 mm 2 =s in  intracellular space.
+1,24,69,32,181,1,"",0,However in order to reach simulation times on  the order of the cell cycle the maximum diffusion coefficient in the  model which depends on the lattice spacing and time step was 1.
+1,24,70,4,13,1,"",0,28  mm 2 =s.
+1,24,71,12,76,1,"",0,Therefore the diffusion coefficient of the inducer molecules  was set to 1.
+1,24,72,4,12,1,"",0,28 mm 2 =s.
+1,24,73,25,162,1,"",1,Since inducer molecules are present in large  numbers and they diffuse faster than the repressor this approximation was not expected to have a noticeable effect.
+1,24,74,30,206,1,"",0,The lattice was  connected to a infinite reservoir of I ex molecules through the use of  constant concentration boundary conditions to maintain the  extracellular space at a constant inducer concentration.
+1,25,1,7,54,1,"",0,Maximum likelihood fitting of gene expression models 
+1,26,1,29,204,1,"",1,We analyzed the capability of the burst and two-state analytic  models of gene expression to recover parameters from our stochastic  simulations of an inducible switch by fitting molecular distributions.
+1,26,2,11,71,1,"",0,We used a maximum likelihood method to estimate the model  parameters.
+1,26,3,17,95,1,"",0,Briefly the likelihood L of the model parameters a  having produced a set of observations x 1.
+1,26,4,1,2,1,"",0,.
+1,26,5,1,2,1,"",0,.
+1,26,6,4,15,1,"",0,n is given by 
+1,26,7,17,99,1,"",0,where p ? xja ? is the conditional probability of observation x  occurring given the parameters a.
+1,26,8,29,190,1,"",0,The parameters that maximize  this likelihood function are those that describe the best fit of the  model to the data assuming a uniform prior distribution for the  parameter probabilities.
+1,26,9,33,215,1,"",0,To find the best parameters for a model  of gene expression p(xja) was calculated using the model's  steady-state probability density function with the x values being  the protein counts from the 10000 simulations.
+1,26,10,26,183,1,"",1,The parameter  values that minimized the negative log of the likelihood function  were then found using downhill simplex minimization as  implement in the Matlab fminsearch function.
+1,26,11,37,221,1,"",0,We estimated  the confidence intervals for different sample sizes by taking 1000  random sets of either 50 or 200 cells from the full set of 10000  and performed maximum likelihood estimation on each of these  data sets.
+1,26,12,21,133,1,"",1,The confidence range for each parameter was then  defined by the middle 95% of the values obtained during these  random resamplings.
+1,26,13,17,87,1,"",0,The burst model was first expressed in terms of parameters  a and b by Friedman et al.
+1,26,14,5,32,1,"",0,[24] as the Gamma distribution.
+1,26,15,32,232,1,"",2,However since our stochastic simulations produced discrete  protein counts we used the discrete formulation for the steadystate probability density derived by Shahrezaei and Swain [25] in  terms of a negative binomial distribution 
+1,26,16,22,138,1,"",0,with parameter a being the burst frequency (bursts per mean  protein lifetime) and b being the burst size (proteins produced per  burst).
+1,26,17,17,120,1,"",1,The two-state model was fit using the steady-state probability  density function derived by Shahrezaei and Swain [25]: 
+1,27,1,36,200,3,"",2,    In this expression the parameters are a~k tr k degp  b~k tn k degm   k 0 (the activation rate) and k 1 (the inactivation rate) the latter two  being expressed in units of mean protein lifetime.
+1,27,2,35,140,1,"",1,Additionally  1  1  a~ (azk 0 zk 1 zw) b~ (azk 0 zk 1 {w) w 2 ~(azk 0 zk 1 ) 2  2  2  {4ak 0  and 2 F 1 is Gauss's hypergeometric function.
+1,27,3,45,254,1,"",0,Fitting with all  four parameters free often resulted in convergence in a local minima  so we adopted a fitting procedure whereby we first constrained the a  and b parameters and fit only k 0 and k 1 to obtain initial estimates of  these two parameters.
+1,27,4,34,171,1,"",0,In the fully induced state ? k 1 ?0 ? the above  probability density function reduces to a negative binomial  distribution with no dependence on k 0 or k 1  only a and b.
+1,27,5,36,206,1,"",0,Since  neither k tr nor k tn depend on inducer concentration it is a  reasonable approximation to use the values for a and b in the fully  induced state as initial estimates for all inducer concentrations.
+1,27,6,32,150,1,"",0,After  obtaining an initial fit for k 0 and k 1  we then performed another fit  with a and b unconstrained and with k 0 and k 1 allowed to vary  65%.
+1,27,7,23,157,1,"",0,This procedure resulted in convergence at a higher likelihood  score than when all four parameter were fit simultaneously for all  distributions except one.
+1,28,1,1,9,1,"",0,Results 
+1,29,1,18,101,1,"",1,Here we present the result of our study into the noise effects in  the inducible lac genetic switch.
+1,29,2,19,127,1,"",0,The first two sections describe the  fitting of model free parameters to data from single-molecule  fluorescence studies on E.
+1,29,3,2,18,1,"",1,coli populations.
+1,29,4,16,106,1,"",0,The next two sections  analyze noise in the well-stirred circuit due to its regulatory control  elements.
+1,29,5,38,241,1,"",1,The final two sections report on changes to the behavior  of the circuit from in vivo effects using a model of a spatially  heterogeneous crowded cell and then an experimentally determined cell structure under an alternate growth phenotype.
+1,30,1,9,83,1,"",1,Linear relationship between transcriptional burst size and  inducer concentration 
+1,31,1,11,67,1,"",2,In a recent in vivo single-molecule fluorescence study Choi et al.
+1,31,2,17,113,1,"",0,measured the distributions of a fluorescent reporter protein under  control of the lac operator in individual E.
+1,31,3,8,58,1,"",1,coli cells at various  inducer (TMG) concentrations [22].
+1,31,4,26,157,1,"",1,They performed the  measurements in the absence of LacY's positive feedback by  replacing its gene with that of the membrane protein Tsr in the lac  operon.
+1,31,5,33,235,1,"",0,This enabled an accurate determination of the protein  distribution produced by the circuit at a given inducer concentration without any confounding non-linear effects due to  enhancement of the internal inducer concentration by LacY.
+1,31,6,53,300,1,"",1,In  the absence of DNA looping they were able to fit their observed  x a{1 e{ xb   where a  distributions to a gamma distribution p(x)~  C(a) : b a  was interpreted as the frequency of transcriptional bursts relative  to the protein lifetime and b as the mean number of proteins  produced per burst.
+1,31,7,28,200,1,"",0,They observed a relatively constant value for  the burst frequency of 3-4 and a linearly increasing relationship  between burst size and inducer concentration at low to  intermediates concentrations.
+1,31,8,39,238,1,"",0,To understand the origin of the linear relationship between  burst size and inducer concentration and to reproduce this  behavior in our model we derived an expression for the burst size  as a function of kinetic parameters in our model.
+1,31,9,11,69,1,"",0,As long as bursts  are infrequent relative to protein degradation i.
+1,31,10,1,3,1,"",0,e.
+1,31,11,53,319,1,"",6,once a free  operator is bound with a repressor it remains bound for a  significant fraction of the cell cycle transcriptional bursting from  the lac operon can be modeled as a Markov process with  competition between RNA polymerase (RNAP) and the various  LacI species for binding to the free operator (see Figure 4).
+1,31,12,22,122,1,"",1,Transcription initiation by RNAP was modeled as a pseudo first  order process (Equation 4) with a rate constant of k tr .
+1,31,13,21,122,1,"",1,The two  repressor states with potentially significant binding affinity were  R 2 and IR 2  shown in Equations 1 &amp; 2.
+1,31,14,28,134,2,"",1,Free repressor binds with  free operator with a rate constant of k ron resulting in a pseudo first  order rate of 1/2 R 2  : k ron .
+1,31,15,57,308,2,"",1,Given the current debate surrounding the  binding affinity of the IR 2 state to the operator we set the rate  constant k iron to be proportional to the free repressor binding  constant and analyzed the effect of varying the proportionality  constant a on the pseudo first order rate 1/2 IR 2  : a : k ron .
+1,31,16,34,195,1,"",1,This model  of transcriptional bursting assumes that the binding of I 2 R 2 to the  free operator is negligible at low inducer concentrations by  assuming k i2ron %k ron and ignoring Equation 3.
+1,31,17,6,27,1,"",0,In practice this  k ron  .
+1,31,18,30,162,1,"",1,We used the upper limit  condition was satisfied when k i2ron ?  100  k ron  in our model which is within the range experimenk i2ron ~  100  tally reported [76].
+1,31,19,31,223,1,"",4,Following the unbinding of a repressor from the repressoroperator complex the probability of transcription initiation (and  subsequent mRNA creation) occurring at the free operator as  opposed to a repressor re-binding is 
+1,32,1,36,205,1,"",1,The probability of a given number of consecutive transcription  initiation events (the size of the mRNA burst) then follows a  geometric distribution with P(n)~p n (1{p) of which the mean is  P ?  p  :  .
+1,32,2,57,297,1,"",3,However repressor unbinding events that  n~0 P(n) n~  1{p  produce no mRNA are not observable as a burst therefore the  mean number of mRNA produced in a transcription bursts (B) is  P ?  P(n) : n  B~mean(nw0)~ P n~1    ?  n~1 P(n)  P ?  P(n) : n    ~ n~0  1{P(0)  ?14?  p :  1    ~  1{p 1{(1{p) 
+1,33,1,26,174,1,"",1,Combining Equations 13 and 14 gives the expression for the mean  transcription burst size in terms of the rate constants for  transcription initiation and repressor binding 
+1,34,1,19,119,1,"",2,Given the inducer mass balances (see Supporting Text S1) and  the expression for the total number of repressor dimers 
+1,35,1,27,121,4,"",1,R 2T ~ 1/2 R 2 z 1/2 IR 2 z 1/2 I 2 R 2  one can derive the equilibrium  concentrations of the two repressor species 
+1,35,2,20,115,1,"",1,where C 50 is the inducer concentration at which half of the  repressor monomers are bound to an inducer molecule.
+1,35,3,25,150,3,"",0,Substituting 1/2 R 2  and 1/2 IR 2  into Equation 17 gives the expression for the  transcription burst size as a function of inducer concentration 
+1,36,1,27,153,1,"",0,From this last equation it is clear that the transcription burst size  will be linear over the entire range of inducer concentrations only  1  when a~ .
+1,36,2,17,90,1,"",0,Figure 5 shows the effect of varying a of particular  interest are 2 the very low values.
+1,36,3,4,28,1,"",0,When a%1 the transcription 
+1,36,4,21,135,1,"",0,burst size does not linearly increase over the range of inducer  concentrations for which this behavior has been reported (0-200  mM).
+1,36,5,34,191,1,"",0,In the model here formulated a linear relationship between  size and inducer concentration exists only when the binding  affinity of IR 2 for the free operator is comparable to that of R 2 .
+1,36,6,44,250,1,"",1,1  For our simulations we therefore chose a~  such that  2  k ron  k iron ~   as this value assumed no effect on the unbound  2  repressor monomer due to a single bound inducer and gave a  strictly linear relationship for all inducer concentrations.
+1,37,1,9,90,1,"",1,Fitting transcription and inducer/repressor rate constants  to single-cell distributions 
+1,38,1,25,125,1,"",1,To obtain values for the model parameters k tr  k ron  and C 50   we used the distributions for LacY reported by Choi et al.
+1,38,2,21,139,1,"",0,[22]  specifically the inferred burst frequency (bursts per cell cycle) and  size parameters (a and b) from their gamma distribution fits.
+1,38,3,25,127,2,"",0,From  Equation 18 the mean transcription burst size as a function of  k tr : 1/2 I  k tr  inducer concentration is B~  z1z  .
+1,38,4,50,269,1,"",1,This  k ron : R 2T C 50  k ron : R 2T  equation is linear in inducer concentration and by fitting it  (multiplied by the mean number of proteins produced per mRNA)  to the experimental protein burst sizes as shown in Figure 6 one  can constrain the kinetic parameters.
+1,38,5,33,163,1,"",1,The y-intercept of the line  fixes the ratio of transcription to repression in the uninduced state  k tr  (  ) and the slope can then be used to obtain C 50 = 17.
+1,38,6,9,29,1,"",0,6 mM  k ron : R 2T  for TMG.
+1,38,7,15,69,1,"",0,The linear fit however only fixes the ratio between k tr and k ron .
+1,38,8,19,121,1,"",0,To recover unique values for these two rate constants we next  considered the mean duration of each transcription burst.
+1,38,9,29,180,1,"",0,The  interpretation of the shape parameter a of the gamma distribution  as the burst frequency is only meaningful if the burst duration is  short compared to the protein lifetime.
+1,38,10,28,197,1,"",0,In that case individual  exponentially sized bursts can be considered exponentially  distributed in time and therefore act independently to give rise  to a gamma distribution of protein abundance.
+1,38,11,19,116,1,"",0,In setting rate  constants for the model then we wanted to ensure that the burst  duration was appropriately short.
+1,38,12,19,92,1,"",1,The burst duration t B is simply the mean time for a repressor to  bind to a free operator.
+1,38,13,8,46,1,"",0,Given a constant k tr  a linear relationship 
+1,38,14,22,141,1,"",0,between burst size and inducer concentration also implies a linear  relationship between t B and inducer concentration as can be seen  from 
+1,39,1,5,21,1,"",0,1  in the last step.
+1,39,2,30,158,1,"",0,For TMG the linear relationship  2  between burst size and inducer concentration extended to at least  200 mM which is 11 times the C 50 value for TMG of 17.
+1,39,3,1,3,1,"",0,6 
+1,40,1,1,4,1,"",0,mM.
+1,40,2,25,117,1,"",0,From Figure 7 it can be seen that the interpretation of a as  the burst frequency begins to break down once t B is .
+1,40,3,5,29,1,"",0,5% of the  protein lifetime.
+1,40,4,57,244,4,"",0,Using 5% of the protein lifetime as t B for 200  mM we can compute  the value   for k ron that gives the appropriate     t cell :  :  R 2T ~ 2:43 : 10 6 M {1 s {1  using a cell  t B : k ron ~12 0:05  ln2  doubling time t cell of 55 minutes.
+1,40,5,15,85,1,"",2,With this value for the repressor  binding rate a single repressor molecule in an E.
+1,40,6,11,53,1,"",1,coli cell would  take 200 s to find a free operator.
+1,40,7,13,63,1,"",0,This is somewhat faster than  the 354 s reported by Elf et al.
+1,40,8,1,6,1,"",0,[51].
+1,40,9,42,187,1,"",0,Using the above value for k ron  and the ratio of k tr to k ron from the linear fit of the experimental  data we obtained the value for the transcription rate  k tr = 1:26 : 10 {1 s {1 .
+1,40,10,36,218,1,"",0,This rate for transcription initiation resulted  in a steady state concentration of 2500 LacY molecules per cell  in the fully induced state within a factor of two of the 1000-  1200 reported in the literature [2226].
+1,40,11,17,100,1,"",0,The value also falls within  the range of 1000-3000 seen for other highly expressed proteins in  E.
+1,40,12,2,11,1,"",1,coli [85].
+1,40,13,23,146,1,"",0,Accurate measurements of the burst duration in the lac  system particularly in the fully induced state would increase the  accuracy of our model.
+1,40,14,51,270,1,"",2,In order to reproduce a burst frequency of a over the mean  LacY lifetime in the model the repressor should dissociate from  a : ln2   assuming that each  the operator with a frequency k roff ~  t cell  dissociation event produces a burst and that t B % the cell cycle.
+1,40,15,8,46,1,"",1,The burst frequencies inferred by Choi et al.
+1,40,16,14,73,1,"",0,for TMG levels #100  mM are relatively constant with a mean of 3 bursts.
+1,40,17,13,50,1,"",1,This  corresponds to k roff = 6:30 : 10 {4 s {1 .
+1,40,18,28,153,1,"",3,Since the dissociation of a  repressor dimer is not thought to be significantly affected by the  binding of a single inducer molecule k iroff = k roff .
+1,40,19,19,108,1,"",1,The affinity of a  repressor dimer with two bound inducer molecules however is  thought to be much lower i.
+1,40,20,1,3,1,"",0,e.
+1,40,21,15,97,1,"",1, the binding of a second inducer  molecule essentially knocks the repressor off of the operator.
+1,40,22,23,139,1,"",0,In the  absence of this effect the response to an increase in inducer  concentrations would take a significant fraction of the cell cycle.
+1,40,23,3,11,1,"",0,Elf et al.
+1,40,24,20,103,1,"",1,reported a response time of 60 seconds for addition of  IPTG to concentrations from 50 mM - 1 mM [51].
+1,40,25,21,116,1,"",2,Therefore we  fit k i2roff such that the response of the model to increase in IPTG  agreed with the published data.
+1,40,26,17,82,1,"",2,The best fit value was obtained for  k i2roff ~500 : k roff (shown in Figure 8A).
+1,41,1,22,139,1,"",1,The final kinetic rates to be defined were those regarding the  binding of TMG to the repressor-operator complex (Equations 10  &amp; 11).
+1,41,2,50,290,1,"",4,As discussed in Methods we used the same dissociation  rates as for IPTG leaving only the association rates k iopon and  k i2opon  both of which can be derived from the C 50{op value  which is the inducer concentration at which half of the repressoroperator complexes have a bound inducer.
+1,41,3,13,71,1,"",0,Figure 8B shows the  effect of varying C 50{op on the burst frequency.
+1,41,4,16,93,1,"",0,As C 50{op  approaches C 50  the burst frequency begins to diverge from its  expected value.
+1,41,5,9,48,1,"",0,This is due to the increasing occupancy of the 
+1,42,1,36,190,1,"",0,I 2 R 2 O state which can decay much more quickly into a free  operator than the other repressed states; with operator free more  often there are more bursts over the lifetime of a protein.
+1,42,2,19,103,1,"",0,A value  of 3 mM for C 50{op gave the best agreement with the  experimental burst frequencies for TMG.
+1,43,1,5,52,1,"",0,Population distributions without positive feedback 
+1,44,1,38,257,1,"",0,Using the derived rates we performed well-stirred stochastic  simulations of the lac model in the absence of LacY positive  feedback (NPF model) obtaining the stationary LacY distributions  as a function of internal inducer concentration shown in Figure 9.
+1,44,2,28,208,1,"",2,Compared to the intrinsic noise of the two-state model the NPF  model contains additional noise contributions from the nonconstant rates for transitioning between active and inactive  transcriptional states.
+1,44,3,6,43,1,"",0,The distributions showed the widest cell- 
+1,45,1,17,115,1,"",0,to-cell variability due to the intrinsic noise of the system at  intermediate inducer concentrations of 50-400 mM.
+1,45,2,14,106,1,"",0,At high  inducer concentrations the population migrated toward a less  variable distribution as expected.
+1,45,3,16,90,1,"",1,Up to 100 mM the population  distributions agreed well with those reported by Choi et al.
+1,45,4,10,50,1,"",0,but at  200 mM the agreement began to break down.
+1,45,5,5,38,1,"",0,This discrepancy at  concentrations .
+1,45,6,22,129,1,"",1,100 mM was caused by two primary factors: the  burst duration and the action of inducer knocking repressor off of  the operator.
+1,45,7,39,241,1,"",1,Increasing the repressor binding rate would improve  the fit by decreasing the duration of each burst but would cause a  large increase in the total number of LacY molecules in the fully  induced state which is not supported experimentally.
+1,45,8,36,258,1,"",1,Alternatively one could increase the C 50{op value causing less inducer  instigated dissociation of the repressor-operator complex but this  would decrease the responsiveness of the circuit to addition of  inducer which is also not supported experimentally.
+1,45,9,16,106,1,"",0,Clearly in  order for the model to have greater predictive power additional  features would be necessary.
+1,45,10,25,154,1,"",2,For example adding a delay between  production of mRNA to account for the steps of RNAP open  complex formation or more detailed modeling of translation.
+1,45,11,24,156,1,"",1,But  lacking the in vivo experimental results to validate any additional  complexity we chose to ignore these effects and analyzed the  model as described.
+1,45,12,24,157,1,"",0,The gene regulation function (GRF) of an genetic system  describes the relation between the activity of a gene and its  regulatory control elements [86-88].
+1,45,13,11,85,1,"",0,In the steady state protein  production is balanced by protein degradation/dilution.
+1,45,14,18,99,1,"",0,The  mean protein count as a function of the control elements provides  a method to analyze a GRF.
+1,45,15,18,101,1,"",0,The mean number of LacY per cell  as function of the TMG concentration (Figure 9D) and the fraction 
+1,45,16,18,112,1,"",1,of time spent in the transcriptionally active state (Figure 9F) show  the regulatory behavior of the NPF model.
+1,45,17,27,144,1,"",1,We saw a typical  sigmoidal regulatory response that was well fit by a Hill equation  with an inflection at 312 mM and a Hill coefficient of 2.
+1,45,18,1,4,1,"",0,11.
+1,45,19,17,99,1,"",0,In a  stochastic system though the mean rate of gene expression is just  one piece of information.
+1,45,20,14,95,1,"",0,As important for a stochastic GRF is  how the distribution changes with inducer concentration.
+1,45,21,13,91,1,"",1,The  Fano factor (variance/mean) provides a measure of the variation  of the distribution.
+1,45,22,11,58,1,"",1,For reference the Fano factor of a Poisson  process is 1.
+1,45,23,39,214,1,"",1,For the NPF model (Figure 9E) the Fano factor  monotonically increases until 100-200 mM where it peaks at a  value of 60 and then begins to decrease ending at a lower value  of relative noise than at zero inducer.
+1,46,1,5,32,1,"",0,Noise due to positive feedback 
+1,47,1,19,127,1,"",1,Next we investigated noise in the inducible genetic switch when  the positive feedback regulatory link was active (PFB model).
+1,47,2,33,217,1,"",1,The  lacY gene located in the lac operon codes for the integral  membrane protein LacY which actively imports inducer  molecules (lactose/H z co-transport) establishing a positive feedback loop as shown in Figure 1C.
+1,47,3,23,176,1,"",1,The presence of active LacY in  the membrane creates a concentration gradient enriching the  intracellular environment with inducer molecules relative to  extracellular space.
+1,47,4,40,253,1,"",1,For a fixed I ex concentration the underlying  GRF for the lac operon therefore operates not only at an  increased inducer concentration but since the number of LacY is  different for each cell across a distribution of internal inducer  concentrations.
+1,47,5,18,132,1,"",1,We calculated the population distributions for the PFB model  using well-stirred stochastic simulations at various I ex concentra- 
+1,48,1,1,7,1,"",1,tions.
+1,48,2,30,197,1,"",0,Starting from a stationary population distribution in the  absence of inducer each population of 10000 cells was subject to  an instantaneous increase in I ex and simulated for twenty-four  hours.
+1,48,3,33,175,1,"",0,Above an I ex concentration of 10 mM cells in the  population began to switch to an induced state in which LacY  expression was near its maximum value (see Figure 10A and B).
+1,48,4,14,99,1,"",0,Above 25 mM the transition to full expression was relatively  concerted throughout the population.
+1,48,5,28,169,1,"",2,In the range of 10-25 mM  though there were two transiently stable subpopulations one  uninduced and the other induced - the overall population was  bimodal for a time.
+1,48,6,31,176,1,"",1,To quantify the switching behavior of the population we classified  cells at regular time intervals as uninduced with 400-600 LacY  (best fit for each I ex ) or induced with .
+1,48,7,2,11,1,"",0,1750 LacY.
+1,48,8,2,11,1,"",0,Each sub- 
+1,49,1,5,41,1,"",0,population was then analyzed separately.
+1,49,2,26,171,1,"",2,The mean and variance of  the distributions (Figure 10C) show that after an initial response  phase the distribution of the uninduced subpopulation was stable  over time.
+1,49,3,26,149,1,"",1,This was true even as the total number of cells in the  uninduced population was decreasing as cells within it were switching  to the induced state.
+1,49,4,25,201,1,"",2,At intermediate inducer concentrations the  uninduced cell population appeared to reach a stationary distribution  from which cells independently and stochastically transitioned to the  induced state.
+1,49,5,17,113,1,"",0,In contrast at higher inducer concentrations the  population migrated as a whole in a more downhill-like manner.
+1,49,6,23,141,1,"",1,Noise in a GRF can be expressed in terms of its effect on the  phenotypic variance in a population under identical environmental conditions.
+1,49,7,20,104,1,"",0,To compare noise between the NPF and PFB  models we first mapped I ex concentrations to mean I in con- 
+1,50,1,17,90,1,"",3,centrations in the uninduced and induced subpopulations (in the  NPF model I in = I ex ).
+1,50,2,18,98,1,"",1,We then compared both the mean of the  LacY distributions and the Fano factor for the two models.
+1,50,3,27,178,1,"",2,The  mean values for the LacY distributions (Figure 11) were similar but  the noise in the uninduced subpopulation was significantly higher  in the model with positive feedback.
+1,50,4,37,205,1,"",0,Since the underlying GRF is  equivalent between the two models it is the action of the GRF on  the distribution of I in concentrations that gives rise to the increase  in intrinsic noise in the PFB model.
+1,51,1,9,57,1,"",1,Differences in circuit behavior due to in vivo crowding 
+1,52,1,23,164,1,"",1,Having established the well-stirred PFB stationary distribution  we next evaluated the effect of in vivo molecular crowding on the  distributions the PFB+IV model.
+1,52,2,20,130,1,"",1,One obvious reaction subject to  spatial effects is the rebinding of the repressor to the operator  following an unbinding event.
+1,52,3,12,87,1,"",1,Immediately after unbinding a  repressor is necessarily localized near the operator i.
+1,52,4,1,3,1,"",0,e.
+1,52,5,7,34,1,"",0,it has a  memory of its location.
+1,52,6,8,31,1,"",0,As was shown by van Zon et al.
+1,52,7,19,137,1,"",1,[27] this  memory effect increases the probability of repressor rebinding at  very short times compared to a well-stirred approximation.
+1,52,8,26,175,1,"",1,Previous studies only considered the effect of normal diffusion  following unbinding but there is an additional effect caused by  anomalous diffusion due to in vivo crowding.
+1,52,9,31,214,1,"",3,To investigate repressor rebinding in an in vivo environment we  performed reaction-diffusion simulations of a 128 nm|128 nm|  128 nm volume centered on an operator immediately following  unbinding of a repressor.
+1,52,10,17,105,1,"",1,We varied the packing density of the  approximated in vivo environment to study its effect on rebinding.
+1,52,11,17,87,1,"",0,Figure 12A and B shows that there is an anomalous effect at short  time scales (1 ms).
+1,52,12,44,266,1,"",3,Repressor diffusion at very short time scales is  normal at the in vitro rate but between 1-100 ms there is a period  of anomalous behavior and at very long time scales repressor  diffusion returns to normal diffusion behavior with a lower  diffusion coefficient D.
+1,52,13,31,198,1,"",2,Brownian dynamics simulations of proteins  in a virtual in vivo environment [39] show a similar anomalous  behavior when including only steric constraints with a minimum in  the time exponent of 0.
+1,52,14,11,65,1,"",1,8 for proteins slightly larger than the  75 kDa repressor dimer.
+1,52,15,38,253,1,"",1,When electrostatic effects are included in  the Brownian dynamics simulations however the apparent  diffusion coefficient as well as the anomalous exponent change  greatly so our results should only be considered an upper bound  on the in vivo effects.
+1,52,16,4,44,1,"",1,Including further electrostatically driven 
+1,52,17,13,98,1,"",1,interactions such as non-specific binding will increase the  anomalous behavior of the repressor.
+1,52,18,39,261,1,"",1,The anomalous behavior of the repressor causes it to spend  more time near the operator following unbinding than would be  expected for purely Brownian diffusion leading to more  encounters with the operator and a potentially greater probability  of rebinding.
+1,52,19,35,232,1,"",1,To measure the change in rebinding probability we  counted the number of repressors that rebound to the operator  following unbinding versus the number that escaped into bulk  solution defined here as leaving the simulation volume.
+1,52,20,21,114,1,"",1,As can be  seen in Figure 12C as the density of in vivo crowding increases  the probability of rebinding goes up.
+1,52,21,21,131,1,"",1,Compared to an in vitro  unpacked environment at 15% probability of rebinding at 50%  packing the probability of rebinding is 24%.
+1,52,22,18,119,1,"",0,The distribution of  escape times also broadens (Figure 12D) with particles in general  taking longer to diffuse away.
+1,52,23,16,113,1,"",0,The anomalous memory effect  resulted in the duration of some bursts being significantly shorter  than expected.
+1,52,24,31,211,1,"",0,To study the effect of burst duration differences on the  stationary LacY distributions in a population we used our lattice  microbe method to generate PFB+IV trajectories of spatially  resolved rapid-growth E.
+1,52,25,4,26,1,"",1,coli cells (see Methods).
+1,52,26,36,239,1,"",0,Beginning with  the stationary distribution from the well-stirred PFB population  100 cells were simulated at five internal inducer concentrations  for one hour slightly longer than the duration of a cell cycle (55  minutes) see Video S1.
+1,52,27,28,158,1,"",1,Over the course of the simulations  distributions in the in vivo models gradually migrated to lower  mean values and lower noise as can be seen in Figure 13.
+1,52,28,42,265,1,"",1,Two  factors caused this migration: First the shorter burst durations  due to the anomalous diffusion effect described above resulted in  fewer proteins being produced per burst and more time spent in  the inactive state led to more frequent bursts and less noise.
+1,52,29,12,82,1,"",1,Second the effective increase in repressor due to the decreased  reaction volume.
+1,52,30,29,172,1,"",3,In contrast to spatial effects in an in vitro  environment [27] it appears that in vivo crowding lowers both the  mean value and the noise in distributions of observables.
+1,52,31,6,34,1,"",0,Since  bacterial cells such as E.
+1,52,32,49,317,1,"",2,coli are known to have packing density  changes during different portions of the cell cycle and/or growth  conditions this presents the possibility of measuring these in vivo  effects on living cells if the observable distributions can be  accurately quantified as a function of the cell cycle or growth  conditions.
+1,53,1,7,72,1,"",0,Whole-cell modeling using experimentally determined  cell architecture 
+1,54,1,25,147,1,"",0,As a first attempt at addressing how changes in the cellular  environment due to growth conditions affect gene expression  noise we used CET of E.
+1,54,2,16,98,1,"",1,coli cells under slow growth to build a  whole-cell model of an individual bacteria (Figure 14A).
+1,54,3,9,53,1,"",0,Under  conditions of slow growth in minimal media E.
+1,54,4,18,101,1,"",1,coli B/r K grows as  elongated cylinders with diameter 400 nm [89] which are  amenable for CET [50].
+1,54,5,22,155,1,"",2,The tomograms were used to identify the  membrane-enclosed volume of an individual cell along with the  three-dimensional position of ribosomes within it.
+1,54,6,2,7,1,"",0,The E.
+1,54,7,20,98,1,"",1,coli B/r  1  K cell under slow growth had only * of the volume of typical  3  fast growing cells.
+1,54,8,20,114,1,"",2,A central region of the cell was devoid of  ribosomes and inferred to be the location of the condensed  nucleoid.
+1,54,9,18,119,1,"",0,We studied the operation of the lac circuit in the slow-growth  phenotype (PFB+IV+CET) using 100 random replica cells.
+1,54,10,27,201,1,"",1,Each  replica used the same experimentally measured cellular geometry  and ribosome positions but a random distribution of other  molecules including a condensed chromosome (see Methods for  details).
+1,54,11,33,207,1,"",3,Cells were simulated using the lattice microbe method in  15 mM external TMG starting with LacY and mRNA counts  sampled from the uninduced stationary distribution of the wellstirred PFB model see Video S2.
+1,54,12,16,94,1,"",0,Simulations were run for either  one hour or until the cell had induced whichever came first.
+1,54,13,11,78,1,"",2,There were clear differences between the slowand fast-growth in  vivo models.
+1,54,14,22,130,1,"",0,Of the 100 slow-growth cells 11 induced within one  hour whereas only a single fast-growth cell induced in the same  time period.
+1,54,15,28,184,1,"",1,Also the mean number of LacY molecules in the  uninduced slow-growth population increased 15% over the  course of one hour compared to the fast-growth population which  decreased 15%.
+1,54,16,19,133,1,"",0,Analysis of the simulation trajectories revealed that the primary  cause of the differences in LacY distributions between the slow- 
+1,55,1,18,109,1,"",0,and fast-growth models was an increased mean inducer concentration in the smaller cells 100 mM versus 42 mM.
+1,55,2,19,121,1,"",0,For a given  number of LacY proteins the cells with the smaller volume had an  increased internal inducer concentration.
+1,55,3,28,175,1,"",0,The increased levels of  inducer caused a slight lengthening of the mean duration of free  operator events 68 seconds versus 64 seconds and a corresponding larger burst size.
+1,55,4,23,149,1,"",1,A bigger change was observed in the mean  lifetime of the repressor-operator complex which decreased to  430 seconds from 730 seconds (Figure 14BC).
+1,55,5,16,94,1,"",0,The decrease  effected an increase in the mean number of transcription bursts  per hour to 4.
+1,55,6,3,10,1,"",0,3 from 2.
+1,55,7,1,3,1,"",0,6.
+1,55,8,20,143,1,"",0,The slow-growth model provides a first approximation as to the  effect of differences in cellular architecture on stochastic gene  expression.
+1,55,9,26,157,1,"",2,The model assumed the same number of repressor  molecules for smaller cells which may not be accurate as repressor  is known to regulate its own expression.
+1,55,10,44,285,1,"",2,However since the largest  effect was due to an increased rate of repressor unbinding due to  elevated inducer levels which is independent of repressor  concentration we consider the general result of increased burst  frequency and rate of induction in smaller cells to be intriguing.
+1,55,11,41,245,1,"",0,It  implies that there might be a difference in the switching properties  during the first part of the cell cycle following division when a large  burst of LacY would have an increased influence on switching due  to the reduced cellular volume.
+1,55,12,11,85,1,"",0,Such an effect could potentially be  measured using cell synchronization techniques.
+1,55,13,25,183,1,"",2,Although specific  ribosome placement likely also influenced repressor rebinding in  the slow-growth model any differences were overshadowed by the  effect of the cell volume change.
+1,55,14,25,186,1,"",1,Nevertheless in a situation where  the placed macromolecules are involved in the reaction kinetics  we anticipate accurate (non-uniform) placement will take on much  greater importance.
+1,55,15,23,156,1,"",2,Another large difference between the slowand fast-growth  models arose due to the presence of a condensed nucleoid coupled  with the smaller cell diameter.
+1,55,16,16,92,1,"",0,In the fast-growth cells the  chromosome was assumed to be diffuse and not an obstacle for 
+1,55,17,2,16,1,"",1,mRNA diffusion.
+1,55,18,25,174,1,"",3,In the slow-growth cells the chromosome was  randomly placed in the ribosome-excluded region observed in the  tomograms and it represented an obstruction for mRNA diffusion.
+1,55,19,23,138,1,"",2,Additionally the operator was positioned in the center of the fastgrowth cells and at the edge of the nucleoid in the slow-growth  cells.
+1,55,20,26,143,1,"",1,As can be seen in Figure 14D there was a dramatic increase  in localization of mRNA in the slow-growth cells as a result of this  arrangement.
+1,55,21,24,164,1,"",1,A recent report of mRNA localization in bacteria  [90] suggests that the relative locations of transcription and  translation in bacteria may indeed be correlated.
+1,55,22,60,360,1,"",0,If that is  generally true then in systems where the location of protein  synthesis affects the reaction kinetics it will be important to know  the actual position of the gene in the cell and measurement of the  dispersion of the transcripts might be one way to quantify whether  the gene is physically located near the site of translation and  translocation.
+1,56,1,1,12,1,"",0,Discussion 
+1,57,1,9,75,1,"",0,Fitting population distributions to models of stochastic  gene expression 
+1,58,1,24,174,1,"",0,Fitting protein population distributions to gene expression  models will be a key step in developing simulations of other  stochastic cellular systems with predictive power.
+1,58,2,10,81,1,"",0,Parameters  obtained from fitting the distributions will drive the computations.
+1,58,3,35,255,1,"",1,Our stochastic simulations of the inducible lac switch provide an  opportunity to test the process of extracting parameters from a  population distribution arising from a complex gene expression  system using simplified but analytically tractable models.
+1,58,4,38,240,1,"",0,To do so  we fit the stationary population distributions from our simulations  to both the burst and two-state models (Figure 1A &amp; B) and  evaluated their capability to recover the stochastic rate constants  used in the simulations (e.
+1,58,5,1,3,1,"",0,g.
+1,58,6,5,18,1,"",0,k tr  k tn  etc).
+1,58,7,21,141,1,"",0,The analysis was  performed for each of the different noise variations described  above corresponding to the NPF PFB and PFB+IV simulations.
+1,58,8,19,119,1,"",0,We excluded the PFB+IV+CET simulations from this study as  they were not performed over a range of inducer conditions.
+1,58,9,30,205,1,"",0,The  best fit parameter values were obtained by maximum likelihood  estimation using the stationary probability density function (PDF)  for the burst and two-state models Equations 12 &amp; 14 in Methods.
+1,58,10,17,105,1,"",0,Fits were performed using 10000 cells for NPF and PFB  simulations and 100 cells for PFB+IV simulations.
+1,58,11,19,129,1,"",0,Figure 15A &amp; B show parameter estimates obtained from fitting  using the burst model's gamma distribution PDF (Equation 12).
+1,58,12,42,261,1,"",0,The a B and b B parameters (the B subscript indicates parameters  for the burst model) reliably recover the burst frequency and burst  size respectively in the NPF simulations at low inducer  concentrations but diverge from the simulation values above  100 mM.
+1,58,13,37,214,1,"",0,This is as expected as the model is only valid when the  duration of each burst is short enough that sequential bursts can be  considered as occurring independently 5% of the protein  lifetime as shown in Results.
+1,58,14,26,176,1,"",1,In particular the divergence occurs  near the switching threshold making this model most suitable for  analyzing the system in the uninduced state with low expression  levels.
+1,58,15,28,177,1,"",0,However the clearness of the biological interpretation for  the model parameters as the burst frequency and size make the  model extremely valuable over the regime it is valid.
+1,58,16,28,184,1,"",0,Fitting the NPF simulation data to the stationary PDF of the  two-state model (Figure 1B; Equation 14) provides good parameter  estimates over a wider range of inducer concentrations.
+1,58,17,47,257,3,"",2, The fits  are shown in Figure 15C-F for the parameters   a TS (k tr k degp ; the  TS subscript indicates two-state) b TS (k tn k degm ) k 0 (the rate  constant for operator activation) and k 1 (the rate constant for  operator inactivation) respectively.
+1,58,18,4,30,1,"",0,As the inducer concentration 
+1,58,19,11,77,1,"",0,increases though many more cells are required to obtain reliable  estimates.
+1,58,20,16,94,1,"",0,Using even 10000 cells we were unable to obtain good  fits for the highest expression levels.
+1,58,21,33,206,1,"",0,At these inducer levels so little  time is spent in the inactive state that the difference in likelihood  values for different switching rates is insufficient to find a unique  maximum using 10000 samples.
+1,58,22,54,306,1,"",0,However as the time spent in the  inactive state approaches zero (k 1 ?0) the probability distribution  approaches a negative binomial distribution without dependence  on k 0 or k 1  so it is possible to estimate the a TS and b TS  parameters in the fully induced state by fitting to a negative  binomial.
+1,58,23,15,98,1,"",0,The two-state model therefore appears to be a reasonable  method for fitting the NPF simulations.
+1,58,24,42,280,1,"",1,Using the fitting  parameters (along with known or estimated mRNA and protein  degradation rates) one can readily recover the transcription and  translation rates as well as the rates of the operator switching  between active and inactive states at a given inducer concentration.
+1,58,25,43,269,1,"",0,Even though switching between active and inactive states in  the lac switch is not a first order process - it is controlled by 14  reactions - at a given inducer concentration the steady state  switching times are reasonably well-approximated by a single  exponential.
+1,58,26,22,118,1,"",0,A further improvement in the two-state model would  allow k 0 and k 1 to depend on the inducer concentration using e.
+1,58,27,1,3,1,"",0,g.
+1,58,28,3,19,1,"",0,  a Hill function.
+1,58,29,22,146,1,"",0,An analytic solution to such a model would allow  extraction of parameters from a multivariate fit using data across  all inducer concentrations.
+1,58,30,18,94,1,"",0,However to the best of our knowledge  the analytic form of such a model has not been derived.
+1,58,31,14,97,1,"",0,Using the steady state distributions from the PFB simulations  neither model achieves good fits.
+1,58,32,29,148,1,"",0,For the two-state model the a TS  and b TS parameters are recovered correctly but the fits for the k 0  and k 1 parameters are lower than expected.
+1,58,33,25,156,1,"",0,The poor fit for these  parameters is due to noise in the switching rates of the cell  population caused by differences in internal inducer concentrations.
+1,58,34,20,144,1,"",0,With positive feedback it will be very difficult to reliably  estimate model parameters from population distributions due to  non-linear noise.
+1,58,35,27,182,1,"",0,Fitting to experimental data should be done in  the absence of positive feedback such as by using gene knock-outs  to eliminate circuit components responsible for positive feedback.
+1,58,36,27,194,1,"",0,However if an analytic model were developed including positive  feedback effects comparison of systems with and without these  effects could provide estimates of positive feedback parameters e.
+1,58,37,1,3,1,"",0,g.
+1,58,38,3,25,1,"",0,inducer transport rates.
+1,58,39,21,133,1,"",1,Fits to the PFB+IV simulations as well show deviations from the  expected values; in vivo crowding noise changes the parameter fits.
+1,58,40,33,216,1,"",2,For these simulations an additional source of discrepancies with  the models is the non-Poissonian behavior of repressor rebinding -  there is a positional memory in the system for a short time  following unbinding.
+1,58,41,49,303,1,"",5,In our simulations the effect from in vivo  conditions due to excluded volume is modest but there are other  in vivo factors still not accounted for in them especially non-specific  binding as recently reported by McGuffee and Elcock [39] which  would have an even larger effect on repressor rebinding.
+1,58,42,29,167,1,"",1,Also  repressor rebinding most likely occurs via a series of 1D sliding and  3D hopping steps the effect of which on rebinding in a crowded  environment is not known.
+1,58,43,22,167,1,"",2,Accounting for in vivo effects when  deriving parameter from experimental population distributions  which would include in vivo noise contributions will be difficult.
+1,58,44,21,154,1,"",0,Possibly an iterative process of refinement may be required  starting with model estimates and proceeding through multiple  rounds of spatial simulation.
+1,58,45,28,192,1,"",0,Overall it appears that fitting population distributions to the  two-state model could prove to be an effective way of obtaining  rate constants for stochastic simulations of gene regulation.
+1,58,46,9,64,1,"",1,Single-molecule in vivo fluorescence imaging provides a way to 
+1,58,47,4,44,1,"",0,experimentally measure these distributions.
+1,58,48,31,233,1,"",0,Measurements over a  range of regulatory conditions could then be used to build a  stochastic gene regulation function provided the actual probability distributions from single-molecule experiments were  available at each condition.
+1,58,49,18,122,1,"",0,However it is important to  acknowledge that our simulations did not include a contribution  from global extrinsic noise.
+1,58,50,22,157,1,"",1,Noise in our simulations under  conditions of high expression approaches Poissonian as expected  from the intrinsic noise of an uncorrelated random process.
+1,58,51,22,124,1,"",0,A  recent study has clearly shown though that there is a constant  level of global extrinsic noise in gene expression in E.
+1,58,52,12,89,1,"",1,coli  maintaining population heterogeneity even at high levels of gene  expression [85].
+1,58,53,26,164,1,"",0,This implies that a way to correct for the global  extrinsic noise will be needed in order to fit experimental  population distributions at high expression levels.
+1,59,1,7,50,1,"",1,Probability landscape of an inducible lac switch 
+1,60,1,22,152,1,"",0,The probability distribution for a stochastic biochemical system  to be in a particular state represents the totality of information  about the system.
+1,60,2,31,178,1,"",0,From it various measures of the behavior of the  system such as the mean first passage time between two states or  their relative population at the steady state can be obtained.
+1,60,3,21,138,1,"",1,For  models of stochastic gene expression two relevant reaction  coordinates are the number of protein and mRNA molecules in  the system.
+1,60,4,29,196,1,"",0,We used our stochastic simulations to reconstruct the  two-dimensional probability landscapes (negative log of the PDF)  of the NPF and PFB models at two external TMG concentrations  (Figure 16).
+1,60,5,19,119,1,"",2,The steady-state landscape of the NPF simulations at 500 mM  inducer shows a bistable mRNA distribution that has been 
+1,60,6,4,27,1,"",0,reported by others [2591].
+1,60,7,16,80,1,"",0,One minima is located near 0 mY/  1700 LacY and the other near 10 mY/1800 LacY.
+1,60,8,25,141,1,"",0,Note that the  stable 10/1800 point does not imply that 180 LacY were produced  per mY as the degradation rates of the two molecules differ.
+1,60,9,25,145,1,"",2,At  500 mM inducer the net time some cells stochastically spend in the  inactive state is greater than the typical lifetime of the mRNA  bursts.
+1,60,10,9,49,1,"",1,These cells then drift to a zero mRNA abundance.
+1,60,11,34,189,1,"",3,The  higher density is caused by an accumulation of these cells near the  zero mRNA level until their next mRNA burst pushes them back  into a random cycle around the mean mRNA burst size.
+1,60,12,24,162,1,"",2,Interestingly though the protein distributions at the two mRNA  minimum are different with the protein abundance being slightly  lower in the lower mRNA minimum.
+1,60,13,23,163,1,"",1,This means that the protein  and mRNA probability distributions are not completely independent of each other; the joint probability distribution has cross  terms.
+1,60,14,35,219,1,"",2,While not a large difference it is nevertheless possible that  the joint protein-mRNA distribution could be used to obtain  better parameter fits for the two-state model with fewer cells if the  mRNA counts were known.
+1,60,15,22,158,1,"",0,The bimodal distributions seen in the LacY distributions from  the PFB simulations (Figure 10) are recapitulated in the probability  landscape for switching.
+1,60,16,21,151,1,"",2,The two-dimensional landscape allows  classification of both the uninduced and induced states in terms of  their relative protein and mRNA abundances.
+1,60,17,16,112,1,"",1,Additionally the  landscape reveals the transition path for switching from the  uninduced to the induced state.
+1,60,18,34,206,1,"",0,One can imagine two possible  scenarios for the transition either the gradual build-up of protein  by a series of small bursts or alternatively by the random  occurrence of a small number of larger bursts.
+1,60,19,10,49,1,"",1,For the lac system  with DNA looping Choi et al.
+1,60,20,5,35,1,"",0,[26] have persuasively argued for 
+1,60,21,8,52,1,"",0,the random large bursts as the switching initiator.
+1,60,22,17,102,1,"",0,The switching  mechanism of the stochastic system in the absence of looping  however is not so clear.
+1,60,23,24,136,1,"",1,The probability landscape of our lac  model suggests that it is actually the occurrence of several large  mRNA bursts on the order of .
+1,60,24,17,101,1,"",0,10 molecules in quick succession  that is responsible for putting the cell on the path to induction.
+1,60,25,18,96,1,"",0,Cells can spend a significant amount of time in a high LacY but  low mY state without inducing.
+1,60,26,12,73,1,"",0,This behavior is apparent in the  cell trajectory plotted in Figure 16B.
+1,60,27,20,117,1,"",1,Switching therefore is a  process in which not only a protein threshold must be crossed but  also an mRNA threshold.
+1,61,1,1,13,1,"",0,Conclusions 
+1,62,1,47,330,1,"",0,Our goal with this study was to go beyond previous stochastic  simulations of the lac circuit by using information from single  molecule protein distributions and experimentally determined  cellular architecture to constrain the kinetic parameters and  estimate the effect of spatial heterogeneity on the response of the  switch.
+1,62,2,26,197,1,"",2,The kinetic model of the inducible lac genetic switch  presented in this study illustrates the utility of incorporating singlemolecule single-cell data when modeling cellular biochemical  systems.
+1,62,3,27,197,1,"",0,The model was derived using a kinetic framework  reproducing a linear relationship between protein burst size and  inducer concentration at low concentrations as has been reported  experimentally.
+1,62,4,34,250,1,"",5,Analysis of the linear relationship in terms of  inducer-repressor-operator interactions suggests that the stoichiometry of repressor binding is such that repressor dimers with one  bound inducer still have significant affinity for the lac operator.
+1,62,5,21,159,1,"",0,Furthermore single-cell population distributions were used to  obtain estimates of the effective rate constants for transcription and  repression in the cell.
+1,62,6,41,277,1,"",1,With future increases in performance of the  lattice microbe simulation method it should be possible to iteratively  refine the kinetic rate constants to account for the effects of cellular  architecture such as we obtained here from CET experiments and  cytoplasmic crowding.
+1,62,7,32,225,1,"",3,Using such in vivo adjusted rate constants the  in vivo models should then more accurately reproduce experimental  population distributions which are after all measured under in vivo  conditions than the well-stirred models.
+1,62,8,19,112,1,"",1,The lac model without positive feedback provided a baseline for  the noise in the regulation of the lac operon.
+1,62,9,22,142,1,"",1,Intrinsic noise at low  gene expression was significantly higher than Poissonian and  peaked when the promoter was active 10-30% of the time.
+1,62,10,21,154,1,"",1,The  model with positive feedback produced similar mean values for a  given intracellular inducer concentration but the noise was  substantially greater.
+1,62,11,18,130,1,"",1,We attribute this effect to the non-linear  gene regulatory function operating on a distribution of intracellular inducer levels.
+1,62,12,29,201,1,"",0,Global extrinsic noise in the transcription/  translation machinery is a large contributor to population  heterogeneity at high levels of expression but we excluded such  noise from the current study.
+1,62,13,33,219,1,"",0,Fitting of data from stochastic simulations of the lac switch with  the burst and two-state models of gene expression showed both the  potential and limitations of these models to interpret stochastic  gene regulation.
+1,62,14,30,187,1,"",0,The burst model described the data well under  conditions of low expression when the gene was active for #5% of  the mean protein lifetime but diverged for increasing expression  levels.
+1,62,15,26,174,1,"",0,The two-state model better described the data at higher  levels of expression but near full induction the error in the  activation and inactivation rates became significant.
+1,62,16,17,129,1,"",0,Additionally  the fits provided estimates of the number of cell measurements  necessary to produce reliable parameter estimates.
+1,62,17,17,94,1,"",0,With 50 cells  the worst-case relative error was 690% but with 200 cells it  dropped to 632%.
+1,62,18,9,81,1,"",1,Fitting to joint mRNA-protein distributions  might improve parameter estimation.
+1,62,19,21,145,1,"",0,Fits to data with positive  feedback indicated that both models were unable to reliably  extract parameters from populations with such feedback.
+1,62,20,27,169,1,"",1,Switching of cells from the uninduced to the induced state was  observed in the positive feedback model without DNA looping  over a range of low inducer concentrations.
+1,62,21,18,155,1,"",2,During switching the  uninduced population maintained a stable stationary distribution  while cells stochastically transitioned to the induced population.
+1,62,22,24,136,1,"",1,The probability landscape showed that both an mRNA and a  protein threshold must be crossed for a cell to switch to the  induced state.
+1,62,23,23,156,1,"",0,The probability landscape for the DNA looping case  is likely different but additional model states would be required to  accurately represent DNA looping.
+1,63,1,22,164,1,"",1,Finally we have presented what we believe to be the first wholecell simulations of stochastic gene expression using experimentally  obtained cellular architecture.
+1,63,2,15,105,1,"",1,These simulations showed that in vivo  conditions can impact the stochastic noise in biological systems.
+1,63,3,18,162,1,"",1,Positional memory of transcription factors following unbinding  amplified by anomalous diffusion due to molecular crowding  introduces non-Poissonian statistics.
+1,63,4,39,203,1,"",0,In the case of our lac model in  fast-growth cells this effect caused a decrease in the mean value of  the LacY distribution by up to 10% and its noise by up to 20% for a  given environmental condition.
+1,63,5,24,150,1,"",1,In a slow-growth cell phenotype we  saw a large increase in burst frequency due to the smaller cell size as  determined from cryoelectron tomography.
+1,63,6,23,141,1,"",0,From this difference we  infer that changes in cellular size and/or shape during the cell cycle  can have an impact on stochastic processes.
+1,63,7,22,124,1,"",0,Since spatial noise can  vary from cell-to-cell or even during the cell cycle so we consider it a  type of extrinsic noise.
+1,63,8,28,226,1,"",0,The necessary computational resources and  experimental data are becoming available such that computational  biologists should consider adding spatial degrees of freedom into  physical models of cellular biochemical networks.
+1,64,1,2,24,1,"",0,Supporting Information 
+1,65,1,4,28,1,"",0,Text S1 Supporting methods.
+1,65,2,4,32,1,"",0,Further methods describing the 
+1,65,3,20,163,1,"",2,derivation of the rate constant relationship for non-cooperative  ligand binding the lattice microbe reaction operator and the  lattice coarse-graining technique.
+1,65,4,1,7,1,"",0,(PDF) 
+1,66,1,6,32,1,"",0,Video S1 Simulated colony of E.
+1,66,2,5,34,1,"",1,coli cells responding to inducer.
+1,66,3,13,87,1,"",0,Video composite of trajectories from six spatial PFB+IV  simulations at 15 mM inducer.
+1,66,4,12,72,1,"",1,Yellow circles are LacY proteins  and red circle are mY mRNA molecules.
+1,66,5,11,64,1,"",0,Two cells begin the  process of switching to the induced state.
+1,66,6,1,7,1,"",0,(MOV) 
+1,67,1,2,10,1,"",0,Video S2 
+1,67,2,8,56,1,"",0,Trajectory of a PFB+IV+CET cell responding to  inducer.
+1,67,3,13,85,1,"",0,Visualization of a single slow-growth CET modeled cell  responding to 15 mM inducer.
+1,67,4,10,62,1,"",2,Gray spheres are ribosomes and the  blue region the nucleoid.
+1,67,5,12,73,1,"",1,Yellow circles are LacY proteins and red  circles are mY mRNA molecules.
+1,67,6,11,73,1,"",1,The repressor-operator  complex is green and the free operator is white.
+1,67,7,1,7,1,"",0,(MOV) 
+1,68,1,2,10,1,"",0,Figure 1.
+1,68,2,6,45,1,"",0,Three models for stochastic gene expression.
+1,68,3,12,69,1,"",0,(A) Burst  model in which transcription of the DNA is always active.
+1,68,4,16,105,1,"",0,(B) Two-state  model in which the DNA switches with constant rates between active  and repressed states.
+1,68,5,35,227,1,"",1,(C) Inducible genetic switch in which an inducer  both controls the rate of switching between active and inactive  transcription states and is also positively regulated by the protein  product - a positive feedback loop (PFB).
+1,68,6,21,140,1,"",1,The gray dotted connection  indicates a weak effect of the inducer in promoting the unbinding of  repressor at high inducer concentrations.
+1,68,7,1,8,1,"",0,doi:10.
+1,68,8,1,14,1,"",0,1371/journal.
+1,68,9,1,6,1,"",1,pcbi.
+1,68,10,1,9,1,"",0,1002010.
+1,68,11,1,6,1,"",0,g001 
+1,69,1,2,10,1,"",0,Figure 2.
+1,69,2,8,42,1,"",0,Overview of the lac genetic circuit in E.
+1,69,3,2,7,1,"",1,coli .
+1,69,4,23,136,1,"",3,(A) In the  absence of inducer the lac repressor (LacI) binds to the lac operator  preventing transcription of genes in the lac operon.
+1,69,5,26,184,1,"",1,(B) Following an  increase in the extracellular inducer concentration inducer enters the  cell via both diffusion across the membrane and active transport by  lactose permease (LacY).
+1,69,6,14,93,1,"",1,Once inside inducer binds free LacI molecules  preventing them from binding to the operator.
+1,69,7,23,164,1,"",2,(C) After the intracellular  inducer concentration reaches a threshold any bound repressor is  ''knocked-off'' the operator leading to expression of the lac genes.
+1,69,8,14,103,1,"",1,(D)  At high intracellular inducer concentrations the genes for lactose  metabolism are fully induced.
+1,69,9,31,211,1,"",2,(E) After inducer is removed repressor  rebinds to the operator preventing further expression of the lac operon  and the enzymes for lactose metabolism are either degraded or diluted  through cellular division.
+1,69,10,1,8,1,"",0,doi:10.
+1,69,11,1,14,1,"",0,1371/journal.
+1,69,12,1,6,1,"",1,pcbi.
+1,69,13,1,9,1,"",0,1002010.
+1,69,14,1,6,1,"",0,g002 
+1,70,1,2,10,1,"",0,Figure 3.
+1,70,2,11,63,1,"",2,Fits of rate constants for IPTG binding to the lac  repressor.
+1,70,3,20,153,1,"",3,(A) Pseudo first order rate constants observed during  stochastic simulations of IPTG binding to (blue) repressor and (red)  repressor-operator complex.
+1,70,4,25,155,1,"",3,At each inducer concentration 1000  simulations starting with 2 free (or operator-complexed) repressor  dimers in a volume of 8 : 10 {16 L were performed.
+1,70,5,30,181,1,"",1,The mean fraction of  free repressor monomers as a function of time was fit to a single  exponential to obtain the observed rate constant for binding at the  inducer concentration.
+1,70,6,9,37,1,"",1,x and o are data from Dunaway et al.
+1,70,7,1,6,1,"",0,[75].
+1,70,8,12,92,1,"",3,(B)  Equilibrium binding of IPTG to (blue) repressor and (red) repressoroperator complexes.
+1,70,9,30,188,1,"",4,In a stochastic simulation at each inducer  concentration 20 free (or operator-complexed) repressor dimers in  8 : 10 {16 L were first equilibrated with inducer to reach the steady state.
+1,70,10,19,132,1,"",1,Following 5 minutes of data were collected from which the equilibrium  fraction of inducer bound repressor monomers was calculated.
+1,70,11,9,39,1,"",1,x and o  are data from O'Gorman et al.
+1,70,12,1,6,1,"",0,[74].
+1,70,13,1,8,1,"",0,doi:10.
+1,70,14,1,14,1,"",0,1371/journal.
+1,70,15,1,6,1,"",1,pcbi.
+1,70,16,1,9,1,"",0,1002010.
+1,70,17,1,6,1,"",0,g003 
+1,71,1,2,10,1,"",0,Figure 4.
+1,71,2,9,65,1,"",1,Markov diagram for transcriptional bursting in the lac  circuit.
+1,71,3,24,156,1,"",1,Under low-to-moderate inducer concentrations a burst begins  when the operator enters the O state and ends when it transitions to a  repressor bound state.
+1,71,4,21,59,3,"",0,k tot ~k tr z 1/2 R 2  : k ron z 1/2 IR 2  : a : k ron .
+1,71,5,1,8,1,"",0,doi:10.
+1,71,6,1,14,1,"",0,1371/journal.
+1,71,7,1,6,1,"",1,pcbi.
+1,71,8,1,9,1,"",0,1002010.
+1,71,9,1,6,1,"",0,g004 
+1,72,1,2,10,1,"",0,Figure 5.
+1,72,2,7,50,1,"",1,Parameter space of repressor binding parameter a.
+1,72,3,23,111,1,"",0,(A)  Mean burst size as a function of inducer concentration for various  values of a where k iron ~a : k ron .
+1,72,4,41,128,1,"",0,Parameters used were R 2T = 2:08 : 10 {8  M C 50 = 1:76 : 10 {5 M k tr = 1:26 : 10 {1 s {1  and k ron = 2:43 : 10 6 M {1 s {1 .
+1,72,5,15,88,1,"",0,(B) The rate of change in the burst size with respective to the inducer  concentration.
+1,72,6,1,8,1,"",0,doi:10.
+1,72,7,1,14,1,"",0,1371/journal.
+1,72,8,1,6,1,"",1,pcbi.
+1,72,9,1,9,1,"",0,1002010.
+1,72,10,1,6,1,"",0,g005 
+1,73,1,2,10,1,"",0,Figure 6.
+1,73,2,8,51,1,"",0,Linear fit of burst size to inducer concentration.
+1,73,3,7,29,1,"",1,x are  data from Choi et al.
+1,73,4,1,6,1,"",0,[22].
+1,73,5,1,8,1,"",0,doi:10.
+1,73,6,1,14,1,"",0,1371/journal.
+1,73,7,1,6,1,"",1,pcbi.
+1,73,8,1,9,1,"",0,1002010.
+1,73,9,1,6,1,"",0,g006 
+1,74,1,2,10,1,"",0,Figure 7.
+1,74,2,10,73,1,"",0,Burst analysis of stochastic simulations of a simple  two-state process.
+1,74,3,10,60,1,"",1,The two-state process was described by:  X &apos;Y Y ?ZZ?1.
+1,74,4,41,230,1,"",0,Rate constants were chosen such that on average  a sim bursts of Z with a constant burst size b sim were produced during Z's  mean lifetime with the mean duration of each burst lasting for the  indicated fraction of the lifetime.
+1,74,5,34,204,1,"",0,At each point 250 stochastic  simulations were run until the probability density was stationary and  then the distributions of Z were fit to gamma distributions to obtain the  a fit and b fit parameters.
+1,74,6,39,206,1,"",1,The ratios of (A) a fit /a sim and (B) b fit /b sim as a  function of the burst duration show the range of burst durations for  which a gamma distribution fit can reliably recover the original  parameters.
+1,74,7,10,41,1,"",0,In this example a sim ~3 and b sim ~100.
+1,74,8,1,8,1,"",0,doi:10.
+1,74,9,1,14,1,"",0,1371/journal.
+1,74,10,1,6,1,"",1,pcbi.
+1,74,11,1,9,1,"",0,1002010.
+1,74,12,1,6,1,"",0,g007 
+1,75,1,2,10,1,"",0,Figure 8.
+1,75,2,5,64,1,"",1,Parameter fitting for inducer-repressor-operator  interactions.
+1,75,3,23,140,1,"",2,(A) Fraction of operator regions bound by a repressor  as a function of time following an increase of IPTG to the indicated  concentration.
+1,75,4,10,46,1,"",2,In these simulations k i2roff ~500 : k roff .
+1,75,5,25,143,1,"",0,(B) Number of  bursts over the mean protein lifetime as a function of inducer  concentration for a variety of values of the C 50{op parameter.
+1,75,6,7,29,1,"",1,x are  data from Choi et al.
+1,75,7,1,6,1,"",0,[22].
+1,75,8,1,8,1,"",0,doi:10.
+1,75,9,1,14,1,"",0,1371/journal.
+1,75,10,1,6,1,"",1,pcbi.
+1,75,11,1,9,1,"",0,1002010.
+1,75,12,1,6,1,"",0,g008 
+1,76,1,2,10,1,"",0,Figure 9.
+1,76,2,9,65,1,"",0,Steady state LacY distributions from the well-stirred NPF model.
+1,76,3,14,78,1,"",0,Distributions at inducer concentrations of (A) 0 (B) 100 and (C)  200 mM TMG.
+1,76,4,18,119,1,"",1,Shown are (gray bars) histograms from 10000 Gillespie trajectories and (red dash) gamma distributions from Choi et al.
+1,76,5,1,6,1,"",0,[22].
+1,76,6,13,77,1,"",0,(D) Mean  LacY as a function of inducer concentration along with 95% ranges.
+1,76,7,17,100,1,"",1,(E) The noise in the LacY distributions as quantified by the Fano factor (variance  over the mean).
+1,76,8,11,70,1,"",1,(F) The fraction of time spent in the transcriptionally active state.
+1,76,9,1,8,1,"",0,doi:10.
+1,76,10,1,14,1,"",0,1371/journal.
+1,76,11,1,6,1,"",1,pcbi.
+1,76,12,1,9,1,"",0,1002010.
+1,76,13,1,6,1,"",0,g009 
+1,77,1,2,11,1,"",0,Figure 10.
+1,77,2,12,77,1,"",1,Response of an uninduced PFB population to the addition of external inducer.
+1,77,3,24,127,1,"",0,(A) Probability density p(Y t) (arbitrary units  darker = higher) of the number of LacY in a cell over the course of 24 hours.
+1,77,4,25,165,1,"",1,Shown are representative responses for populations in the uninduced  range (0-10 mM; left) the bimodal range (10-25 mM; center) and the concerted induction range (.
+1,77,5,3,15,1,"",0,25 mM; right).
+1,77,6,13,86,1,"",2,Lines show the mean value of the  (green) uninduced and (red) induced subpopulations.
+1,77,7,10,57,1,"",1,(B) Fraction of the cells in each of the subpopulations.
+1,77,8,13,84,1,"",2,(C) The (solid) mean and (dotted)  variance of LacY in the uninduced subpopulation.
+1,77,9,1,8,1,"",0,doi:10.
+1,77,10,1,14,1,"",0,1371/journal.
+1,77,11,1,6,1,"",1,pcbi.
+1,77,12,1,9,1,"",0,1002010.
+1,77,13,1,6,1,"",0,g010 
+1,78,1,2,11,1,"",0,Figure 11.
+1,78,2,7,42,1,"",0,Effect of positive feedback on GRF noise.
+1,78,3,21,151,1,"",2,(A) Mapping of the mean internal inducer concentration for a given external  concentration for the (green) uninduced and (red) induced subpopulations.
+1,78,4,15,98,1,"",0,(black dotted) The values for the lac circuit without positive feedback are  shown for reference.
+1,78,5,16,99,1,"",1,(B) The mean number of LacY in the subpopulations as a function of internal inducer concentration.
+1,78,6,7,41,1,"",0,(C) The noise in the LacY  distribution.
+1,78,7,1,8,1,"",0,doi:10.
+1,78,8,1,14,1,"",0,1371/journal.
+1,78,9,1,6,1,"",1,pcbi.
+1,78,10,1,9,1,"",0,1002010.
+1,78,11,1,6,1,"",0,g011 
+1,79,1,2,11,1,"",0,Figure 12.
+1,79,2,9,57,2,"",2,The effect of in  vivo crowding on repressor rebinding.
+1,79,3,8,52,1,"",0,Each line represents the mean of 5000 trajectories.
+1,79,4,31,178,1,"",2,(A) The observed  diffusion coefficient D~Sr 2 T 6t as a function of time scale for a repressor diffusing in a volume with the indicated fraction occupied by in vivo  obstacles.
+1,79,5,19,92,1,"",0,(B) a-exponent arising from fitting Sr 2 T to a model of anomalous diffusion Sr 2 T~6Dt a .
+1,79,6,30,176,1,"",2,(C) The probability for a repressor to rebind with  the operator before diffusing into the bulk (64 nm from operator) following unbinding as a function of the in vivo packing.
+1,79,7,19,118,1,"",1,(D) The distribution of  escape times for repressors that diffuse to bulk rather than rebind at three packing values.
+1,79,8,1,8,1,"",0,doi:10.
+1,79,9,1,14,1,"",0,1371/journal.
+1,79,10,1,6,1,"",1,pcbi.
+1,79,11,1,9,1,"",0,1002010.
+1,79,12,1,6,1,"",0,g012 
+1,80,1,2,11,1,"",0,Figure 13.
+1,80,2,5,35,1,"",1,LacY PFB+IV in vivo distributions.
+1,80,3,11,61,1,"",0,(A) The distribution of LacY in (orange bars) 100 modeled E.
+1,80,4,15,103,1,"",1,coli cells at 13 mM TMG concentration  compared with (green dotted) the PFB well-stirred distribution.
+1,80,5,15,89,1,"",0,(B) Mean number of LacY proteins in the (circles) PFB+IV and (green dotted) PFB  models.
+1,80,6,6,36,1,"",0,(C) The noise in the distributions.
+1,80,7,1,8,1,"",0,doi:10.
+1,80,8,1,14,1,"",0,1371/journal.
+1,80,9,1,6,1,"",1,pcbi.
+1,80,10,1,9,1,"",0,1002010.
+1,80,11,1,6,1,"",0,g013 
+1,81,1,2,11,1,"",0,Figure 14.
+1,81,2,7,54,1,"",1,Analysis of cryoelectron tomography based cell model.
+1,81,3,4,19,1,"",0,(A) Slow growth E.
+1,81,4,12,74,1,"",1,coli cell model based in part on data from a  tomographic reconstruction.
+1,81,5,15,106,1,"",2,Shown are (orange) ribosomes (light gray) membrane (dark grey) condensed nucleoid and (red) lac operator.
+1,81,6,14,110,1,"",1,(B+C)  Distribution of repressor-operator complex lifetimes for the fast and slow growth models respectively.
+1,81,7,11,70,1,"",0,Curves show fits to an exponential  distribution with the given mean.
+1,81,8,25,146,1,"",3,(D) Position of mRNA-membrane contact after diffusion of mRNA produced at the lac operon in (blue x) fast  growth and (red o) slow growth models.
+1,81,9,9,54,1,"",0,Dotted lines show the length of the respective cells.
+1,81,10,1,8,1,"",0,doi:10.
+1,81,11,1,14,1,"",0,1371/journal.
+1,81,12,1,6,1,"",1,pcbi.
+1,81,13,1,9,1,"",0,1002010.
+1,81,14,1,6,1,"",0,g014 
+1,82,1,2,11,1,"",0,Figure 15.
+1,82,2,16,120,1,"",1,Maximum-likelihood fitting of two models for gene expression to stochastic simulations of an inducible genetic circuit.
+1,82,3,9,47,1,"",0,(A and B) Parameter fits from the burst model.
+1,82,4,7,47,1,"",0,(C-F) Parameter fits from the two-state model.
+1,82,5,17,123,1,"",0,Shown are fits for (black dotted) NPF simulations  (green dotted) PFB simulations and (orange circles) PFB+IV simulations.
+1,82,6,13,90,1,"",0,Also shown are (blue solid) actual parameter values calculated from the  simulation data.
+1,82,7,18,110,1,"",0,Shaded areas indicate the 95% confidence intervals for ML fits using distributions from 50 and 200 NPF cells.
+1,82,8,1,8,1,"",0,doi:10.
+1,82,9,1,14,1,"",0,1371/journal.
+1,82,10,1,6,1,"",1,pcbi.
+1,82,11,1,9,1,"",0,1002010.
+1,82,12,1,6,1,"",0,g015 
+1,83,1,2,11,1,"",0,Figure 16.
+1,83,2,11,85,1,"",2,Probability landscape of protein-mRNA abundances  in the inducible lac switch model.
+1,83,3,17,108,1,"",0,(A) Steady-state probability  landscape (arbitrary units darker = higher) for the NPF model at 500 mM  TMG.
+1,83,4,26,150,1,"",0,The dotted line shows the trajectory of a representative cell  during a 3 hour interval starting at the open circle and ending at the  closed circle.
+1,83,5,22,121,1,"",0,(B) Probability landscape of the PFB circuit over a period of  24 hours following the addition of external TMG to 16 mM.
+1,83,6,20,112,1,"",1,The line  follows a single cell switching from the uninduced to the induced state  over the course of 13 hours.
+1,83,7,1,8,1,"",0,doi:10.
+1,83,8,1,14,1,"",0,1371/journal.
+1,83,9,1,6,1,"",1,pcbi.
+1,83,10,1,9,1,"",0,1002010.
+1,83,11,1,6,1,"",0,g016 
+1,84,1,2,9,1,"",0,Table 1.
+1,84,2,13,78,1,"",0,Reactions and rate constants used in the stochastic model of the lac circuit.
+1,85,1,2,9,1,"",0,Table 2.
+1,85,2,7,46,1,"",1,Obstacle abundance in in vivo spatial models.

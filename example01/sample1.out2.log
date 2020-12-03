@@ -1,0 +1,7 @@
+xx
+<< Calling textblocks version 0.1.0
+++ Log file set to sample1.out2.log
+++ Created output file sample1.out2
+++ Output file set to sample1.out2
+ < cleanblocks sample1.out1 sample1.out2 
+ > cleanblocks ok

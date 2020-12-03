@@ -1,0 +1,55 @@
+#!/bin/bash
+# produce multiple text files separting key parts of original pdf file
+# to be run after ex1-sample2
+
+# directory of executables
+DIR=".."
+
+# log level
+LL=0;
+
+# file to process
+infile=sample2
+
+[[ -f "$infile.pdf" ]] || { echo "Inpur file does not exist."; exit 0; }
+rm -f $infile.p[0-9]*
+
+echo "$infile.p1: keywords+abbreviations"
+$DIR/textblocks $infile.txt -append $infile.p1 -log $LL -copy "{1.6 10.8}"
+
+echo "$infile.p2: title+abstract"
+$DIR/textblocks $infile.txt -append $infile.p2 -log $LL -copy "{1.3 1.5}"
+
+echo "$infile.p3: pages"
+$DIR/textblocks $infile.txt -append $infile.p3 -log $LL -copy \
+		"{expand(1.{7,8,10}) \
+ 		  2.2-4 2.6-8 expand(3.{2-4,6,8,10,12,14}) \
+		  4.3 4.6-11 5.4-7 6.2 6.4 7.4-7 8.2 8.4 9.2 9.4 10.2-5 10.7}"
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge {1.8 1.10}
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge {2.4 2.6}
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge "{expand(3.{4,6,8,10,12})}"
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge {4.3 4.6-7}
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge {5.4-5}
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge {6.2 6.4}
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge {7.4 7.5}
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge {8.2 8.4}
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge {9.2 9.4}
+$DIR/textblocks $infile.p3 -inplace -log $LL -merge {10.5 10.7}
+
+echo "$infile.p4: captions"
+$DIR/textblocks $infile.txt -append $infile.p4 -log $LL -copy \
+		"{5.3 7.3 8.5}"
+
+echo "$infile.p5: references"
+$DIR/textblocks $infile.txt -append $infile.p5 -log $LL -copy \
+		"{10.12 11.2 11.4}"
+
+for i in {1..5}; do
+    echo $infile.p$i: cleanup
+    $DIR/textblocks $infile.p$i -inplace -log $LL -automerge
+    $DIR/textblocks $infile.p$i -inplace -log $LL -autorenumber
+    $DIR/textblocks $infile.p$i -inplace -log $LL -clean \
+		    rs \"\\\([a-z]\\\)- \\+\\\([a-z]\\\):\\1\\2\" \
+		    sed "/^\s*$/d" as ".:\\n" sed "s/^ *//g"
+    $DIR/textblocks $infile.p$i -inplace -log $LL -clean
+done
