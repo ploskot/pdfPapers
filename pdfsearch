@@ -1,8 +1,8 @@
 #!/bin/bash
-version=0.1.0
+version=0.1.1
 ############################################################################
 ##                                                                        ##
-##  pdfviewer:  A shell-script to search pdf files using regular          ##
+##  pdfsearch:  A shell-script to search pdf files using regular          ##
 ##              expressions                                               ##  
 ##                                                                        ##
 ##  Author: Pavel Loskot, loskot@gmail.com                                ##
@@ -23,50 +23,57 @@ set -e
 
 export LC_CTYPE="en_US.utf8"
 
+this="${0/#*\/}"
+
 PDFVIEW=/usr/bin/okular
 TXTVIEW="/usr/bin/emacs --geometry 80x44+1020+0"
 PDFTOTEXT="/usr/bin/pdftotext -eol unix -q"
 
-if [[ "$#" == "0" ]]; then
-    echo "Usage: pdfsearch [params] "pattern" files|-f <filename> [filters]
+if [[ "$#" == "0" || "$1" == @(-h|--help) ]]; then
+    echo "
+  $this - a shell script to find the frequency of occrrence statistics of
+              complex regular expressions within a group of pdf files
 
-        Patterns:
-	 "p1\&p2\&p3"    must contain all sub-patterns p1, p2, p3
-	 "p1\|p2\|p3"    must contain any sub-patterns p1, p2, p3 
-    	 "@p1"         pattern p1 passed directly to grep
-    	 "p1?n"	     must contain enough occurrences of p1 where 
-                      ? can be >, <, >=, <=
-         "\(p1\|p2\)\&p3"  combining patterns using parentheses
-         "@@p1p2p3"    @@ raw pattern to be passed directly to grep
+  Usage: pdfsearch [params] "pattern" files|-f <filename> [filters]
 
-        Commands:
-	 -r, --refresh    regenerate text files
-	 -t, --textfiles  search text files instead of pdf files      
-	 -s, --save <filename> save output to this file
- 	 -f, --file <filename> read input file names from this file	
-	 -q, --quiet      do not display any messages
-	 -g-<s1s2>, --grep-<s1s2> pass switches -s1 -s2 to grep
-	 -n, --nomatch    show results even if no match
-	 -m, --multiline  consider pattern may span over two consecutive lines
-	 -a, --addup [\"?n\"] report sum of occurrences for multiple patterns
-	     	             ? can be >, <, >=, <=
+    Patterns:
+      "p1\&p2\&p3"  must contain all sub-patterns p1, p2, p3
+      "p1\|p2\|p3"  must contain any sub-patterns p1, p2, p3 
+      "@p1"         pattern p1 passed directly to grep
+      "p1?n"	    must contain enough occurrences of p1 where 
+                    ? can be >, <, >=, <=
+      "\(p1\|p2\)\&p3"  combining patterns using parentheses
+      "@@p1p2p3"        @@ raw pattern to be passed directly to grep
 
-	Filters:
-	 first sort, then select and possibly view
+    Commands:
+      -h, --help       show this help and quit
+      -r, --refresh    regenerate text files
+      -t, --textfiles  search text files instead of pdf files      
+      -s, --save <filename> save output to this file
+      -f, --file <filename> read input file names from this file	
+      -q, --quiet      do not display any messages
+      -g-<s1s2>, --grep-<s1s2> pass switches -s1 -s2 to grep
+      -n, --nomatch    show results even if no match
+      -m, --multiline  consider pattern may span over two consecutive lines
+      -a, --addup [\"?n\"] report sum of occurrences for multiple patterns
+           	           ? can be >, <, >=, <=
 
-	 [R]SC, [R]SORTBYCOUNT [reverse] sort results by count
-	 [R]SD, [R]SORTBYDATE  [reverse] sort results by date substring
-	 [R]SN, [R]SORTBYNAME  [reverse] sort results by file name
+     Filters:
+	first sort, then select and possibly view
+
+	[R]SC, [R]SORTBYCOUNT [reverse] sort results by count
+	[R]SD, [R]SORTBYDATE  [reverse] sort results by date substring
+	[R]SN, [R]SORTBYNAME  [reverse] sort results by file name
 	 
-	 BN, BASENAME    only show basenames
-	 FN, FULLNAME    only show full names
-	 CSV 		 csv format
-	 STAT            show statistics of matches
-	 HD, HEAD <n>	 only show first n records
-	 TL, TAIL <n>	 only show last n records
-	 GR, GREP /pat/	 only show records matching pattern
+	BN, BASENAME    only show basenames
+	FN, FULLNAME    only show full names
+	CSV 		 csv format
+	STAT            show statistics of matches
+	HD, HEAD <n>	 only show first n records
+	TL, TAIL <n>	 only show last n records
+	GR, GREP /pat/	 only show records matching pattern
 
-	 VF, VIEWFILES	 view files
+	VF, VIEWFILES	 view files
 	 "
     exit 0
 fi

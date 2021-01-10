@@ -1,5 +1,5 @@
 #!/bin/bash
-version=0.2.0
+version=0.1.1
 ############################################################################
 ##                                                                        ##
 ##  textblocks: A shell-script wrapper for pdftotext better to extract    ##
@@ -47,39 +47,44 @@ err_exit() { echo >&2 "ee Error: $1"; exit 1; }
 
 # display help
 help() {
-    echo "Usage: pdfastext [params] input.pdf
+    echo "
+  $this - a shell script with extra features added to pdftotext such
+              as merging splitted words and sentences, transcribing 
+              non-printable characters, spell check, meta information and 
+	      producing graphical layout for every page of PDF file
 
-    	 	 generates file input.txt or output.txt if '-o output.txt'
-		 has been used
+  Usage: pdfastext [params] input.pdf
+
+	 generates input.txt or output.txt if '-o output.txt' has been used
          
-        Parameters:
-	 -h        show this help message and quit
-	 -v	   show version number and quit
-         -q        do not display any messages	 
-	 -f page   first page of the pdf file to process
-         -l page   last page of the pdf file to process,
-	    	   use '-l last' to get last page of inputfile
-	 -mX       meta info stored in these files, X=1,2,3:
-	 	   input.mt1: info about pdf file from pdfinfo
-		   input.mt2: sizes and locations of pages and blocks
-		   input.mt3: for each page.block, the number of words,
-		   	      characters and non-printable characters
-	 -c	   clean up, i.e. delete all input.* files except input.pdf
-	 -c1	   as -c, but without confirm
-	 -b	   merge text within each block into single long line (default)
-	 -b0       do not merge text in blocks into single long line
-	 -i,-i1	   erase existing or create default output filename input.txt
-	 -i2       append new text to default output filename input.txt
-	 -o  file  set output filename, error if the file already exists
-	 -o1 file  allow erasing output file if it already exists
-	 -o2 file  append new text to output file
-	 -s        spell check existing text file with aspell and quit
-	 -t1	   convert non-print characters to ASCII with iconv
-	 -t2	   convert non-print characters to ASCII with tr
-	 -geps|-gjpg generate image layouts for each page in eps or jpg;
-	 	     requires at least -m2 meta info
-	 -gjpgpdf    similar to -gjpg, but original pdf pages are overlayed 
-	 	     below the layout at the expense of larger jpg files
+    Parameters:
+      -h,-help  show this help message and quit
+      -v	show version number and quit
+      -q        do not display any messages	 
+      -f page   first page of the pdf file to process
+      -l page   last page of the pdf file to process,
+       	   	use '-l last' to get last page of inputfile
+      -mX       meta info stored in these files, X=1,2,3:
+      		input.mt1: info about pdf file from pdfinfo
+		input.mt2: sizes and locations of pages and blocks
+		input.mt3: for each page.block, the number of words,
+		           characters and non-printable characters
+      -c	clean up, i.e. delete all input.* files except input.pdf
+      -c1	as -c, but without confirm
+      -b	merge text within each block into single long line (default)
+      -b0       do not merge text in blocks into single long line
+      -i,-i1	erase existing or create default output filename input.txt
+      -i2       append new text to default output filename input.txt
+      -o  file  set output filename, error if the file already exists
+      -o1 file  allow erasing output file if it already exists
+      -o2 file  append new text to output file
+      -s        spell check existing text file with aspell and quit
+      -t1	convert non-print characters to ASCII with iconv
+      -t2	convert non-print characters to ASCII with tr
+      -geps|-gjpg generate image layouts for each page in eps or jpg;
+	 	  requires at least -m2 meta info
+      -gjpgpdf    similar to -gjpg, but original pdf pages are overlayed 
+	 	  below the layout at the expense of larger jpg files
          "
     exit 0
 }
@@ -89,7 +94,7 @@ help() {
     { echo "$this wrapper of pdftotext version $version"; exit 0; }
 
 # show help and quit
-[[ "$#" == "0" || "$1" == "-h" ]] && help
+[[ "$#" == "0" || "$1" == @(-h|-help|--help) ]] && help
 
 # aspell existing file and quit
 if [[ "$1" == "-s" ]]; then

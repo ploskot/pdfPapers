@@ -1,5 +1,5 @@
 #!/bin/bash
-version=0.1.0
+version=0.1.1
 ############################################################################
 ##                                                                        ##
 ##  texttodict: A shell-script to create words dictionary from pdf file   ##
@@ -62,8 +62,8 @@ ok_exit() { $MSG "$1" ; exit 0; }
 # exit with error
 err_exit() { echo "Error: $1" >&2; exit 1; }
 
-# display help
-[[ "$1" == "-help" ]] && { cat "$help_file" | sed '1,/^#/d'; exit 0; }
+# show help and quit
+[[ "$1" == @(-h|-help) ]] && { cat "$help_file" | sed '1,/^#/d'; exit 0; }
 
 # show version number
 [[ "$1" == "-version" ]] &&
