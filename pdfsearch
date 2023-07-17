@@ -1,5 +1,5 @@
 #!/bin/bash
-version=0.1.1
+version=0.1.2
 ############################################################################
 ##                                                                        ##
 ##  pdfsearch:  A shell-script to search pdf files using regular          ##
@@ -13,7 +13,7 @@ version=0.1.1
 ##                                                                        ##
 ##  Configuration file may appear in future versions.                     ##
 ##                                                                        ## 
-##  Developed and tested with GNU bash version 4.0.X                      ##
+##  Developed and tested with GNU bash version 5.2.15                     ##
 ##                                                                        ##
 ############################################################################
 

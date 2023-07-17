@@ -1,5 +1,5 @@
 #!/bin/bash
-version=0.1.1
+version=0.1.2
 ############################################################################
 ##                                                                        ##
 ##  pdfls:  A shell-script to view a batch of pdf files consecutively     ##  
@@ -12,7 +12,7 @@ version=0.1.1
 ##                                                                        ##
 ##  Configuration file may appear in future versions.                     ##
 ##                                                                        ## 
-##  Developed and tested with GNU bash version 4.0.X                      ##
+##  Developed and tested with GNU bash version 5.2.15                     ##
 ##                                                                        ##
 ############################################################################
 

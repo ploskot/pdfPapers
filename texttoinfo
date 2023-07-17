@@ -1,5 +1,5 @@
 #!/bin/bash
-version=0.1.1
+version=0.1.2
 ############################################################################
 ##                                                                        ##
 ##  texttoinfo: A shell-script to extract information from text blocks    ##
@@ -14,7 +14,7 @@ version=0.1.1
 ##                                                                        ##
 ##  Configuration file may appear in future versions.                     ##
 ##                                                                        ## 
-##  Developed and tested with GNU bash version 5.0.17                     ##
+##  Developed and tested with GNU bash version 5.2.15                     ##
 ##                                                                        ##
 ############################################################################
 
