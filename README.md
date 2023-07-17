@@ -230,6 +230,8 @@ or reported.
 
 - minor bug fixes and improvements
 
+- added pythontools folder with examples
+
 [**0.1.1**](https://github.com/ploskot/pdfpapers/) [2020-1-10]
 
 - minor bug fixes and improvements
