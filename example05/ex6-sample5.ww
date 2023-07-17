@@ -1,0 +1,104 @@
+# Termine analysis
+
+
+# 1 words
+
+
+# 2 words
+
+34.0,gene expression
+27.6,e coli
+18.3,burst size
+16.9,rate constant
+16.0,two-state model
+15.0,positive feedback
+15.0,lakh operon
+14.7,population distribution
+14.0,cell cycle
+13.8,escherichia coli
+13.0,stochastic simulation
+12.0,burst frequency
+11.7,inducer molecule
+10.0,stochastic gene
+10.0,protein lifetime
+9.0,intrinsic noise
+9.0,free operator
+9.0,gamma distribution
+9.0,cryoelectron tomography
+8.7,slow growth
+8.7,lacy distribution
+8.0,lakh operator
+8.0,internal inducer
+8.0,linear relationship
+8.0,probability distribution
+8.0,inactive state
+7.3,genetic switch
+7.0,steady state
+7.0,single cell
+7.0,free represser
+
+# 3 words
+
+33.3,plos computational biology
+31.7,whole-cell gene switch
+15.8,e coli cell
+12.7,stochastic gene expression
+11.1,van oudenaarden a
+11.1,inducible genetic switch
+7.9,lattice microbe method
+6.3,represser operator complex
+6.3,transcription burst size
+4.8,plos comput biol
+4.8,biochim biophys acta
+4.8,j biol chem
+4.8,slow growth model
+4.8,global extrinsic noise
+3.2,maximum likelihood estimation
+3.2,negative binomial distribution
+3.2,stationary population distribution
+3.2,inducible genetic circuit
+3.2,brownian dynamics simulation
+3.2,phys rev lett
+3.2,j theor biol
+3.2,mu ller-hill b
+3.2,stationary lacy distribution
+3.2,van zon js
+3.2,vitro rate constant
+3.2,escherichia coli cell
+3.2,probability density function
+3.2,single inducer molecule
+3.2,j mol biol
+3.2,my mrna molecule
+
+# 4 words
+
+6.0,inducible lakh genetic switch
+4.0,natl acad sci usa
+2.0,recent time-lapse fluorescence microscopy
+2.0,lac circuit kinetic model
+2.0,final slow growth model
+2.0,stationary probability density function
+2.0,human pathogen leptospira interrogans
+2.0,additional inactive kinetic state
+2.0,gene regulative function operating
+2.0,inducible lakh switch model
+2.0,represser operator complex lifetime
+2.0,stochastic gene regulation function
+2.0,imaging intracellular fluorescent protein
+2.0,translational regulative network control
+2.0,joint protein mrna distribution
+2.0,vivo single molecule experiment
+2.0,stochastic optical reconstruction microscopy
+2.0,joint mrna protein distribution
+2.0,escherichia coli lactose represser
+2.0,stochastic gene expression dynamics
+2.0,lattice microbe reaction operator
+2.0,single molecule experimental datum
+2.0,mrna protein probability landscape
+2.0,fitting protein population distribution
+2.0,lakh operon genetic network
+2.0,biochem biophys res comm
+2.0,phage lambda-infected escherichia coli
+2.0,video s1 simulated colony
+2.0,nvidia tesla gpu accelerator
+2.0,van den berg w

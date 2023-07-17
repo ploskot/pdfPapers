@@ -1,0 +1,141 @@
+# https://www.online-utility.org/text/analyzer.jsp
+# input: sample2.out2
+# evaluation
+
+# 1 word
+
+model,85,1.1305
+biology,34,0.4522
+models,32,0.4256
+assumptions,30,0.3990
+cell,26,0.3458
+molecular,22,0.2926
+mathematical,22,0.2926
+protein,19,0.2527
+feedback,17,0.2261
+modeling,17,0.2261
+conclusions,16,0.2128
+physics,15,0.1995
+figure,15,0.1995
+time,14,0.1862
+data,14,0.1862
+clock,14,0.1862
+compartments,13,0.1729
+biological,13,0.1729
+snares,13,0.1729
+negative,13,0.1729
+minutes,12,0.1596
+parameters,12,0.1596
+mathematics,11,0.1463
+fundamental,11,0.1463
+mouse,10,0.1330
+heinrich,10,0.1330
+different,10,0.1330
+experimental,10,0.1330
+rapoport,10,0.1330
+sense,9,0.1197
+period,9,0.1197
+receptor,9,0.1197
+quantitative,9,0.1197
+genes,9,0.1197
+question,9,0.1197
+logical,9,0.1197
+lewis,9,0.1197
+proteins,9,0.1197
+
+# 2 words
+
+t cell,9
+negative feedback,8
+reverse modeling,7
+systems biology,7
+mass action,7
+mathematical model,6
+cell receptor,6
+identical compartments,5
+altan bonnet,5
+somitogenesis clock,5
+molecular biology,4
+time delays,4
+half life,4
+mathematical models,4
+heinrich rapoport,4
+proofreading scheme,4
+kinetic proofreading,4
+physical laws,4
+somite formation,4
+fundamental physical,4
+figure 3,4
+positive feedback,4
+lewis model,4
+rapoport model,4
+tyrosine phosphatase,4
+
+# 3 words
+
+t cell receptor,6
+non identical compartments,5
+fundamental physical laws,4
+her1 and her7,4
+kinetic proofreading scheme,4
+based on fundamental,4
+heinrich rapoport model,4
+heinrich and rapoport,3
+forward and reverse,3
+factor attachment protein,3
+in situ hybridization,3
+major histocompatibility complex,3
+activated protein kinase,3
+tyrosine phosphatase 1,3
+matter of logic,3
+flavor of model,3
+bonnet and germain,3
+containing tyrosine phosphatase,3
+mitogen activated protein,3
+sensitive factor attachment,3
+domain containing tyrosine,3
+
+# 4 words
+
+predictive in the sense,3
+mitogen activated protein kinase,3
+domain containing tyrosine phosphatase,3
+forward and reverse modeling,3
+containing tyrosine phosphatase 1,3
+altan bonnet and germain,3
+sensitive factor attachment protein,3
+sh2 domain containing tyrosine,3
+descriptions of our pathetic,3
+soluble n ethyl maleimide,2
+n ethyl maleimide sensitive,2
+specific protein tyrosine kinase,2
+guarantee that a model,2
+snares x and u,2
+snares y and v,2
+1 sh2 domain containing,2
+based on fundamental physical,2
+extracellular signal regulated kinase,2
+taken from 47 figure,2
+bind better to coat,2
+stained by in situ,2
+asking whether we believe,2
+ethyl maleimide sensitive factor,2
+accident of the particular,2
+nobel prize in physiology,2
+tcr t cell receptor,2
+shp 1 sh2 domain,2
+factor attachment protein receptor,2
+snare soluble n ethyl,2
+model is a logical,2
+assumptions and the flavor,2
+mapk mitogen activated protein,2
+period of 30 minutes,2
+negative and positive feedback,2
+latter from the former,2
+lymphocyte specific protein tyrosine,2
+maleimide sensitive factor attachment,2
+models based on fundamental,2
+representative of the distribution,2
+objective descriptions of reality,2
+fit what you want,2
+law of mass action,2

@@ -1,0 +1,261 @@
+# https://www.online-utility.org/text/analyzer.jsp
+# input: sample4.out2
+# evaluation
+
+# 1 word
+
+limits,85,1.2593
+integrated,39,0.5778
+power,36,0.5333
+circuit,33,0.4889
+energy,32,0.4741
+circuits,31,0.4593
+quantum,27,0.4000
+technologies,25,0.3704
+design,24,0.3556
+computation,24,0.3556
+scaling,24,0.3556
+computing,24,0.3556
+computers,21,0.3111
+time,19,0.2815
+technology,18,0.2667
+law,18,0.2667
+performance,17,0.2519
+interconnect,16,0.2370
+transistors,15,0.2222
+manufacturing,15,0.2222
+emerging,14,0.2074
+computer,14,0.2074
+scale,14,0.2074
+input,14,0.2074
+logic,14,0.2074
+physical,13,0.1926
+gate,13,0.1926
+wires,13,0.1926
+parallel,13,0.1926
+algorithms,13,0.1926
+fundamental,13,0.1926
+speed,13,0.1926
+specific,13,0.1926
+three,13,0.1926
+large,13,0.1926
+
+# 2 words
+
+integrated circuits,21
+integrated circuit,18
+general purpose,12
+emerging technologies,11
+fundamental limits,10
+moore's law,10
+space time,7
+power consumption,7
+three dimensional,7
+quantum computers,6
+gate dielectric,6
+input output,6
+supply voltage,5
+time limits,5
+technology node,5
+logic gates,5
+power supply,4
+empirical evidence,4
+gustafson's law,4
+power density,4
+circuit design,4
+physical space,4
+domain specific,4
+modern integrated,4
+sequential algorithm,4
+reasonably tight,4
+consensus estimates,4
+energy time,4
+time limits,4
+universal computers,4
+
+# 3 words
+
+limits to computation,6
+integrated circuit design,4
+modern integrated circuits,3
+general purpose computers,3
+general purpose computing,3
+space time limits,3
+three dimensional integration,3
+asymptotic space time,3
+dark darker dim,3
+limits to computing,3
+speed of light,3
+improvements in computer,3
+space time limits,3
+device gate dielectric,2
+selection cmos quantum,2
+grey silicon interconnect,2
+original sequential algorithm,2
+ageing compact modelling,2
+known about limits,2
+high performance integrated,2
+three dimensional integrated,2
+power supply two,2
+voltage scaling 56,2
+efficiency power density,2
+improve the efficiency,2
+thermal related yield,2
+section asymptotic space,2
+turing and von,2
+energy time limits,2
+density power supply,2
+delay inductance thermal,2
+charge recovery 57,2
+dim and grey,2
+doubling of transistor,2
+power density power,2
+quantum information processing,2
+parameter selection cmos,2
+interconnect cooling efficiency,2
+domain specific computing,2
+integrated circuit interconnect,2
+quantum charge centric,2
+contacts entropy density,2
+limits on fundamental,2
+evaluating emerging technologies,2
+control leakage latency,2
+the thermodynamic threshold,2
+field effect transistor,2
+gate dielectric channel,2
+universality circuit delay,2
+achievable in principle,2
+modelling parameter selection,2
+graphics processing units,2
+channel charge control,2
+conventional integrated circuits,2
+general purpose hardware,2
+performance integrated circuits,2
+carriers device gate,2
+number of processors,2
+related yield reliability,2
+semiconductor integrated circuits,2
+ratio energy conversion,2
+parallel and sequential,2
+cooling efficiency power,2
+input output interconnect,2
+entropy flow size,2
+transfer between carriers,2
+permission from gold,2
+redrawn from figure,2
+variation universality circuit,2
+limits on design,2
+computer aided design,2
+talk ageing compact,2
+integrated circuit designs,2
+energy conversion interfaces,2
+interconnect test validation,2
+cross talk ageing,2
+dielectric channel charge,2
+inductance thermal related,2
+test validation dark,2
+reasonably tight limits,2
+customizable domain specific,2
+yield reliability input,2
+number of steps,2
+signal to noise,2
+delay variation universality,2
+circuit delay inductance,2
+cmos quantum charge,2
+scale to large,2
+charge centric signal,2
+validation dark darker,2
+size and delay,2
+dimensional integrated circuits,2
+integrated circuit power,2
+wide web searching,2
+latency cross talk,2
+noise ratio energy,2
+silicon interconnect cooling,2
+interfaces and contacts,2
+density entropy flow,2
+world wide web,2
+output interconnect test,2
+reliability input output,2
+gold standard simulations,2
+leakage latency cross,2
+charge control leakage,2
+entropy density entropy,2
+compact modelling parameter,2
+
+# 4 words
+
+asymptotic space time limits,3
+carriers device gate dielectric,2
+two or three dimensions,2
+transfer between carriers device,2
+customizable domain specific computing,2
+permission from gold standard,2
+scale to large sizes,2
+variation universality circuit delay,2
+size and delay variation,2
+channel charge control leakage,2
+universality circuit delay inductance,2
+modelling parameter selection cmos,2
+darker dim and grey,2
+thermal related yield reliability,2
+limits on fundamental limits,2
+device gate dielectric channel,2
+centric signal to noise,2
+information transfer between carriers,2
+compact modelling parameter selection,2
+dielectric channel charge control,2
+quantum charge centric signal,2
+supply two or three,2
+density entropy flow size,2
+interfaces and contacts entropy,2
+cooling efficiency power density,2
+fundamental limits to computation,2
+parameter selection cmos quantum,2
+signal to noise ratio,2
+delay variation universality circuit,2
+talk ageing compact modelling,2
+validation dark darker dim,2
+power density power supply,2
+interconnect test validation dark,2
+contacts entropy density entropy,2
+cmos quantum charge centric,2
+efficiency power density power,2
+entropy density entropy flow,2
+faster than the best,2
+programming languages 9 10,2
+circuit delay inductance thermal,2
+latency cross talk ageing,2
+see section engineering obstacles,2
+input output interconnect test,2
+control leakage latency cross,2
+high performance integrated circuits,2
+domain specific computing 8,2
+inductance thermal related yield,2
+image redrawn from figure,2
+test validation dark darker,2
+charge control leakage latency,2
+noise ratio energy conversion,2
+nonphysical limits to computing,2
+related yield reliability input,2
+grey silicon interconnect cooling,2
+silicon interconnect cooling efficiency,2
+delay inductance thermal related,2
+output interconnect test validation,2
+leakage latency cross talk,2
+principle and in practice,2
+density power supply two,2
+ageing compact modelling parameter,2
+ratio energy conversion interfaces,2
+interconnect cooling efficiency power,2
+yield reliability input output,2
+conversion interfaces and contacts,2
+reliability input output interconnect,2
+world wide web searching,2
+selection cmos quantum charge,2
+section asymptotic space time,2
+flow size and delay,2
+cross talk ageing compact,2
+dim and grey silicon,2
+gate dielectric channel charge,2
+

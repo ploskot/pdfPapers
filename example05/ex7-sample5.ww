@@ -1,0 +1,134 @@
+# https://www.online-utility.org/text/analyzer.jsp
+# input: sample5.out2
+# evaluation
+
+# 1 word
+
+model,128,0.8836
+inducer,126,0.8697
+cell,106,0.7317
+repressor,86,0.5936
+burst,71,0.4901
+operator,69,0.4763
+state,67,0.4625
+noise,59,0.4073
+simulations,59,0.4073
+cells,59,0.4073
+concentration,56,0.3866
+distributions,55,0.3797
+lac,55,0.3797
+expression,53,0.3658
+rate,53,0.3658
+lacy,51,0.3520
+figure,51,0.3520
+gene,49,0.3382
+mean,49,0.3382
+protein,49,0.3382
+distribution,47,0.3244
+stochastic,45,0.3106
+growth,45,0.3106
+population,45,0.3106
+parameters,45,0.3106
+models,44,0.3037
+vivo,44,0.3037
+mrna,41,0.2830
+binding,41,0.2830
+
+# 2 words
+
+in vivo,43
+inducer concentration,42
+gene expression,29
+slow growth,27
+two state,23
+rate constants,22
+inducer concentrations,21
+positive feedback,21
+burst size,20
+well stirred,18
+induced state,15
+population distributions,14
+stochastic simulations,14
+state model,14
+cell cycle,14
+repressor operator,13
+free operator,12
+steady state,12
+burst frequency,12
+lac operon,12
+genetic switch,11
+inducer molecules,11
+operator complex,11
+protein lifetime,11
+
+# 3 words
+
+two state model,14
+repressor operator complex,11
+transcription and translation,8
+number of lacy,8
+size and inducer,7
+active and inactive,7
+shown in figure,6
+linear relationship between,6
+in vivo crowding,6
+stochastic gene expression,6
+inducible genetic switch,6
+internal inducer concentration,6
+lattice microbe method,6
+fully induced state,6
+transcription burst size,5
+slow growth model,5
+pseudo first order,5
+in vivo environment,5
+slow growth cells,5
+pfb iv simulations,5
+first order rate,4
+over the course,4
+two state models,4
+in vivo effects,4
+in vivo conditions,4
+between burst size,4
+function of inducer,4
+probability of rebinding,4
+burst and two,4
+produced per burst,4
+probability density function,4
+global extrinsic noise,4
+lac genetic switch,4
+range of inducer,4
+in vivo models,4
+supporting text s1,4
+mean protein lifetime,4
+models of gene,4
+
+# 4 words
+
+size and inducer concentration,7
+burst size and inducer,6
+pseudo first order rate,4
+function of inducer concentration,4
+active and inactive states,4
+between active and inactive,4
+size as a function,4
+mean number of lacy,4
+models of gene expression,4
+burst and two state,4
+range of inducer concentrations,3
+number of proteins produced,3
+well stirred and spatially,3
+relationship between burst size,3
+duration of each burst,3
+models of stochastic gene,3
+5% of the protein,3
+uninduced to the induced,3
+in vivo single molecule,3
+mean number of proteins,3
+frequency of transcriptional bursts,3
+model of gene expression,3
+simulations of the lac,3
+concentration at which half,3
+proteins produced per burst,3
+inducible lac genetic switch,3
+stirred and spatially resolved,3
+

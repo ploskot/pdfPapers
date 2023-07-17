@@ -1,0 +1,56 @@
+
+./ex5-sample1 
+searching single words
+200/200   > ex5-sample1.w1 (1s)
+searching 2-word phrases
+200/200   > ex5-sample1.w2 (1s)
+searching 3-word phrases
+1863/1863   > ex5-sample1.w3 (25s)
+searching 4-word phrases
+2703/2703   > ex5-sample1.w4 (35s)
+Time total: 62s
+
+./ex5-sample2 
+searching single words
+200/200   > ex5-sample2.w1 (1s)
+searching 2-word phrases
+200/200   > ex5-sample2.w2 (2s)
+searching 3-word phrases
+2336/2336   > ex5-sample2.w3 (34s)
+searching 4-word phrases
+3300/3300   > ex5-sample2.w4 (47s)
+Time total: 84s
+
+./ex5-sample3 
+searching single words
+200/200   > ex5-sample3.w1 (1s)
+searching 2-word phrases
+200/200   > ex5-sample3.w2 (2s)
+searching 3-word phrases
+1980/1980   > ex5-sample3.w3 (25s)
+searching 4-word phrases
+3060/3060   > ex5-sample3.w4 (41s)
+Time total: 69s
+
+./ex5-sample4 
+searching single words
+200/200   > ex5-sample4.w1 (1s)
+searching 2-word phrases
+200/200   > ex5-sample4.w2 (2s)
+searching 3-word phrases
+2423/2423   > ex5-sample4.w3 (36s)
+searching 4-word phrases
+3079/3079   > ex5-sample4.w4 (53s)
+Time total: 92s
+
+./ex5-sample5 
+searching single words
+200/200   > ex5-sample5.w1 (1s)
+searching 2-word phrases
+200/200   > ex5-sample5.w2 (3s)
+searching 3-word phrases
+4019/4019   > ex5-sample5.w3 (85s)
+searching 4-word phrases
+6946/6946   > ex5-sample5.w4 (155s)
+Time total: 244s
+

@@ -1,0 +1,189 @@
+# https://www.online-utility.org/text/analyzer.jsp
+# input: sample3.out2
+# evaluation
+
+# 1 word
+
+energy,53,0.7342
+machine,43,0.5957
+ball,41,0.5679
+computer,34,0.4710
+computation,31,0.4294
+head,31,0.4294
+information,28,0.3879
+state,26,0.3602
+turing,26,0.3602
+forward,25,0.3463
+gate,23,0.3186
+logic,22,0.3048
+balls,21,0.2909
+segment,21,0.2909
+bit,21,0.2909
+base,20,0.2770
+amount,20,0.2770
+tape,19,0.2632
+molecule,19,0.2632
+motion,19,0.2632
+fredkin,19,0.2632
+billiard,19,0.2632
+friction,18,0.2493
+reversible,18,0.2493
+rna,18,0.2493
+output,17,0.2355
+bits,16,0.2216
+reaction,16,0.2216
+enzyme,16,0.2216
+force,16,0.2216
+physical,15,0.2078
+gates,15,0.2078
+time,14,0.1939
+minimum,14,0.1939
+process,13,0.1801
+move,13,0.1801
+right,13,0.1801
+
+# 2 words
+
+turing machine,19
+billiard ball,13
+minimum amount,8
+ball computer,8
+no minimum,8
+logic gate,7
+logic gates,7
+fredkin gate,7
+thermal motion,7
+random thermal,6
+billiard balls,6
+one segment,5
+transition rules,5
+fredkin gates,5
+rna polymerase,5
+master camshaft,5
+head molecule,5
+very small,5
+ball dropped,4
+one notch,4
+small amount,4
+backward steps,4
+quantum mechanical,4
+very slowly,4
+ball signifies,4
+driving force,4
+static friction,4
+reversible turing,4
+uncertainty principle,4
+
+# 3 words
+
+amount of energy,14
+billiard ball computer,8
+must be expended,7
+no minimum amount,6
+random thermal motion,6
+energy that must,6
+toffoli and others,4
+site that fits,3
+other two lines,3
+expend as little,3
+segment of pipe,3
+bits of information,3
+reversible turing machine,3
+movement of bits,3
+frictionless billiard balls,3
+enzymatic turing machine,3
+clockwork turing machine,3
+order to perform,3
+signifies a 0,3
+signifies a 1,3
+through logic gates,3
+expended in order,3
+held in place,3
+expenditure of energy,3
+
+# 4 words
+
+minimum amount of energy,7
+absence of a ball,5
+segment to the left,3
+bit onto the tape,3
+ball signifies a 0,3
+presence of a ball,3
+expend as little energy,3
+energy as we wish,3
+illustration on next page,2
+through logic gates see,2
+ball model perfect reflecting,2
+computation by firing ideal,2
+output of the gate,2
+fredkin toffoli and others,2
+set of transition rules,2
+tail of three phosphate,2
+movement of the balls,2
+about to be copied,2
+information through logic gates,2
+brownian clockwork turing machine,2
+moves along the tape,2
+compute without any friction,2
+computer to its initial,2
+collide and their paths,2
+one site that fits,2
+perform any given computation,2
+split segment of pipe,2
+taking a long time,2
+ball dropped from two,2
+firing ideal frictionless billiard,2
+two balls arrive simultaneously,2
+table emulates the movement,2
+balls across a table,2
+energy as the user,2
+across a table emulates,2
+machine that could compute,2
+change their new paths,2
+gate they will collide,2
+attaches the new base,2
+small amount of energy,2
+move in one direction,2
+notches in neighboring parts,2
+group at one site,2
+fact we can expend,2
+physical limits of computation,2
+ball dropped from one,2
+reversible turing machine models,2
+ideal frictionless billiard balls,2
+master camshaft that corresponds,2
+rna strand and releases,2
+base to the end,2
+way that the movement,2
+drive the reaction forward,2
+tommaso toffoli and others,2
+deduced from the output,2
+notch to the right,2
+computer signifies a 1,2
+dropped from one meter,2
+reversible sometimes the enzyme,2
+screwdriver rotates the disk,2
+minimum expenditure of energy,2
+small as we wish,2
+simultaneously at a logic,2
+billiard ball model perfect,2
+dropped from two meters,2
+short period of time,2
+one of us bennett,2
+together with tommaso toffoli,2
+logic gates see illustration,2
+possible to do computation,2
+paths represent the output,2
+line b and vice,2
+long time to carry,2
+wish simply by taking,2
+sometimes the enzyme takes,2
+amount of energy required,2
+essential to the computing,2
+fixed set of transition,2
+sugar and a tail,2
+design a more idealized,2
+friction but by grooves,2
+part of the computer,2
+fredkin together with tommaso,2
+

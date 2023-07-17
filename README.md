@@ -226,6 +226,10 @@ or reported.
 
 # <a name="history"> 5. Version history
 
+[**0.1.2**](https://github.com/ploskot/pdfpapers/) [2023-7-17]
+
+- minor bug fixes and improvements
+
 [**0.1.1**](https://github.com/ploskot/pdfpapers/) [2020-1-10]
 
 - minor bug fixes and improvements

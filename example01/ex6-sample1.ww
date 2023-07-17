@@ -1,0 +1,99 @@
+# Termine analysis
+
+
+# 1 words
+
+
+# 2 words
+
+29.0,si appendix
+8.0,birth death
+8.0,poisson filter
+7.0,signal z
+7.0,synthetic biology
+6.0,differential equation
+6.0,noise cancellation
+5.4,strand displacement
+5.2,dna strand
+5.0,escherichia coli
+4.9,system identification
+4.0,gene expression
+4.0,kalman filter
+4.0,sensor reaction
+4.0,noise z
+4.0,winfree e
+3.3,birth rate
+3.0,biochemical network
+3.0,section s.4
+3.0,schematic diagram
+3.0,extrinsic noise
+3.0,gamma filter
+3.0,practical application
+3.0,cell cycle
+3.0,filter variant
+3.0,mmse estimator
+3.0,pnas.1517109113 zechner
+3.0,sensor rate
+3.0,model mismatch
+3.0,experimental datum
+
+# 3 words
+
+9.5,birth death process
+6.3,plos comput biol
+6.3,dna strand displacement
+4.8,biophysic s and
+4.8,computat ional biology
+3.2,ensemble poisson filter
+3.2,adaptive system identification
+3.2,birth rate z
+3.2,constitutive promoter pmc
+1.6,inducible promoter pmi
+1.6,strand displacement reaction
+1.6,complex time-varying birth
+1.6,simple biochemical reaction
+1.6,conventional statistical method
+1.6,schl gl f
+1.6,0with rate log
+1.6,specific cancer cell
+1.6,intrinsic molecular noise
+1.6,j artif intell
+1.6,robust synthetic network
+1.6,random trajectory z
+1.6,front bioeng biotechnol
+1.6,acs synth biol
+1.6,-inducible promoter pmi
+1.6,valid rate equation
+1.6,constitutive expression rate
+1.6,so-called context de-
+1.6,protein synthesis rate
+1.6,light stimulus z
+1.6,swiss replaced-dns initiative
+
+# 4 words
+
+6.0,birth death process z
+2.0,time-varying poisson process y
+2.0,kushner stratonovich differential equation
+2.0,n-sample monte carlo average
+2.0,programmable ligand detection system
+2.0,biochemical system identification task
+2.0,cell cycle-dependent factor c
+2.0,dna strand displacement cascade
+2.0,j r soc interface
+2.0,unknown birth rate z
+2.0,synthetic signal transduction pathway
+2.0,math structures comput sci
+2.0,j am chem soc
+2.0,2d system identification circuit
+2.0,two-domain dna strand displacement
+2.0,incoming single-stranded dna molecule
+2.0,si replaced-dns si appendix
+2.0,dna strand displacement kinetics
+2.0,conventional noise cancellation technique
+2.0,additional constitutive promoter pmc
+2.0,mismatch betweeninsilico prediction andinvivobehavior
+2.0,one-dimensional birth death model
+2.0,average cell cycle duration
+2.0,swiss national science founda-
+2.0,light-inducible gene expression circuit

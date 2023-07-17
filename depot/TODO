@@ -1,0 +1,43 @@
+
+
+Levenshtein distance
+
+Longest Common Subsequence (LCS) Distance: only deletions and insertions
+
+
+Bugs
+
+- better alignment of pdf background images
+
+
+Long-term:
+
+- check log messages inside functions vs. in command loop
+
+- separate function definitions as library
+
+- implement + and other similar operators
+
+- addressing via line numbers
+
+- debugging messages for functions
+
+- conditions
+
+- character translation
+
+- automated block merging based on their location on page
+
+- automated block sorting
+
+- configuration file (e.g. meta info to include)
+
+- show blocks changes in jpg/eps figures, GUI
+
+- document cards: single page thumb view of whole document, keywords locations
+
+PDFVIEWER
+- add comment <file>.note file
+- add skip first N records, or start at <pattern>
+
+

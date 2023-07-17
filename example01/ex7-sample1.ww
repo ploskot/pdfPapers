@@ -1,0 +1,136 @@
+# https://www.online-utility.org/text/analyzer.jsp
+# input: sample1.out2
+# evaluation (note that same counts are sorted alphabetically)
+
+# 1 word
+
+filter,67,1.0482
+circuit,37,0.5788
+noise,36,0.5632
+si,35,0.5476
+appendix,35,0.5476
+rate,33,0.5163
+sensor,29,0.4537
+section,24,0.3755
+time,23,0.3598
+birth,22,0.3442
+filtering,21,0.3285
+estimator,21,0.3285
+filters,20,0.3129
+process,19,0.2972
+optimal,19,0.2972
+ensemble,18,0.2816
+biochemical,18,0.2816
+dynamics,18,0.2816
+signal,17,0.2660
+circuits,17,0.2660
+cell,16,0.2503
+reaction,16,0.2503
+poisson,14,0.2190
+death,14,0.2190
+
+# 2 words
+
+si appendix,35
+appendix section,24
+poisson filter,13
+birth death,11
+in vitro,10
+death process,10
+signal z,9
+birth rate,8
+noise cancellation,7
+system identification,7
+differential equation,6
+optimal filtering,6
+in vivo,6
+sensor reaction,6
+optimal filters,6
+ensemble poisson,5
+strand displacement,5
+noise z,5
+in silico,5
+rate z,5
+parameters r,5
+synthetic circuits,5
+kalman filter,5
+cell cycle,5
+
+# 3 words
+
+appendix section s,24
+si appendix section,24
+birth death process,10
+si appendix fig,6
+ensemble poisson filter,5
+birth rate z,5
+signal of interest,3
+death process z,3
+filter is able,3
+si appendix sections,3
+dna strand displacement,3
+inducible promoter pmi,3
+constitutive promoter pmc,3
+circuit in escherichia,2
+based filtering circuit,2
+plasmid once attached,2
+experimental methods related,2
+circuit si appendix,2
+tolerate a substantial,2
+affected by contextual,2
+inparticular we consider,2
+degree of model,2
+moment closure problem,2
+estimation system identification,2
+strand displacement cascades,2
+information about z,2
+sensor time points,2
+remarkably high precision,2
+adaptive system identification,2
+mismatch si appendix,2
+using cellular mechanisms,2
+birth and death,2
+number of plasmid,2
+appears particularly relevant,2
+state and parameter,2
+determines how much,2
+see si appendix,2
+sensor rate c,2
+using dna strand,2
+
+# 4 words
+
+si appendix section s,24
+birth rate z 1,5
+described in si appendix,3
+si appendix sections s,3
+birth death process z,3
+provided in si appendix,3
+dna based filtering circuit,2
+signal of interest z,2
+death process z 2,2
+parameters r and f,2
+in vitro using dna,2
+modeled as a birth,2
+approach in vitro using,2
+accounted for an unintended,2
+twice on the plasmid,2
+implementation of the poisson,2
+circuit si appendix section,2
+identify a birth death,2
+birth and death rates,2
+tolerate a substantial degree,2
+found in si appendix,2
+circuit in escherichia coli,2
+number of plasmid copies,2
+dna strand displacement cascades,2
+indeed able to estimate,2
+likely to be affected,2
+vitro using dna strand,2
+degree of model mismatch,2
+after a short transient,2
+attached to a constitutive,2
+shown in si appendix,2
+substantial degree of model,2
+using dna strand displacement,2
+mismatch si appendix fig,2

@@ -1,0 +1,40 @@
+<block:1.1>
+ Molecular circ-     uits. For      dynamic noise filte- ring. This          is last sentence and it should be quite long?  Probably     not.
+</block:1.1>
+<block:1.2>
+         Christoph Zechner  ZðtÞ a ,  Georg Seelig  ZðtÞ b,c! Marc Rullan a , and Mustafa Khammash!     a,1 
+</block:1.2>
+<block:1.3>
+ a  Department of Biosystems Science and Engineering. ETH Zürich, 4058 Basel, Switzerland; b Department of Electrical Engineering, Univer- sity of Washington,  Seattle, WA 98195-2500; and c Department. Of Computer Science and Engineering, University of Washington, Seattle, WA 98195-2350. 
+</block:1.3>
+<block:1.4>
+ Edited by Charles S. Peskin, New York University, New York, NY, and approved March 10, 2016 (received for review August 30, 2015) 
+</block:1.4>
+<block:1.5>
+ | optimal filtering | noise cancellation | adaptive design 
+</block:1.5>
+<block:18.211>
+THis text
+</block:18.211>
+<block:18.322>
+THis text
+</block:18.322>
+ <block:1.6>
+ Downloaded by guest on October 20, 2020 
+</block:1.6>
+<block:1.7>
+ R is the last block
+</block:1.7>
+<block:1.8>
+ ecent developments in synthetic biology have enabled a revo-  lution of biomolecular engineering (1, 2), prompting numerous  applications in therapeutics (3–5), biocomputing (6–8), and plant  engineering (9), for instance. However, a variety of practical limi-  tations have to be addressed before the field can achieve its full  promise. Above all, engineered circuits often exhibit a substantial  mismatch between in silico predictions and in vivo behavior (10).  Such mismatch is largely attributed to so-called context de-  pendencies, causing individual cells to behave differently depending  on their intracellular environment (11). The latter can be un-  derstood as the congregation of environmental factors that affect  the target circuit, such as the ribosomal abundance or the cell cycle  stage. Variations of those factors across cells and over time—also  termed “extrinsic noise” (12)—can impair a circuit’s functionality in  an unpredicted way and cause total functional failure.  Because extrinsic noise arises outside a circuit, it can be handled  in a more systematic fashion than intrinsic molecular noise (13),  which is ultimately dictated by biophysical principles. Intuitively, if  an extrinsic perturbation is present, one could in principle apply a  second perturbation that steers the network into the opposite di-  rection such that the two competing effects cancel. This idea is akin  to conventional noise cancellation techniques encountered in  communication systems, where a target signal XðtÞ (e.g., a recorded  voice) is corrupted by noise ZðtÞ (e.g., through wireless trans-  mission) and subsequently reconstructed by reversing the effect of  ZðtÞ in a suitable way (14). Because this requires some sort of  knowledge about ZðtÞ, the most pertinent ingredient to achieve  noise cancellation is a means to estimate dynamically changing  noise signals [ZðtÞ in the example above] from available measure-  ments. A multitude of such estimation techniques—often termed  “optimal filters”—have been developed, driven by applications in  control, telecommunications, and signal processing. However, the  assumptions underlying existing techniques are often incompatible  with the scenarios encountered in molecular biology, such as the  assumptions of linearity or additive Gaussian noise associated with  the well-known Kalman filter (15).  In quantitative biology, optimal filtering and related concepts  have been used in the literature, either to reconstruct biochemical  processes from experimental data in silico (16) or to analyze  whether existing biochemical networks can act as optimal filters 
+</block:1.8>
+<block:1.9>
+ Signaling modules in living cells function and respond in a  surprisingly robust way, in spite of their very noisy environ-  ment. In contrast, this is not the case for most synthetic circuits  in living cells, which are usually designed and tuned in silico  under specific assumptions that do not hold in the real envi-  ronment of the cell. To recover the robust behavior, synthetic  circuits need a means to make inference about their dynamic  environment, which in turn can be used to effectively coun-  teract it. Here we show how such inference can be imple-  mented as biochemical modules and illustrate how this can  guide the design of adaptive synthetic circuits. 
+</block:1.9>
+<block:2.1>
+ The invention of the Kalman filter is a crowning achievement of  filtering theory—one that has revolutionized technology in countless  ways. By dealing effectively with noise, the Kalman filter has enabled  various applications in positioning, navigation, control, and telecom-  munications. In the emerging field of synthetic biology, noise and  context dependency are among the key challenges facing the success-  ful implementation of reliable, complex, and scalable synthetic cir-  cuits. Although substantial further advancement in the field may  very well rely on effectively addressing these issues, a principled pro-  tocol to deal with noise—as provided by the Kalman filter—remains  completely missing. Here we develop an optimal filtering theory that  is suitable for noisy biochemical networks. We show how the result-  ing filters can be implemented at the molecular level and provide  various simulations related to estimation, system identification, and  noise cancellation problems! We demonstrate our approach in vitro  using DNA strand displacement cascades as well as in vivo using flow  cytometry measurements of a light-inducible circuit in Escherichia coli. 
+</block:2.1>
+<block:2.2>
+ indication about the activity of a gene ZðtÞ that cannot be sensed  directly by the circuit. In the simplest case, this indirect readout (in  the following termed “sensor”) could relate to ZðtÞ through a single  catalytic reaction, modeled by the stochastic birth process 
+</block:2.2>
+

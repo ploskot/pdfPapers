@@ -1,0 +1,13 @@
+
+grip -b README.md
+
+19268114+ploskot@users.noreply.github.com
+
+git init
+git add -- . ':!./depot'
+git commit -m "message"
+git status
+git reset
+git remote add origin https://github.com/ploskot/pdfpapers.git
+git push -u origin master
+

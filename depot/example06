@@ -1,0 +1,26 @@
+#!/bin/bash
+# validation 
+# PDF file as input to using http://www.nactem.ac.uk/software/termine/#form
+# input to this script: output table in clipboard
+
+# directory of executables
+DIR=".."
+
+# output file
+of=$(basename $0).ww
+
+# check clipboard not empty
+if [[ -z "$(xclip -sel c -o)" ]]; then
+    echo Clipboard empty.
+    exit 1
+fi
+
+rm -f $of
+echo -e "# Termine analysis\n" > $of
+
+for i in 1 2 3 4; do
+    echo -e "\n# $i words\n" >> $of
+    xclip -sel c -o | sed '1,/Rank/d' | \
+	awk -F\\t -v I=$i 'split($2,a,"[ \t]+")==I {printf "%.1f,%s\n",$3,$2}' | \
+	head -30 >> $of
+done
